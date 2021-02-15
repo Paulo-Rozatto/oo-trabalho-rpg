@@ -1,16 +1,179 @@
 package br.com.ufjf.estudante.main;
 
+import java.util.Scanner;
+
 /**
  *
  * @author paulo
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    private Jogador jogador;
+    private NpcInimigo inimigo;
+    private boolean isTurnoJogador;
+    private int round;
+    private Dado dado;
+
+    // Temporario - variaveis para fazer a leitura pelo teclado enquanto nao tem interface
+    private String nomeJogador;
+    private int classeJogador;
+    Scanner input;
+
     public Main() {
         initComponents();
+
+        isTurnoJogador = true;
+        round = 0;
+        dado = new Dado();
+
+        input = new Scanner(System.in);
+        System.out.println("Nome: ");
+        nomeJogador = input.nextLine();
+        System.out.println("1-Guerreiro\n2-Mago\n3-Ladino\nClasse: ");
+        classeJogador = input.nextInt();
+
+        initJogador();
+        initInimigo();
+        jogadorEscolheAcao();
+    }
+
+    /**
+     * Instacia jogador - A fazer: pegar nome e classe da interface
+     */
+    private void initJogador() {
+        // Equanto sem interface, inicializacao provisoria 
+
+        String nome = nomeJogador;
+        int forca = 10;
+        int inteligencia = 10;
+        int destreza = 10;
+        AtackFisico ataqueFisico = new AtackFisico("ataque", 10, 10, 0);
+        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 0);
+        int classe = classeJogador;
+
+        jogador = new Jogador(nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+    }
+
+    /**
+     * Inicia o inimigo com base no round atual, os inimigos tem quantidade
+     * limitada e sao hard-coded
+     */
+    private void initInimigo() {
+        int experiencia;
+        String descricaoMorte;
+        String nome;
+        int forca;
+        int inteligencia;
+        int destreza;
+        AtackFisico ataqueFisico;
+        AtackMagico ataqueMagico;
+        int classe;
+
+        if (round == 0) {
+            // Inicializacao provisorio do primeiro inimigo
+            experiencia = 10;
+            descricaoMorte = "No ceu tem pao? E morreu.";
+            nome = "Monstro 1";
+            forca = 5;
+            inteligencia = 5;
+            destreza = 5;
+            ataqueFisico = new AtackFisico("ataque", 5, 5, 0);
+            ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+            classe = 1;
+
+            // Essa linha pode ir para o final do metodo quando tiver todos IFs
+            inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+        } else if (round == 1) {
+            // A fazer: Inimigo do segundo round;
+        } else {
+            // A fazer: Inimigo do terceiro round;
+        }
+    }
+
+    /* Metodo temporario enquanto nao ha interface */
+    private void jogadorEscolheAcao() {
+        System.out.println("\nVida jogador: " + jogador.getHitPoints());
+        System.out.println("Vida inimigo: " + inimigo.getHitPoints());
+        System.out.println("1-Ataque\n2-Magia\nEscolha:");
+        int escolha = input.nextInt();
+
+        if (escolha == 1) {
+            jogadorAtaca();
+        } else {
+            jogadorUsaMagia();
+        }
+    }
+
+    /**
+     * A fazer: Metodo para ser chamado pelo botao de ataque da interface
+     */
+    private void jogadorAtaca() {
+        // A fazer: codigo de ataque fisico
+        System.out.println("Jogador ataca:\n0 de dano. (Nao implementado)");
+        gerenciaTurno();
+    }
+
+    /**
+     * A fazer: Metodo para ser chamado pelo botao de magia da interface
+     */
+    private void jogadorUsaMagia() {
+        // A fazer: codigo de ataque magico
+        System.out.println("Jogador usa magia:\n0 de dano. (Nao implementado)");
+        gerenciaTurno();
+    }
+
+    private void acaoInimigo() {
+        // A fazer: exibir na interface qual acao foi escolhida
+        System.out.println("Inimigo ataca: ");
+        int dano = inimigo.decideAcao(jogador.getDefesa());
+        System.out.println( dano + " de dano");
+        jogador.sofreAtack(dano);
+        gerenciaTurno();
+    }
+
+    /**
+     * Verifica vida dos personagens para a passagem de turno, round ou fim de
+     * jogo
+     */
+    private void gerenciaTurno() {
+        if (isTurnoJogador) {
+
+            if (inimigo.getHitPoints() <= 0) { // Se o inimigo morreu
+
+                // A fazer: codigo que mostra na interface descricao de morte
+                if (round == 2) { // Se for o ultimo round, ganhou jogo
+                    ganhou();
+                } else { // se nao for ultimo round, configure proximo round
+                    round++;
+                    initInimigo();
+                }
+            } else { // se o inimigo nao morreu, passe o turno para o inimigo
+                isTurnoJogador = false;
+                acaoInimigo();
+            }
+        } else {
+            if (jogador.getHitPoints() <= 0) { // Se o jogador morreu, fim de jogo
+                gameOver();
+            } else { // Se nao morreu, passe o turno para o jogador
+                isTurnoJogador = true;
+                jogadorEscolheAcao();
+            }
+        }
+    }
+
+    /**
+     * A fazer: Metodo para alterar a interface quando jogo for ganho
+     */
+    private void ganhou() {
+        // A fazer
+    }
+
+    /**
+     * A fazer: Metodo para alterar a interface quando jogo for perdido
+     */
+    private void gameOver() {
+        // A fazer
+        System.out.println("Game over");
     }
 
     /**
@@ -64,9 +227,6 @@ public class Main extends javax.swing.JFrame {
         jLabelOla.setText("Teste!");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
