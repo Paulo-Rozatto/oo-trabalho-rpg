@@ -129,7 +129,7 @@ public class Personagem {
  /**
  *
  * @author MATHEUS NP
- * Data 12/02/21 ultima modfificação
+ * Data 15/02/21 ultima modfificação
  * construtor
  */
 
@@ -142,6 +142,7 @@ public class Personagem {
         this.atackFisico = atackFisico;
         this.atackMagico = atackMagico;
         this.classe = classe;
+        this.dado = new Dado();
         escolhaClasse(classe);
     }
     
