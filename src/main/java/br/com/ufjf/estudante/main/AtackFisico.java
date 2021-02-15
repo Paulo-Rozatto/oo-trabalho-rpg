@@ -8,40 +8,37 @@ package br.com.ufjf.estudante.main;
  /**
  *
  * @author MATHEUS NP
- * Data 12/02/21 ultima modfificação
+ * Data 14/02/21 ultima modfificação
  * Classe para fazer ataques fisicos
  */
 public class AtackFisico extends Atack{
     
     private String nomeAtack;
     
-    
  /**
  *
  * @author MATHEUS NP
- * Data 12/02/21 ultima modfificação
+ * Data 14/02/21 ultima modfificação
  * Construtor
- */
-
-    public AtackFisico(String nome) {
-        super();
-        this.nomeAtack= nome;
-    }
-
- /**
- *
- * @author MATHEUS NP
- * Data 12/02/21 ultima modfificação
- * Roda dano do ataque
  */   
     
-    public int rodaDano(int numFaces, int mod){
-        if(numFaces!=1)
-            return super.rodaDano(numFaces)+mod;
-        else{
-            return 0;
-        }
+
+    public AtackFisico(String nomeAtack, int dano, int danoB, int numDados) {
+        super(dano, danoB, numDados);
+        this.nomeAtack = nomeAtack;
     }
+
+       
+   /**
+ * @author MATHEUS NP
+ * Data 14/02/21 ultima modfificação
+ * Geters E Seters
+ */   
+    public String getNomeAtack() {
+        return nomeAtack;
+    }
+
+    
     
 
     

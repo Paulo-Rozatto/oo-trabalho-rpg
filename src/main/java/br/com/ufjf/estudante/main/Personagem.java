@@ -21,8 +21,8 @@ public class Personagem {
     private int modInteligencia;//modificador de inteligencia da criatura/player
     private int modDestreza;// modificador de destreza da criatura/player
     
-    AtackFisico atackFisico;//calcula o dano do ataque fisico(ideal transformar isso em arry o lista encadeada)
-    AtackMagico atackMagico;//calcula o dano do ataque magico(ideal transformar isso em arry o lista encadeada)
+    AtackFisico atackFisico;//calcula o dano do ataque fisico(Classe que vai ser usada em intens não vai estar aqui no projeto final)
+    AtackMagico atackMagico;//calcula o dano do ataque magico(Classe que vai ser usada em intens não vai estar aqui no projeto final)
     Dado dado;//Dado para rolar os valores na classe
     int classe;//classe escolhida pela criatura/player para gerar valores de combate
     //Itens[] mochila;// implementação futura
@@ -43,13 +43,13 @@ public class Personagem {
     private void geraHP(){
         switch (classe){
             case 1:
-                hitPoints= 5+dado.RodaDado(8)+(modForça*2);//Guerreiro
+                hitPoints= 5+dado.rodaDado(8)+(modForça*2);//Guerreiro
                 break;
             case 2:
-                hitPoints= 3+dado.RodaDado(6)+modForça+(modInteligencia/2);//Mago
+                hitPoints= 3+dado.rodaDado(6)+modForça+(modInteligencia/2);//Mago
                 break;
             case 3: 
-                hitPoints= 5+dado.RodaDado(6)+modForça;//Ladino
+                hitPoints= 5+dado.rodaDado(6)+modForça;//Ladino
                 break;
             default:
                 classe=-1;
@@ -67,13 +67,13 @@ public class Personagem {
     private void geraMP() {
         switch (classe) {
             case 1:
-               this.manaPoints = 3 + dado.RodaDado(2) + this.modInteligencia;//Guerreiro
+               this.manaPoints = 3 + dado.rodaDado(2) + this.modInteligencia;//Guerreiro
                 break;
             case 2:
-                this.manaPoints = 6 + dado.RodaDado(4) + (this.modInteligencia*2);//Mago
+                this.manaPoints = 6 + dado.rodaDado(4) + (this.modInteligencia*2);//Mago
                 break;
             case 3:
-                this.manaPoints = 3 + dado.RodaDado(3) + this.modInteligencia+ (this.modDestreza/2);//Ladino
+                this.manaPoints = 3 + dado.rodaDado(3) + this.modInteligencia+ (this.modDestreza/2);//Ladino
                 break;
             default:
                 classe=-1;
@@ -125,45 +125,73 @@ public class Personagem {
             }
         }
 
-    } /**
+    } 
+ /**
  *
  * @author MATHEUS NP
  * Data 12/02/21 ultima modfificação
  * construtor
  */
 
-    public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe) {
+
+    public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, AtackFisico atackFisico, AtackMagico atackMagico, int classe) {
         this.nomePersonagem = nomePersonagem;
         this.modForça = modForça;
         this.modInteligencia = modInteligencia;
         this.modDestreza = modDestreza;
+        this.atackFisico = atackFisico;
+        this.atackMagico = atackMagico;
         this.classe = classe;
         escolhaClasse(classe);
     }
+    
+    
  /**
  *
  * @author MATHEUS NP
- * Data 12/02/21 ultima modfificação
- * realiza ataque
+ * Data 14/02/21 ultima modfificação
+ * realiza ataqueFisico
  */
     
-    public int ataqueFisico(int defesaInimiga, int dadoDano){
+    public int ataqueFisico(int defesaInimiga){
         
-        int guardaDado= this.dado.RodaDado(20);
-        int guardaDado2;
+        int guardaDado= this.dado.rodaDado(20);
         if(modForça < modDestreza && guardaDado+this.modDestreza > defesaInimiga){
            System.out.println("O dado girado foi de " + (guardaDado+modDestreza) + " e precisava de " + defesaInimiga);
-           return this.ataqueFisico(dadoDano, this.modDestreza);             
+           return this.atackFisico.rodaDano(modDestreza);
         }
-        if(this.dado.RodaDado(20)+this.modForça > defesaInimiga){
+        if(guardaDado+this.modForça > defesaInimiga){
             System.out.println("O dado girado foi de " + (guardaDado+modForça) + " e precisava de " + defesaInimiga);
-            return this.ataqueFisico(dadoDano, this.modForça);  
+            return this.atackFisico.rodaDano(modForça);
         }
         else{
             System.out.println("O ataque não acertou o inimigo o dado tirado foi " + guardaDado);
             return 0;
         }
     }
+    /**
+ *
+ * @author MATHEUS NP
+ * Data 14/02/21 ultima modfificação
+ * realiza ATAQUEMAGICO
+ */
+    
+    public int ataqueMagico(int defesaInimiga){
+        int guardaDado= this.dado.rodaDado(20);
+        if(this.manaPoints>=this.atackMagico.getPM()){
+            if(guardaDado+this.modInteligencia > defesaInimiga){
+                this.manaPoints=- this.atackMagico.getPM();
+                System.out.println("O dado girado foi de " + (guardaDado+this.modInteligencia) + " e precisava de " + defesaInimiga);
+                return this.atackMagico.rodaDano(this.modInteligencia);
+            }
+            else{
+                System.out.println("Sem Pontos de Mana suficientes para esta magia");
+                return 0;
+            }
+        }
+        else
+           return 0;
+    } 
     
   /**
  *
@@ -188,6 +216,77 @@ public class Personagem {
         if(this.hitPoints<=0){
             this.morte();
     }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+   /**
+ * @author MATHEUS NP
+ * Data 14/02/21 ultima modfificação
+ * Geters E Seters
+ */   
+    
+    
+
+    public String getNomePersonagem() {
+        return nomePersonagem;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public int getManaPoints() {
+        return manaPoints;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getModForça() {
+        return modForça;
+    }
+
+    public int getModInteligencia() {
+        return modInteligencia;
+    }
+
+    public int getModDestreza() {
+        return modDestreza;
+    }
+
+    public int getClasse() {
+        return classe;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public void setManaPoints(int manaPoints) {
+        this.manaPoints = manaPoints;
+    }
+
+    public void setDefesa(int defesa) {
+        this.defesa = defesa;
+    }
+
+    public void setModForça(int modForça) {
+        this.modForça = modForça;
+    }
+
+    public void setModInteligencia(int modInteligencia) {
+        this.modInteligencia = modInteligencia;
+    }
+
+    public void setModDestreza(int modDestreza) {
+        this.modDestreza = modDestreza;
     }
         
         

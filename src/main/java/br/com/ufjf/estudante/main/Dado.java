@@ -28,8 +28,22 @@ public class Dado {
  * Data 12/02/21 ultima modfificação
  * Roda o dado e retorna o valor rodado;
  */
-    public int RodaDado(int faces){
+    public int rodaDado(int faces){
         return dado.nextInt(faces)+1;
+    }
+    
+/*
+ *@author MATHEUS NP
+ * Data 14/02/21 ultima modfificação
+ * Roda multiplos dados o dado e retorna o valor rodado;
+ */
+    
+    public int rodaDadoMultiplos(int faces, int quantDados){
+        int valor=0;
+        for (int i = 0; i < quantDados; i++) {
+            valor=+this.rodaDado(faces);
+        }
+        return valor;
     }
     
     
