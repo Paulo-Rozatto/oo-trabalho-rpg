@@ -158,8 +158,9 @@ public class Janela_Batalha extends javax.swing.JFrame {
         }
     }
     
-    private void atualizaLabeldeHP(){
-        //Ainda falta implementar
+    private void atualizaLabeldeHP(int i, int j){
+        hitPoints.setText("" + jogador[i].getHitPoints());
+        hitPointsInimigo.setText("" + inimigos[j].getHitPoints());
     }
 
     /**
@@ -179,8 +180,8 @@ public class Janela_Batalha extends javax.swing.JFrame {
         cbox_inimigo = new javax.swing.JComboBox<>();
         label_HP_personagem = new javax.swing.JLabel();
         label_HP_inimigo = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        hitPoints = new javax.swing.JTextField();
+        hitPointsInimigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -214,9 +215,11 @@ public class Janela_Batalha extends javax.swing.JFrame {
 
         label_HP_inimigo.setText("Pontos de vida do seu inimigo:");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
+        hitPoints.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hitPointsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,8 +246,8 @@ public class Janela_Batalha extends javax.swing.JFrame {
                     .addComponent(label_HP_inimigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                    .addComponent(hitPoints, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(hitPointsInimigo))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -266,11 +269,11 @@ public class Janela_Batalha extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label_HP_personagem)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(hitPoints, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label_HP_inimigo)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(hitPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(24, 24, 24))
         );
 
@@ -285,7 +288,7 @@ public class Janela_Batalha extends javax.swing.JFrame {
         
 
         
-        atualizaLabeldeHP();
+        atualizaLabeldeHP(0, 0);
         iniciaComboBox();
         alocaSprites();
 
@@ -299,8 +302,12 @@ public class Janela_Batalha extends javax.swing.JFrame {
     private void button_AtaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AtaqueActionPerformed
         // TODO add your handling code here:
         
-        
     }//GEN-LAST:event_button_AtaqueActionPerformed
+
+    private void hitPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitPointsActionPerformed
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_hitPointsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,10 +349,10 @@ public class Janela_Batalha extends javax.swing.JFrame {
     private javax.swing.JButton button_Ataque;
     private javax.swing.JComboBox<String> cbox_inimigo;
     private javax.swing.JComboBox<String> cbox_personagem;
+    private javax.swing.JTextField hitPoints;
+    private javax.swing.JTextField hitPointsInimigo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel label_HP_inimigo;
     private javax.swing.JLabel label_HP_personagem;
     // End of variables declaration//GEN-END:variables
