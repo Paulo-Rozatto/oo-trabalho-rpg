@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package br.com.ufjf.estudante.janelas;
-
 import br.com.ufjf.estudante.main.NpcInimigo;
 import br.com.ufjf.estudante.main.Personagem;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import br.com.ufjf.estudante.main.Dado;
 
 /**
  *
@@ -19,6 +19,10 @@ public class Janela_Batalha extends javax.swing.JFrame {
 
     private Personagem [] jogador;
     private NpcInimigo [] inimigos;
+    
+    boolean isTurnoJogador = true;
+    int round = 0;
+    Dado dado = new Dado();
     
 //    private int tamanhoJanelaX;
 //    private int tamanhoJanelaY;
@@ -159,8 +163,44 @@ public class Janela_Batalha extends javax.swing.JFrame {
     }
     
     private void atualizaLabeldeHP(int i, int j){
-        hitPoints.setText("" + jogador[i].getHitPoints());
-        hitPointsInimigo.setText("" + inimigos[j].getHitPoints());
+        if((jogador[i].getHitPoints()>=0))
+            hitPoints.setText("" + (jogador[i].getHitPoints()));
+        else
+             hitPoints.setText("0");
+        if(inimigos[j].getHitPoints()>=0)
+            hitPointsInimigo.setText("" + inimigos[j].getHitPoints());
+        else
+             hitPointsInimigo.setText("0");
+    }
+    
+    void vitoria(){
+        System.out.println("Vitória");
+    }
+    
+    private void turnoInimigo(int i, int j){
+        if(confereSe_ExistemInimigos()){
+            if(inimigos[j].getHitPoints() <= 0)
+                for(j = 0; j < inimigos.length && j < maxInimigo; j++)
+                    if(!confereSe_InimigoMorreu(j)){
+                        cbox_inimigo.setSelectedIndex(j);
+                        break;
+                    }
+            int tipoAtaque = dado.rodaDado(2);
+            System.out.println("Inimigo: ");
+            if(tipoAtaque == 1)
+                jogador[i].sofreAtack(inimigos[j].ataqueFisico(jogador[0].getDefesa()));
+            else
+                jogador[i].sofreAtack(inimigos[j].ataqueMagico(jogador[0].getDefesa()));
+            atualizaLabeldeHP(i, j);
+            isTurnoJogador = true;
+            round = round + 1;
+        }
+        else
+            vitoria();
+    }
+    
+    void gameOver(){
+        System.out.println("Game Over");
     }
 
     /**
@@ -208,6 +248,11 @@ public class Janela_Batalha extends javax.swing.JFrame {
         });
 
         Magia.setText("Magia");
+        Magia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MagiaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Escolha o inimigo:");
 
@@ -301,13 +346,44 @@ public class Janela_Batalha extends javax.swing.JFrame {
 
     private void button_AtaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AtaqueActionPerformed
         // TODO add your handling code here:
-        
+        if(confereSe_ExistemJogadores()){
+            if(isTurnoJogador == true && jogador[cbox_personagem.getSelectedIndex()].getHitPoints() > 0){
+                System.out.println("Jogador: ");
+                int i = cbox_personagem.getSelectedIndex();
+                int j = cbox_inimigo.getSelectedIndex();
+                inimigos[j].sofreAtack(jogador[i].ataqueFisico(inimigos[j].getDefesa()));
+                atualizaLabeldeHP(i, j);
+                isTurnoJogador = false;
+                round = round + 1;
+                turnoInimigo(i, j);
+            }
+        }
+        else
+            gameOver();
     }//GEN-LAST:event_button_AtaqueActionPerformed
 
     private void hitPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitPointsActionPerformed
         // TODO add your handling code here:
  
     }//GEN-LAST:event_hitPointsActionPerformed
+
+    private void MagiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MagiaActionPerformed
+        // TODO add your handling code here:
+        if(confereSe_ExistemJogadores()){
+            if(isTurnoJogador == true && jogador[cbox_personagem.getSelectedIndex()].getHitPoints() > 0){
+                System.out.println("Jogador: ");
+                int i = cbox_personagem.getSelectedIndex();
+                int j = cbox_inimigo.getSelectedIndex();
+                inimigos[j].sofreAtack(jogador[i].ataqueMagico(inimigos[j].getDefesa()));
+                atualizaLabeldeHP(i, j);
+                isTurnoJogador = false;
+                round = round + 1;
+                turnoInimigo(i, j);
+            }
+        }
+        else
+            gameOver();
+    }//GEN-LAST:event_MagiaActionPerformed
 
     /**
      * @param args the command line arguments
