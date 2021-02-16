@@ -1,6 +1,9 @@
 
 package br.com.ufjf.estudante.main;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 
 
 /**
@@ -29,7 +32,7 @@ public class Personagem {
     //Itens arma;// implementação futura
     //itens armadura;// implementação futura
  
-    
+    private ImageIcon sprite;//Imagem do personagem
     
     
     
@@ -122,6 +125,8 @@ public class Personagem {
                 geraHP();
                 geraMP();
                 geraDefesa();
+                
+                geraSprite();
             }
         }
 
@@ -144,6 +149,7 @@ public class Personagem {
         this.classe = classe;
         this.dado = new Dado();
         escolhaClasse(classe);
+        
     }
     
     
@@ -266,6 +272,12 @@ public class Personagem {
         return classe;
     }
 
+    public ImageIcon getSprite() {
+        return sprite;
+    }
+    
+    
+
     public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
     }
@@ -290,7 +302,24 @@ public class Personagem {
         this.modDestreza = modDestreza;
     }
         
-        
+    //PARTE RESERVADA A INTERFACE GRAFICA
+        private void geraSprite() {
+        sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        switch (classe) {
+
+            case 1:
+                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+                break;
+            case 2:
+                sprite = new ImageIcon("res\\jogador\\mago.png"); //Pasta onde esta a imagem
+                break;
+            case 3:
+                sprite = new ImageIcon("res\\jogador\\ladino.png"); //Pasta onde esta a imagem
+                break;
+            default:
+                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        }
+    }
         
 }
     

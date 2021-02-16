@@ -1,5 +1,7 @@
 package br.com.ufjf.estudante.main;
 
+import br.com.ufjf.estudante.janelas.Janela_Batalha;
+
 import java.util.Scanner;
 
 /**
@@ -18,10 +20,12 @@ public class Main extends javax.swing.JFrame {
     private String nomeJogador;
     private int classeJogador;
     Scanner input;
+    
+    //
+    Personagem [] grupoJogador;
+    NpcInimigo [] grupoInimigo;
 
     public Main() {
-        initComponents();
-
         isTurnoJogador = true;
         round = 0;
         dado = new Dado();
@@ -34,7 +38,18 @@ public class Main extends javax.swing.JFrame {
 
         initJogador();
         initInimigo();
-        jogadorEscolheAcao();
+//        jogadorEscolheAcao();
+
+        Personagem [] grupoJojador = new Personagem[1];
+        grupoJojador[0] = jogador;
+        this.grupoJogador = grupoJojador;
+        
+        NpcInimigo [] grupoInimigo = new NpcInimigo[1];
+        grupoInimigo[0] = inimigo;
+        this.grupoInimigo = grupoInimigo;
+
+
+        initComponents();
     }
 
     /**
@@ -192,7 +207,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabelOla.setText("Ola mundo");
 
-        jButton1.setText("teste");
+        jButton1.setText("Jogar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -208,7 +223,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelOla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,6 +240,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jLabelOla.setText("Teste!");
+        new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
