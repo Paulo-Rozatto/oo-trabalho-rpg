@@ -15,8 +15,16 @@ public class Janela_GameOver extends javax.swing.JFrame {
     /**
      * Creates new form Janela_GameOver
      */
-    public Janela_GameOver() {
+    private boolean vitoria;
+    
+    public Janela_GameOver(boolean vitoria) {
+        this.vitoria = vitoria;
+        alteraMensagem();
         initComponents();
+    }
+    
+    private void alteraMensagem(){
+        //altera label_mensagem caso o usuario tenha ganhado ou perdido
     }
 
     /**
@@ -81,6 +89,8 @@ public class Janela_GameOver extends javax.swing.JFrame {
         //Reinicia o jogo
     }//GEN-LAST:event_button_reiniciarActionPerformed
 
+
+    
     /**
      * @param args the command line arguments
      */

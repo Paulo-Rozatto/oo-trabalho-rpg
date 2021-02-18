@@ -6,6 +6,9 @@
 */
 package br.com.ufjf.estudante.janelas;
 
+import br.com.ufjf.estudante.main.Jogador;
+import br.com.ufjf.estudante.main.NpcInimigo;
+
 /**
  *
  * @author Luiz
@@ -15,6 +18,14 @@ public class Janela_Transicao extends javax.swing.JFrame {
     /**
      * Creates new form Janela_Transicao
      */
+    
+        private Jogador [] jogador;
+        private NpcInimigo [] inimigos;
+    
+    public Janela_Transicao(Jogador [] jogador, NpcInimigo [] inimigos) {
+        initComponents();
+    }
+    
     public Janela_Transicao() {
         initComponents();
     }
@@ -74,6 +85,10 @@ public class Janela_Transicao extends javax.swing.JFrame {
         //Muda para tela Janela_Batalha
     }//GEN-LAST:event_button_confirmarActionPerformed
 
+    public void alteraMensagem(){
+        //altera label_mensagem caso o usuario tenha ganhado ou perdido
+    }
+    
     /**
      * @param args the command line arguments
      */

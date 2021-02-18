@@ -6,6 +6,9 @@
 */
 package br.com.ufjf.estudante.janelas;
 
+import br.com.ufjf.estudante.main.Jogador;
+import br.com.ufjf.estudante.main.NpcInimigo;
+
 /**
  *
  * @author Luiz
@@ -15,8 +18,16 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     /**
      * Creates new form Janela_Criacao_Personagens
      */
+    private Jogador [] jogador;
+    private NpcInimigo [] inimigos;
+    private int maximoInimigos;
+    
     public Janela_Criacao_Personagens() {
         initComponents();
+    }
+    
+    private void criaInimigos(){
+        //Inicia o veotr de inimigos
     }
 
     /**
@@ -35,7 +46,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         label_selecione_personagem = new javax.swing.JLabel();
         label_nome = new javax.swing.JLabel();
         label_classe = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textField_nome = new javax.swing.JTextField();
         button_confirmar_nome = new javax.swing.JButton();
         button_confirmar_classe = new javax.swing.JButton();
         button_iniciar_jogo = new javax.swing.JButton();
@@ -62,7 +73,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 
         label_classe.setText("Classe:");
 
-        jTextField1.setText("jTextField1");
+        textField_nome.setText("jTextField1");
 
         button_confirmar_nome.setText("Confirmar Nome");
         button_confirmar_nome.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +127,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(label_nome)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(button_confirmar_classe, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
@@ -141,7 +152,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_nome)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_confirmar_nome))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -219,10 +230,10 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbox_classe;
     private javax.swing.JComboBox<String> cbox_personagens;
     private javax.swing.JComboBox<String> cbox_quantidade;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label_classe;
     private javax.swing.JLabel label_nome;
     private javax.swing.JLabel label_selecione_personagem;
     private javax.swing.JLabel label_selecione_quantidade;
+    private javax.swing.JTextField textField_nome;
     // End of variables declaration//GEN-END:variables
 }

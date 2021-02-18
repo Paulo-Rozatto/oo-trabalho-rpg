@@ -22,9 +22,9 @@ public class Janela_Batalha extends javax.swing.JFrame {
     private Jogador [] jogador;
     private NpcInimigo [] inimigos;
     
-    boolean isTurnoJogador = true;
-    int round = 0;
-    Dado dado = new Dado();
+    private boolean isTurnoJogador = true;
+    private int round = 0;
+    private Dado dado = new Dado();
     
 //    private int tamanhoJanelaX;
 //    private int tamanhoJanelaY;
