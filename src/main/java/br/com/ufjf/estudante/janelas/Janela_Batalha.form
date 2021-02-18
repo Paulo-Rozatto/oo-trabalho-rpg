@@ -43,8 +43,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Magia" max="32767" attributes="0"/>
-                  <Component id="button_Ataque" max="32767" attributes="0"/>
+                  <Component id="button_magia" max="32767" attributes="0"/>
+                  <Component id="button_ataque" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -73,9 +73,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="button_Ataque" min="-2" max="-2" attributes="0"/>
+                      <Component id="button_ataque" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Magia" min="-2" max="-2" attributes="0"/>
+                      <Component id="button_magia" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -112,20 +112,20 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="button_Ataque">
+    <Component class="javax.swing.JButton" name="button_ataque">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ataque"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_AtaqueActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_ataqueActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Magia">
+    <Component class="javax.swing.JButton" name="button_magia">
       <Properties>
         <Property name="text" type="java.lang.String" value="Magia"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MagiaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_magiaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

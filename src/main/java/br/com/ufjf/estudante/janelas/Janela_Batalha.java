@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import br.com.ufjf.estudante.main.Dado;
+import br.com.ufjf.estudante.main.Jogador;
 
 /**
  *
@@ -18,7 +19,7 @@ import br.com.ufjf.estudante.main.Dado;
  */
 public class Janela_Batalha extends javax.swing.JFrame {
 
-    private Personagem [] jogador;
+    private Jogador [] jogador;
     private NpcInimigo [] inimigos;
     
     boolean isTurnoJogador = true;
@@ -37,7 +38,7 @@ public class Janela_Batalha extends javax.swing.JFrame {
 
     
     
-    public Janela_Batalha(Personagem [] jogador, NpcInimigo [] inimigos) {
+    public Janela_Batalha(Jogador [] jogador, NpcInimigo [] inimigos) {
         //Declare variaveis aqui e chame metodos em formWindowOpened()
         this.jogador = jogador;
         this.inimigos = inimigos;
@@ -215,8 +216,8 @@ public class Janela_Batalha extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         cbox_personagem = new javax.swing.JComboBox<>();
-        button_Ataque = new javax.swing.JButton();
-        Magia = new javax.swing.JButton();
+        button_ataque = new javax.swing.JButton();
+        button_magia = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cbox_inimigo = new javax.swing.JComboBox<>();
         label_HP_personagem = new javax.swing.JLabel();
@@ -241,17 +242,17 @@ public class Janela_Batalha extends javax.swing.JFrame {
             }
         });
 
-        button_Ataque.setText("Ataque");
-        button_Ataque.addActionListener(new java.awt.event.ActionListener() {
+        button_ataque.setText("Ataque");
+        button_ataque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_AtaqueActionPerformed(evt);
+                button_ataqueActionPerformed(evt);
             }
         });
 
-        Magia.setText("Magia");
-        Magia.addActionListener(new java.awt.event.ActionListener() {
+        button_magia.setText("Magia");
+        button_magia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MagiaActionPerformed(evt);
+                button_magiaActionPerformed(evt);
             }
         });
 
@@ -284,8 +285,8 @@ public class Janela_Batalha extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Magia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button_Ataque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(button_magia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_ataque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(189, 189, 189)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label_HP_personagem, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
@@ -308,9 +309,9 @@ public class Janela_Batalha extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(button_Ataque)
+                        .addComponent(button_ataque)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Magia))
+                        .addComponent(button_magia))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -345,7 +346,7 @@ public class Janela_Batalha extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_personagemActionPerformed
 
-    private void button_AtaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AtaqueActionPerformed
+    private void button_ataqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ataqueActionPerformed
         // TODO add your handling code here:
         if(confereSe_ExistemJogadores()){
             if(isTurnoJogador == true && jogador[cbox_personagem.getSelectedIndex()].getHitPoints() > 0){
@@ -361,14 +362,14 @@ public class Janela_Batalha extends javax.swing.JFrame {
         }
         else
             gameOver();
-    }//GEN-LAST:event_button_AtaqueActionPerformed
+    }//GEN-LAST:event_button_ataqueActionPerformed
 
     private void hitPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitPointsActionPerformed
         // TODO add your handling code here:
  
     }//GEN-LAST:event_hitPointsActionPerformed
 
-    private void MagiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MagiaActionPerformed
+    private void button_magiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_magiaActionPerformed
         // TODO add your handling code here:
         if(confereSe_ExistemJogadores()){
             if(isTurnoJogador == true && jogador[cbox_personagem.getSelectedIndex()].getHitPoints() > 0){
@@ -384,7 +385,7 @@ public class Janela_Batalha extends javax.swing.JFrame {
         }
         else
             gameOver();
-    }//GEN-LAST:event_MagiaActionPerformed
+    }//GEN-LAST:event_button_magiaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,8 +423,8 @@ public class Janela_Batalha extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Magia;
-    private javax.swing.JButton button_Ataque;
+    private javax.swing.JButton button_ataque;
+    private javax.swing.JButton button_magia;
     private javax.swing.JComboBox<String> cbox_inimigo;
     private javax.swing.JComboBox<String> cbox_personagem;
     private javax.swing.JTextField hitPoints;

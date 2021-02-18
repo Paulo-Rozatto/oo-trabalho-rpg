@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame {
     Scanner input;
     
     //
-    Personagem [] grupoJogador;
+    Jogador [] grupoJogador;
     NpcInimigo [] grupoInimigo;
 
     public Main() {
@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
         initInimigo();
 //        jogadorEscolheAcao();
 
-        Personagem [] grupoJojador = new Personagem[1];
+        Jogador [] grupoJojador = new Jogador[1];
         grupoJojador[0] = jogador;
         this.grupoJogador = grupoJojador;
         
