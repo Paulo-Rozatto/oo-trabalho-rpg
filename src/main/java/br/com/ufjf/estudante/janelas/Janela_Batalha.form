@@ -30,33 +30,55 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="button_magia" max="32767" attributes="0"/>
+                          <Component id="button_ataque" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="cbox_personagem" min="-2" pref="183" max="-2" attributes="0"/>
-              <EmptySpace pref="224" max="32767" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="cbox_inimigo" min="-2" pref="174" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cbox_personagem" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="label_HP_Jogador" min="-2" pref="94" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="hitPointsJogador" min="-2" pref="117" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="label_MP_Jogador" min="-2" pref="94" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="mpPointsJogador" min="-2" pref="117" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="190" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="cbox_inimigo" min="-2" pref="174" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="label_HP_Inimigo" max="32767" attributes="0"/>
+                          <Component id="label_MP_Inimigo" min="-2" pref="94" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="mpPointsInimigo" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="hitPointsInimigo" min="-2" pref="117" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="button_magia" max="32767" attributes="0"/>
-                  <Component id="button_ataque" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="label_HP_personagem" pref="271" max="32767" attributes="0"/>
-                  <Component id="label_HP_inimigo" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="hitPoints" pref="117" max="32767" attributes="0"/>
-                  <Component id="hitPointsInimigo" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,23 +92,35 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbox_inimigo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Component id="button_ataque" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="button_magia" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_HP_personagem" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hitPoints" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_HP_Inimigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="hitPointsInimigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_MP_Inimigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="mpPointsInimigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_HP_inimigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hitPointsInimigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_HP_Jogador" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="hitPointsJogador" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_MP_Jogador" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="mpPointsJogador" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -134,26 +168,52 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbox_inimigo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_inimigoActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_HP_personagem">
+    <Component class="javax.swing.JLabel" name="label_HP_Jogador">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pontos de vida do seu personagem:"/>
+        <Property name="text" type="java.lang.String" value="HP do Jogador"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_HP_inimigo">
+    <Component class="javax.swing.JLabel" name="label_HP_Inimigo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pontos de vida do seu inimigo:"/>
+        <Property name="text" type="java.lang.String" value="HP do Inimigo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hitPoints">
+    <Component class="javax.swing.JTextField" name="hitPointsJogador">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hitPointsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hitPointsJogadorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="hitPointsInimigo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hitPointsInimigoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="label_MP_Jogador">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="MP do Jogador"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="label_MP_Inimigo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="MP do Inimigo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="mpPointsJogador">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mpPointsJogadorActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="mpPointsInimigo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mpPointsInimigoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

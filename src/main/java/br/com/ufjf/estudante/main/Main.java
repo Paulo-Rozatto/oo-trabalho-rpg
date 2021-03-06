@@ -10,6 +10,8 @@ package br.com.ufjf.estudante.main;
 import br.com.ufjf.estudante.janelas.Janela_Batalha;
 
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,8 +31,8 @@ public class Main extends javax.swing.JFrame {
     Scanner input;
     
     //
-    Jogador [] grupoJogador;
-    NpcInimigo [] grupoInimigo;
+    List<Jogador> grupoJogador;
+    List<NpcInimigo> grupoInimigo;
 
     public Main() {
         isTurnoJogador = true;
@@ -47,12 +49,12 @@ public class Main extends javax.swing.JFrame {
         initInimigo();
 //        jogadorEscolheAcao();
 
-        Jogador [] grupoJojador = new Jogador[1];
-        grupoJojador[0] = jogador;
+        List <Jogador> grupoJojador = new ArrayList<>();
+        grupoJojador.add(jogador);
         this.grupoJogador = grupoJojador;
         
-        NpcInimigo [] grupoInimigo = new NpcInimigo[1];
-        grupoInimigo[0] = inimigo;
+        List <NpcInimigo> grupoInimigo = new ArrayList<>();
+        grupoInimigo.add(inimigo);
         this.grupoInimigo = grupoInimigo;
 
 
