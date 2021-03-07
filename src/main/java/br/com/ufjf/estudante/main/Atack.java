@@ -17,7 +17,8 @@ public class Atack {
     private Dado dado;//dado para rolagem do dano
     private int dano;//numero de faces do(s) dados
     private int danoB;//dano Base do ataque
-    private int numDados;//Numero de dados rodados
+    public int numDados;//Numero de dados rodados
+    
 
   /**
  *
@@ -26,10 +27,9 @@ public class Atack {
  * Construtor
  */   
     public Atack(int dano, int danoB, int numDados) {
-        this.dado = new Dado();
         this.dano = dano;
         this.danoB = danoB;
-        this.numDados = numDados;
+        this.numDados= numDados;
     }
     
 
@@ -42,7 +42,7 @@ public class Atack {
      */
     
     public int rodaDano(int mod) {
-        return this.dado.rodaDadoMultiplos(dano, this.numDados)+ this.danoB + mod;
+        return this.dado.rodaDadoMultiplos(dano, numDados)+ this.danoB + mod;
     }
     
        
@@ -58,6 +58,10 @@ public class Atack {
 
     public int getDanoB() {
         return danoB;
+    }
+
+    public int getNumDados() {
+        return numDados;
     }
     
 }

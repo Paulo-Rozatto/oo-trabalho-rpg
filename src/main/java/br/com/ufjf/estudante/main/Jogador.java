@@ -5,6 +5,7 @@
  * Paulo Victor de Magalhaes Rozatto 201935027
 */
 package br.com.ufjf.estudante.main;
+import java.util.*;
 
 /**
  *
@@ -12,24 +13,31 @@ package br.com.ufjf.estudante.main;
  * Data 15/02/21 ultima modfificação
  * sub-Classe de personagem
  */
-public class Jogador extends Personagem{
+public class Jogador extends Personagem {
     private int level;//level atual
     private int barraDeExp;//experiencia atual para passar de level
     private int proxLevel;//experiencia a conquistada para poder passar de level
-   
+    protected ArrayList<Item> mochila;//
+    
+    protected static ItemConsumivel itemConsumivel;
 /**
  *
  * @author MATHEUS NP
  * Data 15/02/21 ultima modfificação
  * construtor
  */
-    public Jogador(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, AtackFisico atackFisico, AtackMagico atackMagico, int classe) {
-        super(nomePersonagem, modForça, modInteligencia, modDestreza, atackFisico, atackMagico, classe);
+
+    public Jogador(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
+        super(nomePersonagem, modForça, modInteligencia, modDestreza, classe, arma, armadura);
         this.level = 1;
         this.barraDeExp = 0;
         this.proxLevel=10;
+        ItemConsumivel x = new ItemConsumivel(1, 4, "Poção pequena de cura");
+        for (int i = 0; i < 2; i++) {
+            this.addMochila(x);
+        }
     }
-    
+
  /**
  *
  * @author MATHEUS NP
@@ -105,6 +113,62 @@ public class Jogador extends Personagem{
         else{
             this.porcentagemEXP();
         }
+    }
+    @Override
+    public void setArmadura(ItemArmadura novaArmadura){
+        super.setDefesa(super.getDefesa()-super.armadura.getBonusDefesa()+novaArmadura.getBonusDefesa());
+        super.setArmadura(novaArmadura);
+    }
+    
+    public void usarConsumivel(ItemConsumivel consumivel, int posiçãomochila) {
+        switch (consumivel.getTipo()) {
+            case 1:
+                if (super.getHitPoints() >= super.getVidaAtual() + consumivel.valorBonus) {
+                    super.setVidaAtual(super.getVidaAtual() + consumivel.valorBonus);
+                } else {
+                    super.setVidaAtual(super.getHitPoints());
+                }
+                break;
+            case 2:
+                if (super.getManaPoints() >= super.getManaAtual() + consumivel.valorBonus) {
+                    super.setManaAtual(super.getManaAtual() + consumivel.valorBonus);
+                } else {
+                    super.setManaAtual(super.getManaPoints());
+                }
+                break;
+        }
+        removeItem(posiçãomochila);
+ 
+    }
+    public void addMochila(Item item) throws NullPointerException {
+        try {
+            mochila.add(item);
+        } catch (Exception e) {
+            throw new NullPointerException("Mochila cheia escolha um item para descartar.");
+            //removeItem(escolheItensMochila());  
+        }
+
+    }
+    public void removeItem(int posição){
+        this.mochila.remove(posição);
+    }
+    
+    @Override
+    public void setArma(ItemArma arma) {
+        this.arma = arma;
+    }
+    
+    public int escolheItensMochila(){
+        for (int i = 0; i < mochila.size(); i++) {
+            mochila.get(i);
+            
+        }
+        //interface
+        /*
+        **mostra uma janela de itens e retorna o numero na possição desejada
+        */
+        //
+        return 1;
     }
     
     

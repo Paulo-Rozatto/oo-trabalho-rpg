@@ -7,6 +7,7 @@
 package br.com.ufjf.estudante.main;
 
 import javax.swing.ImageIcon;
+import java.util.*;
 
 
 
@@ -20,21 +21,24 @@ public class Personagem {
    
     private String nomePersonagem;//nome da criatura/player
     
-    private int hitPoints;//pontos de vida
-    private int manaPoints;//pontos de mana     
+    private int hitPoints;//pontos de vida maximo
+    private int vidaAtual;//pontos de vida atuais
+    private int manaPoints;//pontos de mana maximo
+    private int manaAtual;//pontos de mana atuais
     private int defesa;//defesa da criatura/player
     
-    private int modForça;// modficador de força da criatura/player
-    private int modInteligencia;//modificador de inteligencia da criatura/player
-    private int modDestreza;// modificador de destreza da criatura/player
+    protected int modForça;// modficador de força da criatura/player
+    protected int modInteligencia;//modificador de inteligencia da criatura/player
+    protected int modDestreza;// modificador de destreza da criatura/player
     
-    AtackFisico atackFisico;//calcula o dano do ataque fisico(Classe que vai ser usada em intens não vai estar aqui no projeto final)
-    AtackMagico atackMagico;//calcula o dano do ataque magico(Classe que vai ser usada em intens não vai estar aqui no projeto final)
-    Dado dado;//Dado para rolar os valores na classe
-    int classe;//classe escolhida pela criatura/player para gerar valores de combate
-    //Itens[] mochila;// implementação futura
-    //Itens arma;// implementação futura
-    //itens armadura;// implementação futura
+    
+    public Dado dado;//Dado para rolar os valores na classe
+    protected int classe;//classe escolhida pela criatura/player para gerar valores de combate
+    protected ItemArma arma;// implementação futura
+    protected ItemArmadura armadura;// implementação futura
+    public List<AtackMagico> ListaMagias;
+    
+    
  
     private ImageIcon sprite;//Imagem do personagem
     
@@ -110,6 +114,7 @@ public class Personagem {
                 classe=-1;
                 System.out.println("Escolha de classe invalida");
         }
+        this.defesa=defesa+this.armadura.getBonusDefesa();
         
     }
  /**
@@ -117,10 +122,11 @@ public class Personagem {
  * @author MATHEUS NP
  * Data 12/02/21 ultima modfificação
  * Escolhe a classe para o calculo dos status de combate ou realiza nova escolha de classe caso o valor foi invalido
+     
  */
             
         public void escolhaClasse(int classe) {
-        if (classe > 3) {
+        if (classe > 3 && classe<=0) {
             System.out.println("Classe invalida por favor digite de numero " + 1 + "a " + 3 + "sendo: \n1-Guerreiro\n2=Mago\n3-Ladino");
             this.classe=-1;
         } else {
@@ -129,8 +135,8 @@ public class Personagem {
                 geraHP();
                 geraMP();
                 geraDefesa();
-                
                 geraSprite();
+                this.defesa=+this.armadura.getBonusDefesa();
             }
         }
 
@@ -138,22 +144,23 @@ public class Personagem {
  /**
  *
  * @author MATHEUS NP
- * Data 15/02/21 ultima modfificação
+ * Data 05/03/21 ultima modfificação
  * construtor
  */
 
 
-    public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, AtackFisico atackFisico, AtackMagico atackMagico, int classe) {
+
+    public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
         this.nomePersonagem = nomePersonagem;
         this.modForça = modForça;
         this.modInteligencia = modInteligencia;
         this.modDestreza = modDestreza;
-        this.atackFisico = atackFisico;
-        this.atackMagico = atackMagico;
         this.classe = classe;
-        this.dado = new Dado();
+        this.arma = arma;
+        this.armadura = armadura;
+        this.classe = classe;
         escolhaClasse(classe);
-        
+        ListaMagias= new LinkedList<AtackMagico>();
     }
     
     
@@ -167,18 +174,15 @@ public class Personagem {
     public int ataqueFisico(int defesaInimiga){
         
         int guardaDado= this.dado.rodaDado(20);
-        if(modForça < modDestreza && guardaDado+this.modDestreza > defesaInimiga){
+        if(modForça < modDestreza){
            System.out.println("O dado girado foi de " + (guardaDado+modDestreza) + " e precisava de " + defesaInimiga);
-           return this.atackFisico.rodaDano(modDestreza);
-        }
-        if(guardaDado+this.modForça > defesaInimiga){
-            System.out.println("O dado girado foi de " + (guardaDado+modForça) + " e precisava de " + defesaInimiga);
-            return this.atackFisico.rodaDano(modForça);
+           return this.arma.ataque(defesaInimiga, this.modDestreza );
         }
         else{
-            System.out.println("O ataque não acertou o inimigo o dado tirado foi " + guardaDado);
-            return 0;
+            System.out.println("O dado girado foi de " + (guardaDado+modForça) + " e precisava de " + defesaInimiga);
+            return this.arma.ataque(defesaInimiga, this.modForça);
         }
+
     }
     /**
  *
@@ -187,22 +191,27 @@ public class Personagem {
  * realiza ATAQUEMAGICO
  */
     
-    public int ataqueMagico(int defesaInimiga){
-        int guardaDado= this.dado.rodaDado(20);
-        if(this.manaPoints>=this.atackMagico.getPM()){
-            if(guardaDado+this.modInteligencia > defesaInimiga){
-                this.manaPoints=- this.atackMagico.getPM();
-                System.out.println("O dado girado foi de " + (guardaDado+this.modInteligencia) + " e precisava de " + defesaInimiga);
-                return this.atackMagico.rodaDano(this.modInteligencia);
-            }
-            else{
+    public int ataqueMagico(int defesaInimiga, AtackMagico magia) {
+
+        if (this.manaPoints >= magia.getPM()) {
+            int guardaDado = this.dado.rodaDado(20);
+            if (guardaDado + this.modInteligencia > defesaInimiga) {
+                if (arma.getTipo() == 2) {
+                    this.manaAtual = -magia.getPM();
+                    System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
+                    return magia.rodaDano(this.modInteligencia) + arma.getBonusAtack();
+                } else {
+                    this.manaAtual = -magia.getPM();
+                    System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
+                    return magia.rodaDano(this.modInteligencia);
+                }
+            } else {
                 System.out.println("Sem Pontos de Mana suficientes para esta magia");
                 return 0;
             }
         }
-        else
-           return 0;
-    } 
+        return 0;
+} 
     
   /**
  *
@@ -223,17 +232,42 @@ public class Personagem {
  */
     
     public void sofreAtack(int danoInimigo){
-        this.hitPoints= this.hitPoints-danoInimigo;
-        if(this.hitPoints<=0){
+        this.vidaAtual=-danoInimigo;
+        if(this.vidaAtual<=0){
             this.morte();
     }
     }
     
+    public void ListaMagias(){
+        for (int i = 0; i < ListaMagias.size(); i++) {
+            ListaMagias.get(i).getNomeMagia();
+        }
+        //
+        //
+    }
     
     
     
-    
-    
+ //PARTE RESERVADA A INTERFACE GRAFICA
+        private void geraSprite() {
+        sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        switch (classe) {
+
+            case 1:
+                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+                break;
+            case 2:
+                sprite = new ImageIcon("res\\jogador\\mago.png"); //Pasta onde esta a imagem
+                break;
+            case 3:
+                sprite = new ImageIcon("res\\jogador\\ladino.png"); //Pasta onde esta a imagem
+                break;
+            default:
+                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        }
+    }
+   
+      
     
     
    /**
@@ -279,62 +313,66 @@ public class Personagem {
     public ImageIcon getSprite() {
         return sprite;
     }
-    
-    
 
-    public void setHitPoints(int hitPoints) {
+    public void setNomePersonagem(String nomePersonagem) {
+        this.nomePersonagem = nomePersonagem;
+    }
+
+    protected void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
     }
 
-    public void setManaPoints(int manaPoints) {
+    protected void setVidaAtual(int vidaAtual) {
+        this.vidaAtual = vidaAtual;
+    }
+
+    protected void setManaPoints(int manaPoints) {
         this.manaPoints = manaPoints;
     }
 
-    public void setDefesa(int defesa) {
+    protected void setManaAtual(int manaAtual) {
+        this.manaAtual = manaAtual;
+    }
+
+    protected void setDefesa(int defesa) {
         this.defesa = defesa;
     }
 
-    public void setModForça(int modForça) {
+    protected void setModForça(int modForça) {
         this.modForça = modForça;
     }
 
-    public void setModInteligencia(int modInteligencia) {
+    protected void setModInteligencia(int modInteligencia) {
         this.modInteligencia = modInteligencia;
     }
 
-    public void setModDestreza(int modDestreza) {
+    protected void setModDestreza(int modDestreza) {
         this.modDestreza = modDestreza;
     }
-        
-    //PARTE RESERVADA A INTERFACE GRAFICA
-        private void geraSprite() {
-        sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
-        switch (classe) {
+    public void setArma(ItemArma arma) {
+        this.arma = arma;
 
-            case 1:
-                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
-                break;
-            case 2:
-                sprite = new ImageIcon("res/jogador/mago.png"); //Pasta onde esta a imagem
-                break;
-            case 3:
-                sprite = new ImageIcon("res/jogador/ladino.png"); //Pasta onde esta a imagem
-                break;
-            default:
-                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
-        }
+    
     }
-        
+
+    public void setArmadura(ItemArmadura armadura) {
+        this.armadura = armadura;
+    }
+
+    public int getVidaAtual() {
+        return vidaAtual;
+    }
+
+    public int getManaAtual() {
+        return manaAtual;
+    }
+
+    public ItemArma getArma() {
+        return arma;
+    }
+
+    public ItemArmadura getArmadura() {
+        return armadura;
+    }
+    
 }
-    
-    
-    
-    
-    
-
-    
-    
-   
-   
-    
-

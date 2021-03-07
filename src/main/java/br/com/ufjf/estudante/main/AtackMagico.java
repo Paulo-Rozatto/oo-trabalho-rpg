@@ -15,19 +15,26 @@ package br.com.ufjf.estudante.main;
 public class AtackMagico extends Atack{
     
     private String nomeMagia;//Nome da magia
-    private int PM;// pontos de mana para usar a magia
+    private int PontosMana;// pontos de mana para usar a magia
 
+    
+
+    
 /**
  *
  * @author MATHEUS NP
  * Data 14/02/21 ultima modfificação
  * Construtor
- */   
-    public AtackMagico(String nomeMagia, int PM, int dano, int danoB, int numDados) {
+ */
+
+    public AtackMagico(String nomeMagia, int PontosMana, int dano, int danoB, int numDados) {
         super(dano, danoB, numDados);
         this.nomeMagia = nomeMagia;
-        this.PM = PM;
+        this.PontosMana = PontosMana;
     }
+
+    
+    
 
     /**
      * @author MATHEUS NP
@@ -39,7 +46,7 @@ public class AtackMagico extends Atack{
     }
 
     public int getPM() {
-        return PM;
+        return PontosMana;
     }
     
 }
