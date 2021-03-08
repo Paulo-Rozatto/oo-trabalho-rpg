@@ -34,6 +34,8 @@ public class NpcInimigo extends Personagem {
         this.experiencia = experiencia;
         this.descricaoMorte = descricaoMorte;
         this.vivo=true;
+        
+        super.geraSpriteInimigo();
     }
     
 /**

@@ -8,6 +8,7 @@
 package br.com.ufjf.estudante.main;
 
 import br.com.ufjf.estudante.janelas.Janela_Batalha;
+import br.com.ufjf.estudante.janelas.Janela_De_Batalha;
 
 import java.util.Scanner;
 import java.util.List;
@@ -249,7 +250,9 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jLabelOla.setText("Teste!");
-        new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
+        this.setVisible(false);
+//        new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
+        new Janela_De_Batalha(grupoJogador, grupoInimigo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

@@ -6,6 +6,7 @@
 */
 package br.com.ufjf.estudante.main;
 
+import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
@@ -36,7 +37,11 @@ public class Personagem {
     //Itens arma;// implementação futura
     //itens armadura;// implementação futura
  
-    private ImageIcon sprite;//Imagem do personagem
+    private Image sprite;//Imagem do personagem
+    private ImageIcon referencia;//Imagem do personagem
+    //coordenadas onde o personagem vai aparecer na tela:
+    private int posX;
+    private int posY;
     
     
     
@@ -153,6 +158,9 @@ public class Personagem {
         this.classe = classe;
         this.dado = new Dado();
         escolhaClasse(classe);
+        
+        posX=0;
+        posY=0;
         
     }
     
@@ -277,7 +285,27 @@ public class Personagem {
     }
 
     public ImageIcon getSprite() {
+        return referencia;
+    }
+    
+    public Image getTabelaSprite() {
         return sprite;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
     
     
@@ -307,21 +335,58 @@ public class Personagem {
     }
         
     //PARTE RESERVADA A INTERFACE GRAFICA
-        private void geraSprite() {
-        sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        protected void geraSprite() {
+        referencia = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        sprite = referencia.getImage();
         switch (classe) {
 
             case 1:
-                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
+                referencia = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/guerreiro2.png");
                 break;
             case 2:
-                sprite = new ImageIcon("res/jogador/mago.png"); //Pasta onde esta a imagem
+                referencia = new ImageIcon("res/jogador/mago.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/mago2.png");
                 break;
             case 3:
-                sprite = new ImageIcon("res/jogador/ladino.png"); //Pasta onde esta a imagem
+                referencia = new ImageIcon("res/jogador/ladino.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/ladino2.png");
                 break;
             default:
-                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
+                referencia = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/guerreiro2.png");
+        }
+    }
+        
+        protected void geraSpriteInimigo() {
+        referencia = new ImageIcon("res\\inimigos\\orc.png"); //Pasta onde esta a imagem
+        sprite = referencia.getImage();
+        referencia = new ImageIcon("res/jogador/guerreiro2.png");
+        switch (classe) {
+
+            case 1:
+                referencia = new ImageIcon("res/inimigos/orc.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/guerreiro2.png");
+                break;
+            case 2:
+                referencia = new ImageIcon("res/inimigos/esqueleto.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/mago2.png");
+                break;
+            case 3:
+                referencia = new ImageIcon("res/inimigos/dark_elf.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/ladino2.png");
+                break;
+            default:
+                referencia = new ImageIcon("res/inimigos/orc.png"); //Pasta onde esta a imagem
+                sprite = referencia.getImage();
+                referencia = new ImageIcon("res/jogador/guerreiro2.png");
         }
     }
         
