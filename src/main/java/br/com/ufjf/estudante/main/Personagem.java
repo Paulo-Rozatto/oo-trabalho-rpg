@@ -249,7 +249,7 @@ public class Personagem {
     
     
  //PARTE RESERVADA A INTERFACE GRAFICA
-        private void geraSprite() {
+        protected void geraSprite() {
         sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
         switch (classe) {
 
@@ -264,6 +264,142 @@ public class Personagem {
                 break;
             default:
                 sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        }
+    }
+        
+         protected void geraSpriteInimigo() {
+        sprite = new ImageIcon("res\\inimigos\\orc_padrao.gif"); //Pasta onde esta a imagem
+        switch (classe) {
+
+            case 1:
+                sprite = new ImageIcon("res/inimigos/orc_padrao.gif"); //Pasta onde esta a imagem
+                break;
+            case 2:
+                sprite = new ImageIcon("res/inimigos/esqueleto_padrao.gif"); //Pasta onde esta a imagem
+                break;
+            case 3:
+                sprite = new ImageIcon("res/inimigos/dark_elf_padrao.gif"); //Pasta onde esta a imagem
+                break;
+            default:
+                sprite = new ImageIcon("res/inimigos/orc_padrao.gif"); //Pasta onde esta a imagem
+        }
+    }
+
+    public void trocaAnimacaoInimigo(int pose) {
+        if (classe == 1) {
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/inimigos/orc_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/inimigos/orc_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/inimigos/orc_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/inimigos/orc_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/inimigos/orc_padrao.gif");
+            }
+        }
+        if(classe ==2){
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/inimigos/esqueleto_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/inimigos/esqueleto_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/inimigos/esqueleto_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/inimigos/esqueleto_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/inimigos/esqueleto_padrao.gif");
+            }
+        }
+        if(classe ==3){
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/inimigos/dark_elf_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/inimigos/dark_elf_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/inimigos/dark_elf_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/inimigos/dark_elf_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/inimigos/dark_elf_padrao.gif");
+            }
+        }
+    }
+    
+    
+   
+   
+    
+    public void trocaAnimacaoJogador(int pose) {
+        if (classe == 1) {
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/jogador/guerreiro_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/jogador/guerreiro_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/jogador/guerreiro_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/jogador/guerreiro_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/jogador/guerreiro_padrao.gif");
+            }
+        }
+        if(classe ==2){
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/jogador/mago_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/jogador/mago_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/jogador/mago_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/jogador/mago_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/jogador/mago_padrao.gif");
+            }
+        }
+        if(classe ==3){
+            switch (pose) {
+                case 0:
+                    sprite = new ImageIcon("res/jogador/ladino_padrao.gif");
+                    break;
+                case 1:
+                    sprite = new ImageIcon("res/jogador/ladino_ataque.gif");
+                    break;
+                case 2:
+                    sprite = new ImageIcon("res/jogador/ladino_magia.gif");
+                    break;
+                case 3:
+                    sprite = new ImageIcon("res/jogador/ladino_dano.gif");
+                    break;
+                default:
+                    sprite = new ImageIcon("res/jogador/ladino_padrao.gif");
+            }
         }
     }
    
