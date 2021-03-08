@@ -133,7 +133,6 @@ public class Painel_Animacao extends JPanel {
                 } else {
                     frameJogador = 0;
                     atacanteJogador = -1;
-                    repaint();
                 }
 
             }
@@ -150,7 +149,6 @@ public class Painel_Animacao extends JPanel {
                 } else {
                     frameJogador = 0;
                     alvoJogador = -1;
-                    repaint();
                 }
             }
         }
@@ -183,7 +181,6 @@ public class Painel_Animacao extends JPanel {
                 } else {
                     frameInimigo = 0;
                     atacanteInimigo = -1;
-                    repaint();
                 }
 
             }
@@ -200,7 +197,6 @@ public class Painel_Animacao extends JPanel {
                 } else {
                     frameInimigo = 0;
                     alvoInimigo = -1;
-                    repaint();
                 }
             }
         }

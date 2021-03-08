@@ -501,8 +501,8 @@ public class Janela_De_Batalha extends JFrame implements ActionListener {
         if (!painel.isAnimacao() && trocaTurnoJogador == true) {//Se o jogador fez a sua jogada e acabou a animacao
             cronometroPausa++;
             //AQUI VC PODE COLOCAR UMA MENSAGEM NA LABEL ANTES DE INICIRA O PROXIMO TURNO
-            label_evento.setText("MENSAGEM COM TEMPO AQUI ..."+(100-cronometroPausa));
-            if(cronometroPausa%100==0){//Tempo de espera de 1000ms = 1 segundos
+            label_evento.setText("MENSAGEM COM TEMPO AQUI ..."+(1000-cronometroPausa));
+            if(cronometroPausa%1000==0){//Tempo de espera de 1000ms = 1 segundos
                 label_evento.setText("Turno do Inimigo");
                 gerenciaTurno();
                 trocaTurnoJogador = false;
@@ -513,8 +513,8 @@ public class Janela_De_Batalha extends JFrame implements ActionListener {
         if (!painel.isAnimacao() && trocaTurnoInimigo == true) {//Se o inimigo fez a jogada e acabou a animacao
             cronometroPausa++;
             //AQUI VC PODE COLOCAR UMA MENSAGEM NA LABEL ANTES DE INICIRA O PROXIMO TURNO
-            label_evento.setText("MENSAGEM COM TEMPO AQUI ..."+(100-cronometroPausa));
-            if(cronometroPausa%100==0){//Tempo de espera de 1000ms = 1 segundos
+            label_evento.setText("MENSAGEM COM TEMPO AQUI ..."+(1000-cronometroPausa));
+            if(cronometroPausa%1000==0){//Tempo de espera de 1000ms = 1 segundos
                 label_evento.setText("Turno do Jogador");
                 gerenciaTurno();
                 trocaTurnoInimigo = false;
