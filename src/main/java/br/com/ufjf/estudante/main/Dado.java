@@ -12,7 +12,7 @@ import java.util.Random;
  * Data 12/02/21 ultima modfificação
  * Classe para rolagem de dado mais pratica
  */
-public class Dado {
+public abstract class Dado {
     private Random dado;
 /**
  *

@@ -30,18 +30,20 @@ public class GrupoInimigo{
              case 0:
                 experiencia = 10;
                 descricaoMorte = "No ceu tem pao? E morreu.";
-                nome = "Monstro 1";
-                forca = 5;
-                inteligencia = 5;
-                destreza = 5;
-                ataqueFisico = new AtackFisico("ataque", 5, 5, 0);
+                nome = "Esqueleto 1";
+                forca = 2;
+                inteligencia = 1;
+                destreza = 1;
+                AtackFisico atackFisico= new AtackFisico("corte", 8, 1, 1);
+                ItemArma itemArma = new ItemArma(atackFisico, 1, "machado", 1);
+                ItemArmadura armadura= new ItemArmadura("Leve", 4, "tecido");
                 ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
                 classe = 1;
-                inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+                inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, classe, itemArma, armadura);
                 grupoInimigo.add(inimigo);
                                 experiencia = 10;
-                nome = "Monstro 2";
-                inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+                nome = "Esqueleto 2";
+                inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, classe, itemArma, armadura);
                 grupoInimigo.add(inimigo);
                  break;
              case 1:

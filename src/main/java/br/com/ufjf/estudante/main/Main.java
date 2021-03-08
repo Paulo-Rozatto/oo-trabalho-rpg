@@ -37,7 +37,6 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         isTurnoJogador = true;
         round = 0;
-        dado = new Dado();
 
         input = new Scanner(System.in);
         System.out.println("Nome: ");
@@ -71,11 +70,13 @@ public class Main extends javax.swing.JFrame {
         int forca = 10;
         int inteligencia = 10;
         int destreza = 10;
-        AtackFisico ataqueFisico = new AtackFisico("ataque", 10, 10, 0);
-        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 0);
+        AtackFisico ataqueFisico = new AtackFisico("ataque", 10, 10,1);
+        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10,1);
         int classe = classeJogador;
+        ItemArma arma= null;
+        ItemArmadura armadura=null;
 
-        jogador = new Jogador(nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+        jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
     }
 
     /**
@@ -106,7 +107,7 @@ public class Main extends javax.swing.JFrame {
             classe = 1;
 
             // Essa linha pode ir para o final do metodo quando tiver todos IFs
-            inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, ataqueFisico, ataqueMagico, classe);
+            //inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, classe, arma, armadura);
         } else if (round == 1) {
             // A fazer: Inimigo do segundo round;
         } else {

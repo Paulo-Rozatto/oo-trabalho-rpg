@@ -22,19 +22,16 @@ public class AtackFisico extends Atack{
  * Data 14/02/21 ultima modfificação
  * Construtor
  */   
-    
-
-    public AtackFisico(String nomeAtack, int dano, int danoB, int numDados) {
+    public AtackFisico(String nomeAtack, int dano, int danoB, int numDados) {    
         super(dano, danoB, numDados);
         this.nomeAtack = nomeAtack;
     }
 
-       
-   /**
- * @author MATHEUS NP
- * Data 14/02/21 ultima modfificação
- * Geters E Seters
- */   
+    /**
+     * @author MATHEUS NP
+     * Data 14/02/21 ultima modfificação
+     * Geters E Seters
+     */   
     public String getNomeAtack() {
         return nomeAtack;
     }
