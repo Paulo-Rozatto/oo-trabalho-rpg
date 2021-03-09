@@ -70,11 +70,12 @@ public class Main extends javax.swing.JFrame {
         int forca = 10;
         int inteligencia = 10;
         int destreza = 10;
-        AtackFisico ataqueFisico = new AtackFisico("ataque", 10, 10,1);
+        AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10,1);
         AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10,1);
         int classe = classeJogador;
-        ItemArma arma= null;
-        ItemArmadura armadura=null;
+        ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+        ItemArma arma= new ItemArma(ataqueFisico, 0, "Mãos", 1);
+        ItemArmadura armadura= new ItemArmadura("Leve", 4, "tecido");
 
         jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
     }
@@ -163,7 +164,7 @@ public class Main extends javax.swing.JFrame {
     private void gerenciaTurno() {
         if (isTurnoJogador) {
 
-            if (inimigo.getHitPoints() <= 0) { // Se o inimigo morreu
+            if (inimigo.getVidaAtual() <= 0) { // Se o inimigo morreu
 
                 // A fazer: codigo que mostra na interface descricao de morte
                 if (round == 2) { // Se for o ultimo round, ganhou jogo
@@ -177,7 +178,7 @@ public class Main extends javax.swing.JFrame {
                 acaoInimigo();
             }
         } else {
-            if (jogador.getHitPoints() <= 0) { // Se o jogador morreu, fim de jogo
+            if (jogador.getVidaAtual() <= 0) { // Se o jogador morreu, fim de jogo
                 gameOver();
             } else { // Se nao morreu, passe o turno para o jogador
                 isTurnoJogador = true;

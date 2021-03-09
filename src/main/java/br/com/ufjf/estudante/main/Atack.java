@@ -27,6 +27,7 @@ public class Atack {
  * Construtor
  */   
     public Atack(int dano, int danoB, int numDados) {
+        this.dado = new Dado();
         this.dano = dano;
         this.danoB = danoB;
         this.numDados= numDados;

@@ -23,6 +23,7 @@ public class ItemArma extends Item{
 
     public ItemArma(AtackFisico danoArma, int bonusAtack, String nome,int tipo) {
         super(nome);
+        this.dado = new Dado();
         this.danoArma = danoArma;
         this.bonusAtack = bonusAtack;
         this.tipo=tipo;
