@@ -54,13 +54,13 @@ public abstract class Personagem {
     private void geraHP(){
         switch (classe){
             case 1:
-                hitPoints= 5+dado.rodaDado(8)+(modForça*2);//Guerreiro
+                hitPoints= 15+dado.rodaDado(10)+(modForça*2)+(+modDestreza);//Guerreiro
                 break;
             case 2:
-                hitPoints= 3+dado.rodaDado(6)+modForça+(modInteligencia/2);//Mago
+                hitPoints= 9+dado.rodaDado(8)+modForça+(modInteligencia/2);//Mago
                 break;
             case 3: 
-                hitPoints= 5+dado.rodaDado(6)+modForça;//Ladino
+                hitPoints= 12+dado.rodaDado(8)+modForça+(modDestreza/2);//Ladino
                 break;
             default:
                 classe=-1;
@@ -91,6 +91,7 @@ public abstract class Personagem {
                 classe=-1;
                 System.out.println("Escolha de classe invalida");
         }
+        this.vidaAtual= this.hitPoints;
     }
     
  /**
