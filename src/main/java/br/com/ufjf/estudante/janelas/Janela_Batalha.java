@@ -134,7 +134,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private boolean confereSe_InimigoMorreu(int indice) {
         if (indice < maxInimigo) {
-            if (GrupoInimigo.getInimigo(indice).getHitPoints() <= 0) {
+            if (GrupoInimigo.getInimigo(indice).getVidaAtual() <= 0) {
                 spriteInimigo.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteInimigo.get(indice));//remove o sprite do painel
                 spriteInimigo.remove(indice);
@@ -155,7 +155,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private boolean confereSe_JogadorMorreu(int indice) {
         if (indice < maxJogador) {
-            if (GrupoJogador.getJogador(indice).getHitPoints() <= 0) {
+            if (GrupoJogador.getJogador(indice).getVidaAtual() <= 0) {
                 spriteJogador.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteJogador.get(indice));//remove o sprite do painel
                 spriteJogador.remove(indice);
@@ -176,7 +176,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private boolean confereSe_ExistemJogadores() {
         for (int i = 0; i < GrupoJogador.getSize(); i++) {
-            if (GrupoJogador.getJogador(i).getHitPoints() > 0) {
+            if (GrupoJogador.getJogador(i).getVidaAtual() > 0) {
                 return true;
             }
         }
@@ -185,7 +185,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private boolean confereSe_ExistemInimigos() {
         for (int i = 0; i < GrupoInimigo.getSize(); i++) {
-            if (GrupoInimigo.getInimigo(i).getHitPoints() > 0) {
+            if (GrupoInimigo.getInimigo(i).getVidaAtual() > 0) {
                 return true;
             }
         }
@@ -227,13 +227,13 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     }
 
     private void atualizaLabeldeHP(int i, int j) {
-        if (GrupoJogador.getSize() > i && GrupoJogador.getJogador(i).getHitPoints() > 0) {
-            hitPointsJogador.setText("" + GrupoJogador.getJogador(i).getHitPoints());
+        if (GrupoJogador.getSize() > i && GrupoJogador.getJogador(i).getVidaAtual() > 0) {
+            hitPointsJogador.setText("" + GrupoJogador.getJogador(i).getVidaAtual());
         } else {
             hitPointsJogador.setText("0");
         }
-        if (GrupoInimigo.getSize() > j && GrupoInimigo.getInimigo(j).getHitPoints() > 0) {
-            hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(j).getHitPoints());
+        if (GrupoInimigo.getSize() > j && GrupoInimigo.getInimigo(j).getVidaAtual() > 0) {
+            hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(j).getVidaAtual());
         } else {
             hitPointsInimigo.setText("0");
         }
@@ -274,7 +274,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueFisico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()));
                 break;
             case 2:
-                GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()));
+                //GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()));
                 break;
         }
         acaoJogador = true;
@@ -527,8 +527,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private void cbox_personagemActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
         if (GrupoJogador.getSize() > cbox_personagem.getSelectedIndex()) {
-            if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getHitPoints() > 0) {
-                hitPointsJogador.setText("" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getHitPoints());
+            if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual() > 0) {
+                hitPointsJogador.setText("" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual());
             } else {
                 hitPointsJogador.setText("0");
             }
@@ -560,8 +560,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private void cbox_inimigoActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         if (GrupoInimigo.getSize() > cbox_inimigo.getSelectedIndex()) {
-            if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getHitPoints() > 0) {
-                hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getHitPoints());
+            if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual() > 0) {
+                hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual());
             } else {
                 hitPointsInimigo.setText("0");
             }

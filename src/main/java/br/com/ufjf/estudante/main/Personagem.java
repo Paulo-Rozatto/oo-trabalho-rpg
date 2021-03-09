@@ -17,7 +17,7 @@ import java.util.*;
  * Data 12/02/21 ultima modfificação
  * Classe base para montros e jogador
  */
-public class Personagem {
+public abstract class Personagem {
    
     private String nomePersonagem;//nome da criatura/player
     
@@ -65,7 +65,8 @@ public class Personagem {
             default:
                 classe=-1;
                 System.out.println("Escolha de classe invalida");
-        } 
+        }
+        this.vidaAtual = this.hitPoints;
     }
     
  /**
@@ -99,7 +100,7 @@ public class Personagem {
  * Gera os defesa do personagem e valida se variavel classe e valida
  */
     
-    private void geraDefesa(){
+    private void geraDefesa() throws NullPointerException{
         switch (classe) {
             case 1:
                 defesa = 10 + modDestreza+ ((this.modForça/2)-1);//Guerreiro
@@ -114,7 +115,11 @@ public class Personagem {
                 classe=-1;
                 System.out.println("Escolha de classe invalida");
         }
-        this.defesa=defesa+this.armadura.getBonusDefesa();
+        try{
+            this.defesa = defesa+this.armadura.getBonusDefesa();
+        }catch(NullPointerException armaduraVazia){
+            ;
+        }
         
     }
  /**
@@ -125,7 +130,7 @@ public class Personagem {
      
  */
             
-        public void escolhaClasse(int classe) {
+        public void escolhaClasse(int classe) throws NullPointerException{
         if (classe > 3 && classe<=0) {
             System.out.println("Classe invalida por favor digite de numero " + 1 + "a " + 3 + "sendo: \n1-Guerreiro\n2=Mago\n3-Ladino");
             this.classe=-1;
@@ -136,7 +141,11 @@ public class Personagem {
                 geraMP();
                 geraDefesa();
                 geraSprite();
-                this.defesa=+this.armadura.getBonusDefesa();
+                try{
+                    this.defesa =+ this.armadura.getBonusDefesa();
+                }catch(NullPointerException armaduraVazia){
+                    ;
+                }
             }
         }
 
@@ -151,6 +160,8 @@ public class Personagem {
 
 
     public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
+        
+        this.dado = new Dado();
         this.nomePersonagem = nomePersonagem;
         this.modForça = modForça;
         this.modInteligencia = modInteligencia;

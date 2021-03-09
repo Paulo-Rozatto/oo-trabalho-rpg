@@ -73,8 +73,12 @@ public class NpcInimigo extends Personagem {
         System.out.println(this.descricaoMorte);
         vivo= false;
     }
- 
-    
+    public void setDescricaoMorte(String descricao){
+        this.descricaoMorte = descricao;
+    }
+    public String getDescricaoMorte(){
+        return this.descricaoMorte;
+    }
     
     
     /**

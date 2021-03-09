@@ -34,7 +34,7 @@ public class Jogador extends Personagem {
         this.proxLevel=10;
         ItemConsumivel x = new ItemConsumivel(1, 4, "Poção pequena de cura");
         for (int i = 0; i < 2; i++) {
-            this.addMochila(x);
+            //this.addMochila(x);
         }
     }
 
@@ -81,6 +81,9 @@ public class Jogador extends Personagem {
         }
         else
            System.out.println("Classe invalida");
+    }
+    public int getLevel(){
+        return this.level;
     }
     
  /**
