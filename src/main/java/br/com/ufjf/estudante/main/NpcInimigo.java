@@ -31,7 +31,8 @@ public class NpcInimigo extends Personagem {
    
     
 
-    public NpcInimigo(int experiencia, String descricaoMorte, String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
+    public NpcInimigo(int experiencia, String descricaoMorte, String nomePersonagem, int modForça, 
+            int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
         super(nomePersonagem, modForça, modInteligencia, modDestreza, classe, arma, armadura);
         this.experiencia = experiencia;
         this.descricaoMorte = descricaoMorte;

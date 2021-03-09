@@ -54,11 +54,21 @@ public class ItemArma extends Item{
         return tipo;
     }
 
-    public AtackFisico getDanoArma() {
-        return danoArma;
+    public int getDanoArma() {
+        return danoArma.getDano();
     }
     
+    public int getDanoBase(){
+        return danoArma.getDanoB();
+    }
     
+    public int getNumDados(){
+        return danoArma.getNumDados();
+    }
+    
+    public String getTipoDano(){
+        return danoArma.getNomeAtack();
+    }
     
     
 }
