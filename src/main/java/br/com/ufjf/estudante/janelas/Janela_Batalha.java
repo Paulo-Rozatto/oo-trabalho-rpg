@@ -198,15 +198,17 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
         //"Desenhando" imagem na tela
         int distanciax = 1;
-        int distanciay = 1;
+        double distanciay = 0.5d;
 
         for (int i = 0; i < GrupoJogador.getSize() && i < maxJogador; i++) {
             spriteJogador.add(new JLabel(GrupoJogador.getJogador(i).getSprite()));
             spriteJogador.get(i).setSize(64, 64);//tamanho do sprite
-            spriteJogador.get(i).setLocation(distanciax + 64, 64 * distanciay);//posicao
+            spriteJogador.get(i).setLocation(distanciax * 64, (int)(64 * distanciay));//posicao
+            distanciay++;
             painel.add(spriteJogador.get(i));//adiciona no painel
             spriteJogador.get(i).setVisible(true);//torna o sprite visivel
-            if (i % 4 == 0) {
+            if (i % 4 == 0 && i!=0) {
+                System.out.println("Aqui");
                 distanciax++;
                 distanciay = 0;
             }
@@ -216,10 +218,11 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         for (int i = 0; i < GrupoInimigo.getSize() && i < maxInimigo; i++) {
             spriteInimigo.add(new JLabel(GrupoInimigo.getInimigo(i).getSprite()));
             spriteInimigo.get(i).setSize(64, 64);//tamanho do sprite
-            spriteInimigo.get(i).setLocation((distanciax * 64) + 450, 64);//posicao
+            spriteInimigo.get(i).setLocation((distanciax * 64) + 450, (int)(64*distanciay));//posicao
+            distanciay++;
             painel.add(spriteInimigo.get(i));//adiciona no painel
             spriteInimigo.get(i).setVisible(true);//torna o sprite visivel
-            if (i % 4 == 0) {
+            if (i % 4 == 0 && i!=0) {
                 distanciax++;
                 distanciay = 0;
             }

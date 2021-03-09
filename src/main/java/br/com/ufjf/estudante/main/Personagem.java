@@ -158,7 +158,7 @@ public abstract class Personagem {
  */
 
 
-
+        //Construtor com classe
     public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
         
         this.dado = new Dado();
@@ -170,8 +170,29 @@ public abstract class Personagem {
         this.arma = arma;
         this.armadura = armadura;
         this.classe = classe;
+        corrigeClasse(classe);
+        ListaMagias= new LinkedList<AtackMagico>();
+    }
+    //construtor sem classe
+    public Personagem(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, ItemArma arma, ItemArmadura armadura) {
+        
+        this.dado = new Dado();
+        this.nomePersonagem = nomePersonagem;
+        this.modForça = modForça;
+        this.modInteligencia = modInteligencia;
+        this.modDestreza = modDestreza;
+        this.classe = classe;
+        this.arma = arma;
+        this.armadura = armadura;
         escolhaClasse(classe);
         ListaMagias= new LinkedList<AtackMagico>();
+    }
+    
+    private void corrigeClasse(int classe){
+        if(classe<1 || classe>3){
+            this.classe = 1;
+        }
+        geraSprite();
     }
     
     
@@ -460,6 +481,13 @@ public abstract class Personagem {
     public ImageIcon getSprite() {
         return sprite;
     }
+
+    public void setClasse(int classe) {
+        this.classe = classe;
+        corrigeClasse(classe);
+    }
+    
+    
 
     public void setNomePersonagem(String nomePersonagem) {
         this.nomePersonagem = nomePersonagem;
