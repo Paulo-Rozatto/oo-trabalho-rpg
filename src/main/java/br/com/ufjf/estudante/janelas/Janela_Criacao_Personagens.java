@@ -3,11 +3,17 @@
  * Matheus do Nascimento Pereira da Costa 201676003
  * Luiz Henrique de Oliveira Pereira 201635009
  * Paulo Victor de Magalhaes Rozatto 201935027
-*/
+ */
 package br.com.ufjf.estudante.janelas;
 
+import br.com.ufjf.estudante.main.AtackFisico;
+import br.com.ufjf.estudante.main.AtackMagico;
+import br.com.ufjf.estudante.main.ItemArma;
+import br.com.ufjf.estudante.main.ItemArmadura;
 import br.com.ufjf.estudante.main.Jogador;
 import br.com.ufjf.estudante.main.NpcInimigo;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,16 +24,45 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     /**
      * Creates new form Janela_Criacao_Personagens
      */
-    private Jogador [] jogador;
-    private NpcInimigo [] inimigos;
-    private int maximoInimigos;
-    
+    List<Jogador> grupoJogador = new ArrayList<>();
+    List<NpcInimigo> grupoInimigo = new ArrayList<NpcInimigo>();
+
+    private int indiceJogador;
+    private int quantidade;
+
     public Janela_Criacao_Personagens() {
+        this.indiceJogador = -1;
+        this.quantidade = 0;
         initComponents();
     }
-    
-    private void criaInimigos(){
-        //Inicia o veotr de inimigos
+
+    private void criaJogador() {
+        String nome = textField_nome.getText();
+        int classe = cbox_classe.getSelectedIndex() + 1;
+
+//        System.out.println("Nome: " + nome + " Classe: " + classe);
+
+        int forca = 10;
+        int inteligencia = 10;
+        int destreza = 10;
+        AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
+        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
+        ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+        ItemArma arma = new ItemArma(ataqueFisico, 0, "Mãos", 1);
+        ItemArmadura armadura = new ItemArmadura("Leve", 4, "tecido");
+//
+        Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
+        grupoJogador.add(jogador);
+    }
+
+    private void editaTextoTela() {
+        label_Contexto.setText("Crie o Personagem " + (indiceJogador + 1));
+        textField_nome.setText("Personagem " + (indiceJogador + 1));
+        if (indiceJogador < 3) {
+            cbox_classe.setSelectedIndex(indiceJogador);
+        } else {
+            cbox_classe.setSelectedIndex(0);
+        }
     }
 
     /**
@@ -41,51 +76,49 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 
         label_selecione_quantidade = new javax.swing.JLabel();
         cbox_quantidade = new javax.swing.JComboBox<>();
-        button_confirmar = new javax.swing.JButton();
-        cbox_personagens = new javax.swing.JComboBox<>();
-        label_selecione_personagem = new javax.swing.JLabel();
+        button_confirmarQuantidade = new javax.swing.JButton();
         label_nome = new javax.swing.JLabel();
         label_classe = new javax.swing.JLabel();
         textField_nome = new javax.swing.JTextField();
-        button_confirmar_nome = new javax.swing.JButton();
-        button_confirmar_classe = new javax.swing.JButton();
+        button_confirmarCriacao = new javax.swing.JButton();
         button_iniciar_jogo = new javax.swing.JButton();
         cbox_classe = new javax.swing.JComboBox<>();
+        label_Contexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        label_selecione_quantidade.setText("Escolha a quantidade de personagens:");
-
-        cbox_quantidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        button_confirmar.setText("Confirmar");
-        button_confirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_confirmarActionPerformed(evt);
+        setTitle("Criação de Personagens");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
-        cbox_personagens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        label_selecione_quantidade.setText("Escolha a quantidade de personagens:");
 
-        label_selecione_personagem.setText("Selecione o personagem para editar:");
+        cbox_quantidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+
+        button_confirmarQuantidade.setText("Confirmar");
+        button_confirmarQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_confirmarQuantidadeActionPerformed(evt);
+            }
+        });
 
         label_nome.setText("Nome:");
 
         label_classe.setText("Classe:");
 
-        textField_nome.setText("jTextField1");
-
-        button_confirmar_nome.setText("Confirmar Nome");
-        button_confirmar_nome.addActionListener(new java.awt.event.ActionListener() {
+        textField_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_confirmar_nomeActionPerformed(evt);
+                textField_nomeActionPerformed(evt);
             }
         });
 
-        button_confirmar_classe.setText("Confirmar Classe");
-        button_confirmar_classe.addActionListener(new java.awt.event.ActionListener() {
+        button_confirmarCriacao.setText("Confirmar");
+        button_confirmarCriacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_confirmar_classeActionPerformed(evt);
+                button_confirmarCriacaoActionPerformed(evt);
             }
         });
 
@@ -96,96 +129,147 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
             }
         });
 
-        cbox_classe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbox_classe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Guerreiro", "Mago", "Ladino" }));
+
+        label_Contexto.setText("Crie o Personagem .");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(label_selecione_quantidade)
                         .addGap(27, 27, 27)
+                        .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_confirmarQuantidade)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_Contexto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label_selecione_personagem)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(cbox_personagens, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label_selecione_quantidade)
-                                    .addGap(27, 27, 27)
-                                    .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(button_confirmar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(label_classe)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbox_classe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label_nome)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(button_confirmar_classe, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                    .addComponent(button_confirmar_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(button_iniciar_jogo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(label_nome)
+                                    .addGap(35, 35, 35)
+                                    .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(label_classe)
+                                    .addGap(29, 29, 29)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(button_confirmarCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbox_classe, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(76, 76, 76))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(button_iniciar_jogo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_selecione_quantidade)
                     .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_confirmar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_selecione_personagem)
-                    .addComponent(cbox_personagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(button_confirmarQuantidade))
+                .addGap(30, 30, 30)
+                .addComponent(label_Contexto)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_nome)
-                    .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_confirmar_nome))
+                    .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_classe)
-                    .addComponent(button_confirmar_classe)
                     .addComponent(cbox_classe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(button_confirmarCriacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_iniciar_jogo)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    //CONFIRMA A QUANTIDADE DE PERSONAGENS A SEREM CRIADOS:
+    private void button_confirmarQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmarQuantidadeActionPerformed
+        indiceJogador = 0;
+        quantidade = cbox_quantidade.getSelectedIndex() + 1;
+//        System.out.println("Quantidade: " + quantidade);
+        editaTextoTela();
+        //Coisas que vao aparecer:
+        button_confirmarCriacao.setVisible(true);
+        cbox_classe.setVisible(true);
+        label_Contexto.setVisible(true);
+        label_classe.setVisible(true);
+        label_nome.setVisible(true);
+        textField_nome.setVisible(true);
 
-    private void button_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmarActionPerformed
-        // TODO add your handling code here:
-        //Confirma quantidade de personagens a serem criados
-    }//GEN-LAST:event_button_confirmarActionPerformed
+        //Coisas que nao vao aparecer        
+        cbox_quantidade.setVisible(false);
+        button_confirmarQuantidade.setVisible(false);
+        label_selecione_quantidade.setVisible(false);
+//        button_editar.setVisible(false);
+        button_iniciar_jogo.setVisible(false);
+    }//GEN-LAST:event_button_confirmarQuantidadeActionPerformed
+    //CONFIRMA A CRIACAO DO PERSONAGEM
+    private void button_confirmarCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmarCriacaoActionPerformed
+//        System.out.println("indice: " + indiceJogador + " quantidade: " + quantidade);
+        if (indiceJogador < quantidade) {//Se ainda nao foram criado todos os personagens
+            criaJogador();
+            if (indiceJogador == quantidade - 1) {//Ultimo Personagem foi criado
+                //Coisas que vao aparecer:
+                button_iniciar_jogo.setVisible(true);
+//                button_editar.setVisible(true);
 
-    private void button_confirmar_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmar_nomeActionPerformed
-        // TODO add your handling code here:
-        //confirma nome do personagem selecionado
-    }//GEN-LAST:event_button_confirmar_nomeActionPerformed
+                //Coisas que nao vao aparecer  
+                button_confirmarCriacao.setVisible(false);
+                cbox_quantidade.setVisible(false);
+                button_confirmarQuantidade.setVisible(false);
+                label_selecione_quantidade.setVisible(false);
+                cbox_classe.setVisible(false);
+                label_Contexto.setVisible(false);
+                label_classe.setVisible(false);
+                label_nome.setVisible(false);
+                textField_nome.setVisible(false);
+            }
+            indiceJogador++;//Proximo Personagem que sera editado
+            editaTextoTela();
+        }
 
-    private void button_confirmar_classeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmar_classeActionPerformed
-        // TODO add your handling code here:
-        //confirma classe do perssonagem selecianado
-    }//GEN-LAST:event_button_confirmar_classeActionPerformed
-
+    }//GEN-LAST:event_button_confirmarCriacaoActionPerformed
+    //INICIA JOGO
     private void button_iniciar_jogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_iniciar_jogoActionPerformed
         // TODO add your handling code here:
-        //Muda para a tela Janela_Transicao
+        this.setVisible(false);
+        new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
     }//GEN-LAST:event_button_iniciar_jogoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //Coisas que vao aparecer:
+        indiceJogador = 0;//Personagem que sera editado
+        cbox_quantidade.setSelectedIndex(2);
+        cbox_quantidade.setVisible(true);
+        button_confirmarQuantidade.setVisible(true);
+        label_selecione_quantidade.setVisible(true);
+
+        //Coisas que nao vao aparecer
+        button_confirmarCriacao.setVisible(false);
+//        button_editar.setVisible(false);
+        button_iniciar_jogo.setVisible(false);
+        cbox_classe.setVisible(false);
+        label_Contexto.setVisible(false);
+        label_classe.setVisible(false);
+        label_nome.setVisible(false);
+        textField_nome.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void textField_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textField_nomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,16 +307,14 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_confirmar;
-    private javax.swing.JButton button_confirmar_classe;
-    private javax.swing.JButton button_confirmar_nome;
+    private javax.swing.JButton button_confirmarCriacao;
+    private javax.swing.JButton button_confirmarQuantidade;
     private javax.swing.JButton button_iniciar_jogo;
     private javax.swing.JComboBox<String> cbox_classe;
-    private javax.swing.JComboBox<String> cbox_personagens;
     private javax.swing.JComboBox<String> cbox_quantidade;
+    private javax.swing.JLabel label_Contexto;
     private javax.swing.JLabel label_classe;
     private javax.swing.JLabel label_nome;
-    private javax.swing.JLabel label_selecione_personagem;
     private javax.swing.JLabel label_selecione_quantidade;
     private javax.swing.JTextField textField_nome;
     // End of variables declaration//GEN-END:variables
