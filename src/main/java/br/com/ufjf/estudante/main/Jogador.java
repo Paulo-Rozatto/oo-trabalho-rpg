@@ -159,7 +159,7 @@ public class Jogador extends Personagem {
         try {
             mochilaConsumivel.add(item);
         } catch (NullPointerException e) {
-            System.out.println("Mochila cheia.");
+            throw new NullPointerException("Mochila cheia");
         }
 
     }
@@ -172,11 +172,11 @@ public class Jogador extends Personagem {
     }
     
     public Item getMochilaItemConsumivel(int indice){
-        if(indice>=0 && indice<mochilaConsumivel.size()){
+        try {
             return mochilaConsumivel.get(indice);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Índice Incorreto");
         }
-            Item vazio = new Item("Vazio");
-            return vazio;
     }
     
     public int retornaIndiceItemConsumivel(String nome){
@@ -200,7 +200,7 @@ public class Jogador extends Personagem {
             mochilaArmaduras.add(item);
         } catch (NullPointerException e) {
             
-            System.out.println("Mochila cheia.");
+            throw new NullPointerException("Mochila cheia");
         }
 
     }
@@ -212,12 +212,12 @@ public class Jogador extends Personagem {
     public int getMochilaArmadura(){
         return mochilaArmaduras.size();
     }
-    public Item getMochilaItemArmadura(int indice){
-        if(indice>=0 && indice<mochilaArmaduras.size()){
+    public Item getMochilaItemArmadura(int indice)throws NullPointerException{
+        try {
             return mochilaArmaduras.get(indice);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Índice Incorreto");
         }
-            Item vazio = new Item("Vazio");
-            return vazio;
     }
     
     public int retornaIndiceItemArmadura(String nome){
@@ -240,7 +240,7 @@ public class Jogador extends Personagem {
         try {
             mochilaArma.add(item);
         } catch (NullPointerException e) {
-            System.out.println("Mochila cheia.");
+            throw new NullPointerException("Mochila cheia");
         }
 
     }
@@ -252,12 +252,12 @@ public class Jogador extends Personagem {
     public int getMochilaArma(){
         return mochilaArmaduras.size();
     }
-    public Item getMochilaItemArma(int indice){
-        if(indice>=0 && indice<mochilaArmaduras.size()){
-            return mochilaArmaduras.get(indice);
+    public Item getMochilaItemArma(int indice) throws NullPointerException{
+        try {
+            return mochilaArma.get(indice);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Índice Incorreto");
         }
-            Item vazio = new Item("Vazio");
-            return vazio;
     }
     
     public int retornaIndiceItemArma(String nome){
