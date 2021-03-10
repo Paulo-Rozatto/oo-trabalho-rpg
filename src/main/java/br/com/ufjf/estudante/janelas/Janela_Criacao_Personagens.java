@@ -41,18 +41,45 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         int classe = cbox_classe.getSelectedIndex() + 1;
 
 //        System.out.println("Nome: " + nome + " Classe: " + classe);
+        if (classe == 1) {
+            int forca = 10;
+            int inteligencia = 10;
+            int destreza = 10;
+            AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
+            AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
+            ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+            ItemArma arma = new ItemArma(ataqueFisico, 0, "Mãos", 1);
+            ItemArmadura armadura = new ItemArmadura("Leve", 4, "tecido");
+            Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
+            grupoJogador.add(jogador);
+        }
 
-        int forca = 10;
-        int inteligencia = 10;
-        int destreza = 10;
-        AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
-        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
-        ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
-        ItemArma arma = new ItemArma(ataqueFisico, 0, "Mãos", 1);
-        ItemArmadura armadura = new ItemArmadura("Leve", 4, "tecido");
-//
-        Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
-        grupoJogador.add(jogador);
+        if (classe == 2) {
+            int forca = 10;
+            int inteligencia = 10;
+            int destreza = 10;
+            AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
+            AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
+            ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+            ItemArma arma = new ItemArma(ataqueFisico, 0, "Mãos", 1);
+            ItemArmadura armadura = new ItemArmadura("Leve", 4, "tecido");
+            Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
+            grupoJogador.add(jogador);
+        }
+
+        if (classe == 3) {
+            int forca = 10;
+            int inteligencia = 10;
+            int destreza = 10;
+            AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
+            AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
+            ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
+            ItemArma arma = new ItemArma(ataqueFisico, 0, "Mãos", 1);
+            ItemArmadura armadura = new ItemArmadura("Leve", 4, "tecido");
+            Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
+            grupoJogador.add(jogador);
+        }
+
     }
 
     private void editaTextoTela() {
