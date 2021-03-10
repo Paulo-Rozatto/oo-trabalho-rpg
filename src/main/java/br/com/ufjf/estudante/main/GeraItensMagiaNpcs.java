@@ -441,5 +441,228 @@ public class GeraItensMagiaNpcs{
     }
     
     
+    /////////////////////////////////////////////////////////////////////////////////MAGIAS
+    
+    ////////////////////////////////////////////////////////////////////////////////MAGIAS TIER 1
+    public AtackMagico adagaMental(){
+        AtackMagico magia = new AtackMagico("Adaga mental", 1, 6, 1, 1);
+        return magia;
+    }
+    
+    public AtackMagico explosaoDeChamas(){
+        AtackMagico magia = new AtackMagico("Explosão de Chamas", 1, 4, 0, 2);
+        return magia;
+    }
+    
+    public AtackMagico toqueChocante(){
+        AtackMagico magia = new AtackMagico("Toque Chocante", 1, 8, 0, 1);
+        return magia;
+    }
+    
+    public AtackMagico cranioVoadorVladisslav(){
+        AtackMagico magia = new AtackMagico("Crânio Voador de Vladislav", 2, 12, 0, 1);
+        return magia;
+    }
+    
+    public AtackMagico bolaDeFogo(){
+        AtackMagico magia = new AtackMagico("Bola de Fogo", 2,6 , 0, 2);
+        return magia;
+    }
+    
+    public AtackMagico relampago(){
+        AtackMagico magia = new AtackMagico("Relâmpago", 2, 8, 2, 1);
+        return magia;
+    }
+    
+    
+    
+    
+    
+  //////////////////////////////////////////////////////////////////////////// magias tier 2
+    
+    
+    
+    
+    public AtackMagico erupcaoGlacial(){
+        AtackMagico magia = new AtackMagico("Erupção Glacial", 4, 6, 2, 3);
+        return magia;
+    }
+    
+    public AtackMagico lancaIgneaAleph(){
+        AtackMagico magia = new AtackMagico("Lança Ígnea de Aleph", 4, 8, 2, 2);
+        return magia;
+    }
+    
+    public AtackMagico ferverSangue(){
+        AtackMagico magia = new AtackMagico("Ferver Sangue", 4, 6, 4, 2);
+        return magia;
+    }
+    
+    public AtackMagico relampagoFlamejanteReynard(){
+        AtackMagico magia = new AtackMagico("Relâmpago Flamejante de Raynard", 5, 8, 8, 2);
+        return magia;  
+    }
+    
+     public AtackMagico raioPolar(){
+        AtackMagico magia = new AtackMagico("Raio Polar", 5, 12, 6, 1);
+        return magia;
+    }
+     
+      public AtackMagico talhoInvisivelEdauros(){
+        AtackMagico magia = new AtackMagico("Talho Invisivel Edauros", 5, 8, 0, 3);
+        return magia;
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////// MAGIAS TIER 3
+    
+      
+      
+      
+      
+    public AtackMagico barragemElementalVectorius() {
+        AtackMagico magia = new AtackMagico("Barragem Elememntal de Vectorius", 8, 10, 2, 4);
+        return magia;
+    }
+   
+    public AtackMagico mataDragão() {
+        AtackMagico magia = new AtackMagico("Mata-Dragão", 8, 6, 8, 6);
+        return magia;
+    }
+    
+    public AtackMagico toqueMortal() {
+        AtackMagico magia = new AtackMagico("Toque Mortal", 8, 20, 2, 2);
+        return magia;
+    }
+    
+    public AtackMagico coleraAzgher() {
+        AtackMagico magia = new AtackMagico("Cólera de Azgher", 8, 12, 0, 3);
+        return magia;
+    }
+    
+    
+    
+  /////////////////////////////////////////////////////////////////////////////////////////////// NPCS
+    
+    public NpcInimigo esqueleto() {
+        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrpende aquilo que estava vivo se desfaz", "Esqueleto com espada", 1, 0, 1, 3,
+                this.espadaCurta(), this.armaduraAcolchoada());
+        return npc;
+    }
+
+    public NpcInimigo esqueletoArqueiro() {
+        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrpende aquilo que estava vivo se desfaz.", "Esqueleto com arco", 0, 0, 2, 3,
+                this.arco(), this.armaduraAcolchoada());
+        return npc;
+    }
+
+    public NpcInimigo orc() {
+        NpcInimigo npc = new NpcInimigo(4, "A criatura deixa cair sua arma no chão, logo depois elas cai junto.", "Orc", 3, 0, 1, 3,
+                this.machadoCortaArvores(), this.lorigaSegmentada());
+        return npc;
+    }
+    
+    public NpcInimigo Minotauro() {
+        NpcInimigo npc = new NpcInimigo(4, "Derrepende você escuta um a terra tremer e você percebe aquela criatura no chão.", "Minotauro", 3, 0, 0, 1,
+                this.machadoCortaArvoresM1(), this.lorigaSegmentada());
+        return npc;
+    }
+     
+    public NpcInimigo goblin() {
+        NpcInimigo npc = new NpcInimigo(4, "O pequenino some de sua vista, rapidamente você verifica seus bolsos *esta tudo aqui* e você percebe a criatura no seus pés.",
+                "Goblin", 0, 1, 3, 3,this.adaga(), this.armaduraAcolchoada());
+        return npc;
+    }
+    
+    public NpcInimigo aranhaGigante() {
+        NpcInimigo npc = new NpcInimigo(4, "Aquela criatura asquerosa tenta correr subir em suas teais mais acaba caindo.",
+                "Aranha Gigante", 3, 1, 0, 3,this.picareta(), this.armaduraCouro());
+        return npc;
+    }
+    
+    public NpcInimigo orcChefe() {
+        NpcInimigo npc = new NpcInimigo(8, "A criatura deixa cair sua arma no chão, logo depois elas cai junto.", "Orc Chefe", 4, 1, 2, 3,
+                this.lançaM1(), this.meiaArmadura());
+        return npc;
+    }
+    
+    public NpcInimigo elfoArqueiro() {
+        NpcInimigo npc = new NpcInimigo(6, "A criatura esguia coloca a mãona barriga e cai no chão desacordado.", "Elfo Arqueiro", 1, 3, 4, 3,
+                this.arcoM1(), this.couroBatido());
+        return npc;
+    }
+    
+    public NpcInimigo elfoMago() {
+        NpcInimigo npc = new NpcInimigo(6, "A criatura esguia coloca a mãona barriga e cai no chão desacordado.", "Elfo Mago", 0, 5, 2, 2,
+                this.cajadoM1(), this.couroBatido());
+        return npc;
+    }
+    
+   public NpcInimigo bandido(){
+       NpcInimigo npc = new NpcInimigo(6, "O homem cai no chão de bruços.", "Bandido", 1, 2, 4, 3,
+                this.adagaM1(), this.couroBatido());
+        return npc;
+   }
+   
+   public NpcInimigo centauro(){
+       NpcInimigo npc = new NpcInimigo(8, "Aquela criatura gigantescca faz uma ultima investida para cima de você e cai durante o percurso sem vida.", "Centauro", 4, 0, 3, 1,
+                this.espadaLongaM1(), this.meiaArmadura());
+        return npc;
+   }
+    
+    public NpcInimigo lobo(){
+       NpcInimigo npc = new NpcInimigo(6, "A criatura se deita no chão e encolhece", "Centauro", 2, 0, 3, 1,
+                this.adagaM2(), this.couroBatido());
+        return npc;
+   }
+    
+    public NpcInimigo ogro(){
+        NpcInimigo npc = new NpcInimigo(10, "Aquela gigantesca criatura cai no chão depois de muito esforço e você suspira.", "Ogro", 6, 0, 1, 1,
+                this.adagaM2(), this.couroBatido());
+        return npc;
+    }
+    
+    public NpcInimigo necromante(){
+        NpcInimigo npc = new NpcInimigo(8, "Aqeuele sujeito esquisito meio corcunda mal se aguenta mais em pé tenta se apoiar na sua arma mas vai ao chão.", "necromante",
+                2, 5, 0, 2,
+                this.espadaMagica(), this.couroBatido());
+        return npc;
+    }
+    
+    public NpcInimigo zumbi(){
+        NpcInimigo npc = new NpcInimigo(4, "A criatura fedorenta começa a se desfazer na sua frente primeiro caindo um dos braços depois a cabeça.", "Zumbi",
+                2, -1, 0, 1,this.foice(), this.brunea());
+        return npc;
+    }
+    
+    public NpcInimigo dragao(){
+        NpcInimigo npc = new NpcInimigo(12, "A criatura começa a voar para tentar escapar mas suas asas rasgadas pelos seus ataques não à ajudam e logo ela cai do céu sem vida."
+                , "Zumbi",6, 4, 2, 1,this.picaretaM2(), this.lorigaSegmentada());
+        return npc;
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
