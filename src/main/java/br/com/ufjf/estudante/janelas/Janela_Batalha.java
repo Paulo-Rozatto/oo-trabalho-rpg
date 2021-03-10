@@ -210,21 +210,21 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             if (i % 4 == 0 && i!=0) {
                 System.out.println("Aqui");
                 distanciax++;
-                distanciay = 0;
+                distanciay = 0.5d;
             }
         }
         distanciax = 1;
-        distanciay = 1;
+        distanciay = 0.5d;
         for (int i = 0; i < GrupoInimigo.getSize() && i < maxInimigo; i++) {
             spriteInimigo.add(new JLabel(GrupoInimigo.getInimigo(i).getSprite()));
             spriteInimigo.get(i).setSize(64, 64);//tamanho do sprite
-            spriteInimigo.get(i).setLocation((distanciax * 64) + 450, (int)(64*distanciay));//posicao
+            spriteInimigo.get(i).setLocation((distanciax * 6) * 64 , (int)(64*distanciay));//posicao
             distanciay++;
             painel.add(spriteInimigo.get(i));//adiciona no painel
             spriteInimigo.get(i).setVisible(true);//torna o sprite visivel
             if (i % 4 == 0 && i!=0) {
                 distanciax++;
-                distanciay = 0;
+                distanciay = 0.5d;
             }
         }
     }
