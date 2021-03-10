@@ -58,7 +58,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     public Janela_Batalha(List<Jogador> jogador, List<NpcInimigo> inimigos) {
         timer.start();
-        janelamMochila = new Janela_Mochila(this);
+        
         cronometroJogador = 0;
         cronometroInimigo = 0;
         poseJogador = -1;
@@ -69,6 +69,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         //Declare variaveis aqui e chame metodos em formWindowOpened()
         GrupoJogador.iniciaGrupo(jogador);
         GrupoInimigo.iniciaGrupo(0);
+        
+        janelamMochila = new Janela_Mochila(this);
 
         this.maxJogador = 6;
         this.maxInimigo = 6;
@@ -135,8 +137,9 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     
     private void atualiza_cboxItens(){
         
-        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
+//        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
 
+        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
         Item item; 
 
         for (int i = 0; i < tamanho; i++) {
@@ -171,7 +174,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         cbox_inimigo.setVisible(true); //Deixa caixa de selecao de inimigos, visivel
         cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         
-        atualiza_cboxItens();
+//        atualiza_cboxItens();
         
     }
 
