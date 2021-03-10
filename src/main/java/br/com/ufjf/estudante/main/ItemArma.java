@@ -27,7 +27,7 @@ public class ItemArma extends Item{
         this.danoArma = danoArma;
         this.bonusAtack = bonusAtack;
         this.tipo=tipo;
-        this.modelo = 0;//0 = consumivel, 1=arma, 2=armadura
+        this.modelo = 1;//0 = consumivel, 1=arma, 2=armadura
     }
   
     public int ataque(int defesaInimiga, int modficador) {
@@ -35,12 +35,13 @@ public class ItemArma extends Item{
         int guardaDado = this.dado.rodaDado(20);
 
         if (guardaDado + modficador + bonusAtack > defesaInimiga) {
-            System.out.println("O dado girado foi de " + (guardaDado + modficador) + " e precisava de " + defesaInimiga);
-            return this.danoArma.rodaDano(modficador);
-        }
-        if (guardaDado + modficador + bonusAtack > defesaInimiga) {
-            System.out.println("O dado girado foi de " + (guardaDado + modficador) + " e precisava de " + defesaInimiga);
-            return this.danoArma.rodaDano(modficador);
+            if (guardaDado == 20) {
+                System.out.println("O dado girado foi um critico!!!!!");
+                return this.danoArma.rodaDano(modficador) * 2;
+            } else {
+                System.out.println("O dado girado foi de " + (guardaDado + modficador) + " e precisava de " + defesaInimiga);
+                return this.danoArma.rodaDano(modficador);
+            }
         } else {
             System.out.println("O ataque não acertou o inimigo o dado tirado foi " + guardaDado);
             return 0;

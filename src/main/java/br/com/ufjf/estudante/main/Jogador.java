@@ -17,8 +17,10 @@ public class Jogador extends Personagem {
     private int level;//level atual
     private int barraDeExp;//experiencia atual para passar de level
     private int proxLevel;//experiencia a conquistada para poder passar de level
-    protected ArrayList<Item> mochila = new ArrayList<Item>();//
-    
+    protected ArrayList <ItemArma> mochilaArma;//
+    protected ArrayList <ItemConsumivel> mochilaConsumivel;
+    protected ArrayList <ItemArmadura> mochilaArmaduras;
+    protected GeraItensMagiaNpcs gerador;
     protected static ItemConsumivel itemConsumivel;
 /**
  *
@@ -32,11 +34,13 @@ public class Jogador extends Personagem {
         this.level = 1;
         this.barraDeExp = 0;
         this.proxLevel=10;
-        ItemConsumivel x = new ItemConsumivel(1, 4, "Poção pequena de cura");
-        for (int i = 0; i < 2; i++) {
-            this.addMochila(x);
-        }
-    }
+        this.mochilaArma= new ArrayList<ItemArma>(10);
+        this.mochilaArmaduras= new ArrayList<ItemArmadura>(10);
+        this.mochilaConsumivel= new ArrayList<ItemConsumivel>(15);
+        this.addMochilaConsumivel(gerador.pocaoHpMedia());
+        this.addMochilaConsumivel(gerador.pocaoMpMedia());
+            
+        }    
 
  /**
  *
@@ -49,7 +53,7 @@ public class Jogador extends Personagem {
         if (super.classe>=1 &&super.classe<=3) {
             System.out.println("Você subiu de Level PARABÉNS!!!!!!!\nAgora você esta no Level " + this.level);
             this.level++;
-            this.barraDeExp = (int) (this.barraDeExp + (this.barraDeExp * 0.5));
+            this.proxLevel = (int) (this.proxLevel + (this.proxLevel * 0.5));
             int guardaDado = 0;
             switch (super.classe) {
                 case 1:
@@ -82,6 +86,9 @@ public class Jogador extends Personagem {
         else
            System.out.println("Classe invalida");
     }
+    
+    
+    
     public int getLevel(){
         return this.level;
     }
@@ -123,6 +130,11 @@ public class Jogador extends Personagem {
         super.setArmadura(novaArmadura);
     }
     
+     @Override
+    public void setArma(ItemArma arma) {
+        this.arma = arma;
+    }
+    
     public void usarConsumivel(ItemConsumivel consumivel, int posiçãomochila) {
         switch (consumivel.getTipo()) {
             case 1:
@@ -140,59 +152,121 @@ public class Jogador extends Personagem {
                 }
                 break;
         }
-        removeItem(posiçãomochila);
+        removeItemConsumivel(posiçãomochila);
  
     }
-    public void addMochila(Item item) throws NullPointerException {
+    public void addMochilaConsumivel(ItemConsumivel item) throws NullPointerException {
         try {
-            mochila.add(item);
-        } catch (Exception e) {
-            throw new NullPointerException("Mochila cheia escolha um item para descartar.");
-            //removeItem(escolheItensMochila());  
+            mochilaConsumivel.add(item);
+        } catch (NullPointerException e) {
+            System.out.println("Mochila cheia.");
         }
 
     }
-    public void removeItem(int posição){
-        this.mochila.remove(posição);
+    public void removeItemConsumivel(int posição){
+        this.mochilaConsumivel.remove(posição);
+    }
+     
+    public int getMochilaConsumivelSize(){
+        return mochilaConsumivel.size();
     }
     
-    @Override
-    public void setArma(ItemArma arma) {
-        this.arma = arma;
-    }
-    
-    public int escolheItensMochila(){
-        for (int i = 0; i < mochila.size(); i++) {
-            mochila.get(i);
-            
-        }
-        //interface
-        /*
-        **mostra uma janela de itens e retorna o numero na possição desejada
-        */
-        //
-        return 1;
-    }
-    
-    public int getMochilaSize(){
-        return mochila.size();
-    }
-    public Item getMochilaItem(int indice){
-        if(indice>=0 && indice<mochila.size()){
-            return mochila.get(indice);
+    public Item getMochilaItemConsumivel(int indice){
+        if(indice>=0 && indice<mochilaConsumivel.size()){
+            return mochilaConsumivel.get(indice);
         }
             Item vazio = new Item("Vazio");
             return vazio;
     }
     
-    public int retornaIndiceItem(String nome){
+    public int retornaIndiceItemConsumivel(String nome){
         //Ainda nao foi testada
-        for (int i = 0; i < mochila.size(); i++) {
-            if(mochila.get(i).getNome() == nome){
+        for (int i = 0; i < mochilaConsumivel.size(); i++) {
+            if(mochilaConsumivel.get(i).getNome() == nome){
                 return i;
             }
         }
         return -1;
     }
     
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    public void addMochilaArmaduras(ItemArmadura item) throws NullPointerException {
+        try {
+            mochilaArmaduras.add(item);
+        } catch (NullPointerException e) {
+            
+            System.out.println("Mochila cheia.");
+        }
+
+    }
+    public void removeItemArmaduras(int posição){
+        this.mochilaArmaduras.remove(posição);
+    }
+    
+      
+    public int getMochilaArmadura(){
+        return mochilaArmaduras.size();
+    }
+    public Item getMochilaItemArmadura(int indice){
+        if(indice>=0 && indice<mochilaArmaduras.size()){
+            return mochilaArmaduras.get(indice);
+        }
+            Item vazio = new Item("Vazio");
+            return vazio;
+    }
+    
+    public int retornaIndiceItemArmadura(String nome){
+        //Ainda nao foi testada
+        for (int i = 0; i < mochilaArmaduras.size(); i++) {
+            if(mochilaArmaduras.get(i).getNome() == nome){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+     public void addMochilaArma(ItemArma item) throws NullPointerException {
+        try {
+            mochilaArma.add(item);
+        } catch (NullPointerException e) {
+            System.out.println("Mochila cheia.");
+        }
+
+    }
+    public void removeItemArma(int posição){
+        this.mochilaArma.remove(posição);
+    }
+    
+      
+    public int getMochilaArma(){
+        return mochilaArmaduras.size();
+    }
+    public Item getMochilaItemArma(int indice){
+        if(indice>=0 && indice<mochilaArmaduras.size()){
+            return mochilaArmaduras.get(indice);
+        }
+            Item vazio = new Item("Vazio");
+            return vazio;
+    }
+    
+    public int retornaIndiceItemArma(String nome){
+        //Ainda nao foi testada
+        for (int i = 0; i < mochilaArmaduras.size(); i++) {
+            if(mochilaArmaduras.get(i).getNome() == nome){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
