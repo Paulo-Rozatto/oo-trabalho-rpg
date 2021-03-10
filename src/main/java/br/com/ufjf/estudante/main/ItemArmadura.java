@@ -19,6 +19,7 @@ public class ItemArmadura extends Item{
         super(nome);
         this.tipo = tipo;
         this.bonusDefesa = bonusDefesa;
+        this.modelo = 2;//0 = consumivel, 1=arma, 2=armadura
     }
 
     public String getTipo() {

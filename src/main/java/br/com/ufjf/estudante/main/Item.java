@@ -13,14 +13,22 @@ package br.com.ufjf.estudante.main;
 public class Item {
     
     protected String nome;
+    //0 = consumivel, 1=arma, 2=armadura
+    protected int modelo;
     
     public Item(String nome) {
         this.nome = nome;
+        this.modelo = -1;
     }
 
     public String getNome() {
         return nome;
     }
+
+    public int getModelo() {
+        return modelo;
+    }
+    
     
     
     

@@ -174,5 +174,15 @@ public class Jogador extends Personagem {
         return 1;
     }
     
+    public int getMochilaSize(){
+        return mochila.size();
+    }
+    public Item getMochilaItem(int indice){
+        if(indice>=0 && indice<mochila.size()){
+            return mochila.get(indice);
+        }
+            Item vazio = new Item("Vazio");
+            return vazio;
+    }
     
 }

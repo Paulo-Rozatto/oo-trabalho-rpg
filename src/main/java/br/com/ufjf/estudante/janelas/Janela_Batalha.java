@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import br.com.ufjf.estudante.main.GrupoInimigo;
 import br.com.ufjf.estudante.main.GrupoJogador;
+import br.com.ufjf.estudante.main.Item;
 import br.com.ufjf.estudante.main.Jogador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,11 +114,38 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             spriteInimigo = new ArrayList<>(maxInimigo);
         }
     }
+    
+    private void limpa_cboxItens(){
+        for(int i = cbox_itens.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
+            cbox_itens.removeItemAt(i);
+        }
+    }
+    
+    private void atualiza_cboxItens(){
+        
+        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
+
+        Item item; 
+
+        for (int i = 0; i < tamanho; i++) {
+           item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItem(i);
+           if(item.getModelo() == 0){//Se for um item consumivel
+               cbox_itens.addItem(item.getNome());//Ela nao funciona com itens repetidos
+           }
+        }
+        
+    }
 
     private void iniciaComboBox() {//Caixa de selecao de personagem
 
+        cbox_personagem.addActionListener(this);//USADO PARA ADICIONA EVENTO NO FUNCAO ACTIONPERFORMED
+        
         atualizaMaximoPersonagens();
-
+        
+        limpa_cboxItens();
+        
+        
+        
 //        add(cbox_personagem);//Adiciona caixa de selecao de personagens
 //        add(cbox_inimigo);
         for (int i = 0; i < maxJogador; i++) {//Adiciona personagens na caixa de selecao
@@ -130,6 +158,9 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         cbox_personagem.removeItem("Vazio");
         cbox_inimigo.setVisible(true); //Deixa caixa de selecao de inimigos, visivel
         cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
+        
+        atualiza_cboxItens();
+        
     }
 
     private boolean confereSe_InimigoMorreu(int indice) {
@@ -717,6 +748,12 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     @Override
     //ESSA FUNCAO VAI RODAR EM LOOP CONFORME O timer DECLARADO
     public void actionPerformed(ActionEvent e) {
+        //IMPLEMENTACAO DE EVENTO AO SELECIONA COMBOBOX
+        if(e.getSource() == cbox_personagem){
+//            System.out.println("Texte evento cbox");
+            limpa_cboxItens();
+            atualiza_cboxItens();
+        }
         //IMPLEMENTACAO DOS BOTOES
         if (e.getSource() == botao_ataque) {
             if (isTurnoJogador && GrupoInimigo.getSize() > 0 && animacao == false) {

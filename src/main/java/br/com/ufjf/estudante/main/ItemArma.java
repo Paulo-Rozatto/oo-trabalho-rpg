@@ -27,6 +27,7 @@ public class ItemArma extends Item{
         this.danoArma = danoArma;
         this.bonusAtack = bonusAtack;
         this.tipo=tipo;
+        this.modelo = 0;//0 = consumivel, 1=arma, 2=armadura
     }
   
     public int ataque(int defesaInimiga, int modficador) {

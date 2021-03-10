@@ -22,6 +22,7 @@ public class ItemConsumivel extends Item{
         super(nome);
         this.tipo = tipo;
         this.valorBonus = valorBonus;
+        this.modelo = 0;//0 = consumivel, 1=arma, 2=armadura
     }
 
     public int getTipo() {
