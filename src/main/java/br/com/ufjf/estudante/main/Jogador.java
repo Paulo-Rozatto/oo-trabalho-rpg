@@ -185,4 +185,14 @@ public class Jogador extends Personagem {
             return vazio;
     }
     
+    public int retornaIndiceItem(String nome){
+        //Ainda nao foi testada
+        for (int i = 0; i < mochila.size(); i++) {
+            if(mochila.get(i).getNome() == nome){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
 }

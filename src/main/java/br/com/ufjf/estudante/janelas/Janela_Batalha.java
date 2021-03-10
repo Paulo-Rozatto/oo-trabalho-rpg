@@ -749,7 +749,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     //ESSA FUNCAO VAI RODAR EM LOOP CONFORME O timer DECLARADO
     public void actionPerformed(ActionEvent e) {
         //IMPLEMENTACAO DE EVENTO AO SELECIONA COMBOBOX
-        if(e.getSource() == cbox_personagem){
+        //Funciona porque foi adicionado um evento na funcai iniciaCombobox()
+        if(e.getSource() == cbox_personagem){//Sempre que o usuario selecionar um personagem na cbox...
 //            System.out.println("Texte evento cbox");
             limpa_cboxItens();
             atualiza_cboxItens();
