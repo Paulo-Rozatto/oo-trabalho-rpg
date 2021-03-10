@@ -54,10 +54,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private JButton botao_ataque;
     private JButton botao_magia;
     private JButton botao_item;
+    private JButton botao_mochila;
+    
+    private Janela_Mochila janelamMochila ;
 
     public Janela_Batalha(List<Jogador> jogador, List<NpcInimigo> inimigos) {
         dado = new Dado();
         timer.start();
+        janelamMochila = new Janela_Mochila(this);
         cronometroJogador = 0;
         cronometroInimigo = 0;
         poseJogador = -1;
@@ -96,11 +100,18 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         botao_item.setText("Item");//Texto
         botao_item.setSize(100, 25); //Tamanho
         botao_item.setLocation(10, 495);//Posicao
+        
+        botao_mochila = new JButton();
+        botao_mochila.addActionListener(this);//Adiciona evento
+        botao_mochila.setText("Mochila");//Texto
+        botao_mochila.setSize(100, 25); //Tamanho
+        botao_mochila.setLocation(10, 10);//Posicao
 
         //Adiciona botoes na tela
         this.add(botao_magia);
         this.add(botao_ataque);
         this.add(botao_item);
+        this.add(botao_mochila);
     }
 
     private void atualizaMaximoPersonagens() {
@@ -791,6 +802,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         if (e.getSource() == botao_item) {
             if (isTurnoJogador && GrupoInimigo.getSize() > 0 && animacao == false) {
                 poseJogador = 3;
+            }
+        }
+        if (e.getSource() == botao_mochila) {
+            if (isTurnoJogador && GrupoInimigo.getSize() > 0 && animacao == false) {
+                janelamMochila.setVisible(true);
+                this.setVisible(false);
+
+                
             }
         }
 
