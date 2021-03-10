@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -29,7 +30,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     //OS EVENTOS DOS BOTOES ESTAO NA FUNCAO actionPerformed() AGORA
     private boolean isTurnoJogador;
-    private int round;
+    private static int round;
 
     //TIMER EH A VELOCIDADE QUE actionPerformed() VAI FUNCIONAR EM LOOP, 1 VALE 1MILISEGUNDO
     Timer timer = new Timer(1, this);
@@ -128,7 +129,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         Item item; 
 
         for (int i = 0; i < tamanho; i++) {
-           item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItem(i);
+           item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
            if(item.getModelo() == 0){//Se for um item consumivel
                cbox_itens.addItem(item.getNome());//Ela nao funciona com itens repetidos
            }
@@ -169,6 +170,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 spriteInimigo.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteInimigo.get(indice));//remove o sprite do painel
                 spriteInimigo.remove(indice);
+                transicao(indice, 0);
                 if (GrupoInimigo.getSize() != 1) {
                     cbox_inimigo.removeItem(GrupoInimigo.getInimigo(indice).getNomePersonagem());
                 } else {
@@ -190,6 +192,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 spriteJogador.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteJogador.get(indice));//remove o sprite do painel
                 spriteJogador.remove(indice);
+                transicao(indice, 3);
                 if (GrupoJogador.getSize() != 1) {
                     cbox_personagem.removeItem(GrupoJogador.getJogador(indice).getNomePersonagem());
                 } else {
@@ -297,6 +300,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private void auxturnoInimigo() {
         System.out.println("Inimigo: ");
         GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).decideAcao(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
+        transicao(cbox_inimigo.getSelectedIndex(), 1);
         acaoInimigo = true;
         gerenciaTurno();
     }
@@ -306,9 +310,10 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         switch (tipoAtaque) {
             case 1:
                 GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueFisico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()));
+                transicao(cbox_personagem.getSelectedIndex(), 4);
                 break;
             case 2:
-                //GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()));
+                //GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa()), );
                 break;
         }
         acaoJogador = true;
@@ -863,5 +868,27 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 //        if(cronometro%1000==0){
 //            System.out.println("CRONOMETRO: "+cronometro+" s");
 //        }
+    }
+        public static void transicao(int auxiliar, int exibicao){
+        switch(exibicao){
+            case 0://Descrição de morte do Inimigo
+                JOptionPane.showConfirmDialog(null, GrupoInimigo.getInimigo(auxiliar).getDescricaoMorte(), GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " morreu", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+            case 1://Descrição de ataque físico do Inimigo
+                JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getArma().getTipoDano()), "Ação de " + GrupoInimigo.getInimigo(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+            case 2://Descrição de ataque mágico do Inimigo
+                //JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar)..getTipoDano()), "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+            case 3://Descrição de morte do Jogador
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " morreu"), "Morte", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+            case 4://Decrição de ataque do Jogador
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getArma().getTipoDano()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);                break;
+            case 6://Descrição de transição de Round
+                JOptionPane.showConfirmDialog(null, "Avançando para o próximo round...", "Round " + (round + 1), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+            case 7://Descrição de aumento de nível
+                JOptionPane.showConfirmDialog(null, GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " subiu para o nível " + GrupoJogador.getJogador(auxiliar).getLevel(), "Aumento de Nível", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);        }
+        //JOptionPane.showConfirmDialog(null, "Mensagem", "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
     }
 }
