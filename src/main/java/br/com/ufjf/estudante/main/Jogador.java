@@ -17,7 +17,7 @@ public class Jogador extends Personagem {
     private int level;//level atual
     private int barraDeExp;//experiencia atual para passar de level
     private int proxLevel;//experiencia a conquistada para poder passar de level
-    protected ArrayList<Item> mochila;//
+    protected ArrayList<Item> mochila = new ArrayList<Item>();//
     
     protected static ItemConsumivel itemConsumivel;
 /**
@@ -34,7 +34,7 @@ public class Jogador extends Personagem {
         this.proxLevel=10;
         ItemConsumivel x = new ItemConsumivel(1, 4, "Poção pequena de cura");
         for (int i = 0; i < 2; i++) {
-            //this.addMochila(x);
+            this.addMochila(x);
         }
     }
 
