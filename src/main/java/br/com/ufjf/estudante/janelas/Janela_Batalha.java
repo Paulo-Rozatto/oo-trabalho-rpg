@@ -6,6 +6,7 @@
  */
 package br.com.ufjf.estudante.janelas;
 
+import br.com.ufjf.estudante.main.Dado;
 import br.com.ufjf.estudante.main.NpcInimigo;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -31,7 +32,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     //OS EVENTOS DOS BOTOES ESTAO NA FUNCAO actionPerformed() AGORA
     private boolean isTurnoJogador;
     private static int round;
-
+    private Dado dado;
+    
     //TIMER EH A VELOCIDADE QUE actionPerformed() VAI FUNCIONAR EM LOOP, 1 VALE 1MILISEGUNDO
     Timer timer = new Timer(1, this);
 //    int cronometro = 0;
@@ -54,6 +56,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private JButton botao_item;
 
     public Janela_Batalha(List<Jogador> jogador, List<NpcInimigo> inimigos) {
+        dado = new Dado();
         timer.start();
         cronometroJogador = 0;
         cronometroInimigo = 0;
@@ -298,9 +301,23 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         poseInimigo = 1;//Pose de ataqu
     }
     private void auxturnoInimigo() {
+        int tipoAtaque = dado.rodaDado(2);
+        int idMagia;
         System.out.println("Inimigo: ");
         GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).decideAcao(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
-        transicao(cbox_inimigo.getSelectedIndex(), 1);
+        switch(tipoAtaque){
+            case 2:
+                if(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias() > 0){//Caso o personagem possua alguma magia
+                    idMagia = dado.rodaDado(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias()) - 1;
+                    GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueMagico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa(), GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getAtackMagico(idMagia)));
+                    transicao(cbox_inimigo.getSelectedIndex(), 2);
+                    break;
+                }
+            case 1:
+                GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
+                transicao(cbox_inimigo.getSelectedIndex(), 1);
+                break;
+        }
         acaoInimigo = true;
         gerenciaTurno();
     }
@@ -869,26 +886,41 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 //            System.out.println("CRONOMETRO: "+cronometro+" s");
 //        }
     }
-        public static void transicao(int auxiliar, int exibicao){
-        switch(exibicao){
+    public static void transicao(int exibicao) {
+        switch (exibicao){
+            case 6://Descrição de transição de Round
+                JOptionPane.showConfirmDialog(null, "Avançando para o próximo round...", "Round " + (round + 1), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+        }
+    }
+
+    public static void transicao(int auxiliar, int exibicao){
+        switch (exibicao){
             case 0://Descrição de morte do Inimigo
                 JOptionPane.showConfirmDialog(null, GrupoInimigo.getInimigo(auxiliar).getDescricaoMorte(), GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " morreu", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 1://Descrição de ataque físico do Inimigo
                 JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getArma().getTipoDano()), "Ação de " + GrupoInimigo.getInimigo(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
-            case 2://Descrição de ataque mágico do Inimigo
-                //JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar)..getTipoDano()), "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
-                break;
             case 3://Descrição de morte do Jogador
                 JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " morreu"), "Morte", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 4://Decrição de ataque do Jogador
-                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getArma().getTipoDano()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);                break;
-            case 6://Descrição de transição de Round
-                JOptionPane.showConfirmDialog(null, "Avançando para o próximo round...", "Round " + (round + 1), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getArma().getTipoDano()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
             case 7://Descrição de aumento de nível
-                JOptionPane.showConfirmDialog(null, GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " subiu para o nível " + GrupoJogador.getJogador(auxiliar).getLevel(), "Aumento de Nível", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);        }
+                JOptionPane.showConfirmDialog(null, GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " subiu para o nível " + GrupoJogador.getJogador(auxiliar).getLevel(), "Aumento de Nível", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+        }
         //JOptionPane.showConfirmDialog(null, "Mensagem", "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+    }
+    public static void transicao(int auxiliar, int exibicao, int idMagia){
+        switch(exibicao){
+            case 2://Descrição de ataque mágico do Inimigo
+                JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getAtackMagico(idMagia).getNomeMagia()), "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+            case 5://Descrição de ataque mágico do Jogador
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getAtackMagico(idMagia).getNomeMagia()), "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                break;
+        }
     }
 }
