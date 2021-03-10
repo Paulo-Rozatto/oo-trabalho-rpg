@@ -278,7 +278,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Coisas que vao aparecer:
         indiceJogador = 0;//Personagem que sera editado
-        cbox_quantidade.setSelectedIndex(2);
+        cbox_quantidade.setSelectedIndex(3);
         cbox_quantidade.setVisible(true);
         button_confirmarQuantidade.setVisible(true);
         label_selecione_quantidade.setVisible(true);

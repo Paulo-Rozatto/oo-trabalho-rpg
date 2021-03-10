@@ -55,6 +55,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private JButton botao_magia;
     private JButton botao_item;
     private JButton botao_mochila;
+     
+    private JComboBox<String> cbox_magia;
     
     private Janela_Mochila janelamMochila ;
 
@@ -88,32 +90,95 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         botao_ataque = new JButton();
         botao_ataque.addActionListener(this);//Adiciona evento
         botao_ataque.setText("Ataque");//Texto
-        botao_ataque.setSize(100, 25); //Tamanho
-        botao_ataque.setLocation(10, 425);//Posicao
+        botao_ataque.setSize(100, 35); //Tamanho
+        botao_ataque.setLocation(10, 515);//Posicao
 
         botao_magia = new JButton();
         botao_magia.addActionListener(this);//Adiciona evento
         botao_magia.setText("Magia");//Texto
-        botao_magia.setSize(100, 25); //Tamanho
-        botao_magia.setLocation(10, 460);//Posicao
+        botao_magia.setSize(100, 35); //Tamanho
+        botao_magia.setLocation(10, 550);//Posicao
 
         botao_item = new JButton();
         botao_item.addActionListener(this);//Adiciona evento
         botao_item.setText("Item");//Texto
-        botao_item.setSize(100, 25); //Tamanho
-        botao_item.setLocation(10, 495);//Posicao
+        botao_item.setSize(100, 35); //Tamanho
+        botao_item.setLocation(10, 585);//Posicao
         
         botao_mochila = new JButton();
         botao_mochila.addActionListener(this);//Adiciona evento
         botao_mochila.setText("Mochila");//Texto
-        botao_mochila.setSize(100, 25); //Tamanho
-        botao_mochila.setLocation(10, 10);//Posicao
+        botao_mochila.setSize(100, 35); //Tamanho
+        botao_mochila.setLocation(10, 620);//Posicao
 
         //Adiciona botoes na tela
         this.add(botao_magia);
         this.add(botao_ataque);
         this.add(botao_item);
         this.add(botao_mochila);
+    }
+    
+    private void realocaPosicaoItens(){
+        this.remove(painel);
+        painel.setSize(1020, 350);
+        this.add(painel);
+        
+        this.remove(cbox_itens);
+        cbox_itens.setLocation(110, 585);
+        cbox_itens.setSize(200, 35);
+        this.add(cbox_itens);
+        
+        cbox_magia = new JComboBox<String>();
+        cbox_magia.setLocation(110, 550);
+        cbox_magia.setSize(200, 35);
+        this.add(cbox_magia);
+        
+        this.remove(jLabel1);
+        this.remove(cbox_personagem);
+        jLabel1.setLocation(10,420);
+        cbox_personagem.setLocation(150, 415);        
+        this.add(cbox_personagem);
+        this.add(jLabel1);
+        
+        this.remove(label_HP_Jogador);
+        this.remove(label_MP_Jogador);
+        label_HP_Jogador.setLocation(10, 450);
+        label_MP_Jogador.setLocation(10, 485);
+        this.add(label_HP_Jogador);
+        this.add(label_MP_Jogador);
+        
+        this.remove(hitPointsJogador);
+        this.remove(mpPointsJogador);
+        hitPointsJogador.setLocation(120, 445);
+        mpPointsJogador.setLocation(120, 480);
+        this.add(hitPointsJogador);
+        this.add(mpPointsJogador);
+        
+        
+        this.remove(jLabel2);
+        this.remove(cbox_inimigo);
+        jLabel2.setLocation(450,420);
+        cbox_inimigo.setLocation(590, 415);        
+        this.add(cbox_inimigo);
+        this.add(jLabel2);
+        
+        this.remove(label_HP_Inimigo);
+        this.remove(label_MP_Inimigo);
+        label_HP_Inimigo.setLocation(450, 450);
+        label_MP_Inimigo.setLocation(450, 485);
+        this.add(label_HP_Inimigo);
+        this.add(label_MP_Inimigo);
+        
+        this.remove(hitPointsInimigo);
+        this.remove(mpPointsInimigo);
+        hitPointsInimigo.setLocation(560, 445);
+        mpPointsInimigo.setLocation(560, 480);
+        this.add(hitPointsInimigo);
+        this.add(mpPointsInimigo);
+//        
+//        this.add(jLabel1);
+//        jLabel1.setVisible(true);
+//        cbox_personagem.setLocation(400, 400);
     }
 
     private void atualizaMaximoPersonagens() {
@@ -139,6 +204,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     }
     
     private void atualiza_cboxItens(){
+        limpa_cboxItens();
         
 //        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
 
@@ -584,6 +650,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
         this.setResizable(false);// true: Habilita/false: Desabilita maximizar
         this.setTitle("Trabalho o-o");//titulo
+        this.setSize(1020, 720);
+        realocaPosicaoItens();
 
         alocaBotoes();
         atualizaLabeldeHP(0, 0);
