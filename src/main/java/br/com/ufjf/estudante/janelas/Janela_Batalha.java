@@ -59,7 +59,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
      
     private JComboBox<String> cbox_magia;
     
-    private Janela_Mochila janelamMochila ;
 
     public Janela_Batalha(List<Jogador> jogador, List<NpcInimigo> inimigos) {
         dado = new Dado();
@@ -76,7 +75,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         GrupoJogador.iniciaGrupo(jogador);
         GrupoInimigo.iniciaGrupo(0);
         
-        janelamMochila = new Janela_Mochila(this);
 
         this.maxJogador = 6;
         this.maxInimigo = 6;
@@ -937,6 +935,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         }
         if (e.getSource() == botao_mochila) {
             if (isTurnoJogador && GrupoInimigo.getSize() > 0 && animacao == false) {
+                Janela_Mochila janelamMochila = new Janela_Mochila(this);
                 janelamMochila.setVisible(true);
                 this.setVisible(false);
 
