@@ -157,7 +157,7 @@ public abstract class Personagem {
         this.armadura = armadura;
         this.classe = classe;
         corrigeClasse(classe);
-        ListaMagias = new LinkedList<AtackMagico>();
+        ListaMagias = new ArrayList<AtackMagico>();
     }
 
     //construtor sem classe
@@ -251,12 +251,36 @@ public abstract class Personagem {
         }
     }
 
-    public void ListaMagias() {
-        for (int i = 0; i < ListaMagias.size(); i++) {
-            ListaMagias.get(i).getNomeMagia();
+    public AtackMagico ListaMagias(int i)throws NullPointerException{
+        try {
+            return ListaMagias.get(i);
+        } catch (NullPointerException e) {
+              throw new NullPointerException("Índice Incorreto");
         }
-        //
-        //
+    }
+    
+    
+    public void addMagia(AtackMagico magia){
+            ListaMagias.add(magia);
+    }
+    
+    public void removeMagia(int posição){
+        this.ListaMagias.remove(posição);
+    }
+    
+      
+    public int getSizeListaMagias(){
+        return ListaMagias.size();
+    }
+    
+    
+    public int listaMagiaRetornaIndicie(String nome){
+        for (int i = 0; i < ListaMagias.size(); i++) {
+            if(ListaMagias.get(i).getNomeMagia()== nome){
+                return i;
+            }
+        }
+        return -1;
     }
 
     //PARTE RESERVADA A INTERFACE GRAFICA
