@@ -289,25 +289,25 @@ public abstract class Personagem {
 
     //PARTE RESERVADA A INTERFACE GRAFICA
     protected void geraSprite() {
-        sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+        sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
         switch (classe) {
 
             case 1:
-                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
                 break;
             case 2:
-                sprite = new ImageIcon("res\\jogador\\mago.png"); //Pasta onde esta a imagem
+                sprite = new ImageIcon("res/jogador/mago.png"); //Pasta onde esta a imagem
                 break;
             case 3:
-                sprite = new ImageIcon("res\\jogador\\ladino.png"); //Pasta onde esta a imagem
+                sprite = new ImageIcon("res/jogador/ladino.png"); //Pasta onde esta a imagem
                 break;
             default:
-                sprite = new ImageIcon("res\\jogador\\guerreiro.png"); //Pasta onde esta a imagem
+                sprite = new ImageIcon("res/jogador/guerreiro.png"); //Pasta onde esta a imagem
         }
     }
 
     protected void geraSpriteInimigo() {
-        sprite = new ImageIcon("res\\inimigos\\orc_padrao.gif"); //Pasta onde esta a imagem
+        sprite = new ImageIcon("res/inimigos/orc_padrao.gif"); //Pasta onde esta a imagem
         switch (classe) {
 
             case 1:
