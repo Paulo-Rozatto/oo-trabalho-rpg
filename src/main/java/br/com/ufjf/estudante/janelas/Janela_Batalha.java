@@ -214,11 +214,29 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
         int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
         Item item; 
-
+        System.out.println("Tamanho: " + tamanho);
         for (int i = 0; i < tamanho; i++) {
            item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
            if(item.getModelo() == 0){//Se for um item consumivel
-               cbox_itens.addItem(item.getNome());//Ela nao funciona com itens repetidos
+               int j;
+               for(j = 0; j < cbox_itens.getItemCount(); j++){
+                   if(cbox_itens.getItemAt(j).indexOf(item.getNome()) == 0){
+                       if(cbox_itens.getItemAt(j).equals(item.getNome())){
+                           cbox_itens.addItem(item.getNome() + "(x2)");
+                           cbox_itens.removeItemAt(j);
+                           break;
+                       }
+                       else{
+                           char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
+                           System.out.println(quantidade);
+                           cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
+                           cbox_itens.removeItemAt(j);
+                           break;
+                       }
+                   }
+               }
+               if(j == cbox_itens.getItemCount())
+                    cbox_itens.addItem(item.getNome());//Ela funciona com itens repetidos
            }
         }
         
@@ -438,10 +456,17 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 break;
             case 3:
                 if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize() > cbox_itens.getSelectedIndex()){
-                    transicao(cbox_personagem.getSelectedIndex(), 9, cbox_itens.getSelectedIndex());
+                    int id = -1;
+                    for(int i = 0; i < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize(); i++){
+                        String Item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i).getNome();
+                        if(cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).indexOf(Item) == 0)
+                            id = i;
+                    }
+                    transicao(cbox_personagem.getSelectedIndex(), 9, id);
                     GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).usarConsumivel(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(cbox_itens.getSelectedIndex()), cbox_itens.getSelectedIndex());
                     atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
                     atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
+                    atualiza_cboxItens();
                 }
                 return;
         }
