@@ -37,8 +37,15 @@ public class Jogador extends Personagem {
         this.mochilaArma= new ArrayList<ItemArma>(10);
         this.mochilaArmaduras= new ArrayList<ItemArmadura>(10);
         this.mochilaConsumivel= new ArrayList<ItemConsumivel>(15);
-        this.addMochilaConsumivel(gerador.pocaoHpMedia());
-        this.addMochilaConsumivel(gerador.pocaoMpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
+        this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
             
         }    
 
