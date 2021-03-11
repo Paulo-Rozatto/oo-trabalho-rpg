@@ -459,7 +459,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     int id = -1;
                     for(int i = 0; i < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize(); i++){
                         String Item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i).getNome();
-                        if(cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).indexOf(Item) == 0)
+                        if((cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == Item.length()) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).indexOf(Item) == 0)
                             id = i;
                     }
                     transicao(cbox_personagem.getSelectedIndex(), 9, id);
