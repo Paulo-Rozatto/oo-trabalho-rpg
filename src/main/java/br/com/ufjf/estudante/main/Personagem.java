@@ -195,9 +195,11 @@ public abstract class Personagem {
         int guardaDado = this.dado.rodaDado(20);
         if (modForça < modDestreza) {
             System.out.println("O dado girado foi de " + (guardaDado + modDestreza) + " e precisava de " + defesaInimiga);
+            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modDestreza), defesaInimiga);
             return this.arma.ataque(defesaInimiga, this.modDestreza);
         } else {
             System.out.println("O dado girado foi de " + (guardaDado + modForça) + " e precisava de " + defesaInimiga);
+            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modForça), defesaInimiga);
             return this.arma.ataque(defesaInimiga, this.modForça);
         }
 
@@ -213,6 +215,7 @@ public abstract class Personagem {
         if (this.manaPoints >= magia.getPM()) {
             int guardaDado = this.dado.rodaDado(20);
             if (guardaDado + this.modInteligencia > defesaInimiga) {
+                AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);
                 if (arma.getTipo() == 2) {
                     this.manaAtual = -magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
@@ -224,6 +227,7 @@ public abstract class Personagem {
                 }
             } else {
                 System.out.println("Sem Pontos de Mana suficientes para esta magia");
+                AuxiliarGeraTexto.setTextoAtaqueMagico();
                 return 0;
             }
         }
@@ -245,7 +249,7 @@ public abstract class Personagem {
      * vida e verifica a morte do personagem
      */
     public void sofreAtack(int danoInimigo) {
-        this.vidaAtual = -danoInimigo;
+        this.vidaAtual = this.vidaAtual - danoInimigo;
         if (this.vidaAtual <= 0) {
             this.morte();
         }

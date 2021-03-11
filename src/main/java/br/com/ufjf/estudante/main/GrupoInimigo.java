@@ -44,6 +44,8 @@ public class GrupoInimigo{
                 nome = "Esqueleto 2";
                 inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, classe, itemArma, armadura);
                 grupoInimigo.add(inimigo);
+                GrupoInimigo.getInimigo(0).addMagia(GeraItensMagiaNpcs.adagaMental());
+                GrupoInimigo.getInimigo(1).addMagia(GeraItensMagiaNpcs.adagaMental());
                  break;
              case 1:
                  break;
