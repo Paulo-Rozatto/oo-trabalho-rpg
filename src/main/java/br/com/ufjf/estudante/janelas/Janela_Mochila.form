@@ -51,11 +51,11 @@
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="cbox_armaduras" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="cbox_armadurasMochila" min="-2" pref="182" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="cbox_armas" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="cbox_armasMochila" min="-2" pref="182" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -73,7 +73,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="label_personagem" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbox_personagem" min="-2" pref="182" max="-2" attributes="0"/>
+                              <Component id="cbox_personagemMochila" min="-2" pref="182" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -101,7 +101,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cbox_personagem" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbox_personagemMochila" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="label_personagem" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -121,13 +121,13 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbox_armas" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbox_armasMochila" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="label_arma" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="label_jogador" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbox_armaduras" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbox_armadurasMochila" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -167,22 +167,28 @@
         <Property name="text" type="java.lang.String" value="Armadura do Personagem:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbox_armas">
+    <Component class="javax.swing.JComboBox" name="cbox_armasMochila">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_armasMochilaActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbox_armaduras">
+    <Component class="javax.swing.JComboBox" name="cbox_armadurasMochila">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_armadurasMochilaActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -199,16 +205,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_excluirArmaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="botao_equiparArmadura">
       <Properties>
         <Property name="text" type="java.lang.String" value="Equipar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_equiparArmaduraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botao_excluirArmadura">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_excluirArmaduraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_danoAtual">
       <Properties>
@@ -235,14 +250,14 @@
         <Property name="text" type="java.lang.String" value="Personagem:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbox_personagem">
+    <Component class="javax.swing.JComboBox" name="cbox_personagemMochila">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_personagemActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_personagemMochilaActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

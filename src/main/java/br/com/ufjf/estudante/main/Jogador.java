@@ -37,6 +37,9 @@ public class Jogador extends Personagem {
         this.mochilaArma= new ArrayList<ItemArma>(10);
         this.mochilaArmaduras= new ArrayList<ItemArmadura>(10);
         this.mochilaConsumivel= new ArrayList<ItemConsumivel>(15);
+        this.addMochilaArma(arma);
+        this.addMochilaArmaduras(armadura);
+        
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoHpMedia());
@@ -46,6 +49,9 @@ public class Jogador extends Personagem {
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
         this.addMochilaConsumivel(GeraItensMagiaNpcs.pocaoMpMedia());
+        this.addMochilaArma(GeraItensMagiaNpcs.arco());
+        this.addMochilaArma(GeraItensMagiaNpcs.adaga());
+        this.addMochilaArmaduras(GeraItensMagiaNpcs.couraça());
             
         }    
 
@@ -219,7 +225,7 @@ public class Jogador extends Personagem {
     public int getMochilaArmadura(){
         return mochilaArmaduras.size();
     }
-    public Item getMochilaItemArmadura(int indice)throws NullPointerException{
+    public ItemArmadura getMochilaItemArmadura(int indice)throws NullPointerException{
         try {
             return mochilaArmaduras.get(indice);
         } catch (NullPointerException e) {
@@ -257,9 +263,9 @@ public class Jogador extends Personagem {
     
       
     public int getMochilaArma(){
-        return mochilaArmaduras.size();
+        return mochilaArma.size();
     }
-    public Item getMochilaItemArma(int indice) throws NullPointerException{
+    public ItemArma getMochilaItemArma(int indice) throws NullPointerException{
         try {
             return mochilaArma.get(indice);
         } catch (NullPointerException e) {

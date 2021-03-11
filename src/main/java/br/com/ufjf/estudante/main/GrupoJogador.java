@@ -28,5 +28,9 @@ public class GrupoJogador{
      public static void removeJogador(int id){
          if(grupoJogador.size() > 0)
             grupoJogador.remove(id);
+         System.out.println("Tamanho: " + grupoJogador.size());
+         for(int i = 0; i < grupoJogador.size(); i++){
+             System.out.println("grupoJogador.get(" + i + ").getNomePersonagem(): " + grupoJogador.get(i).getNomePersonagem());
+         }
      }
 }

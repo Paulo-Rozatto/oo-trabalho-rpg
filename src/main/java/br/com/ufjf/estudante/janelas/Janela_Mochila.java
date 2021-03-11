@@ -7,6 +7,8 @@ package br.com.ufjf.estudante.janelas;
 
 import br.com.ufjf.estudante.main.GrupoJogador;
 import br.com.ufjf.estudante.main.Item;
+import br.com.ufjf.estudante.main.ItemArma;
+import br.com.ufjf.estudante.main.ItemArmadura;
 import br.com.ufjf.estudante.main.Jogador;
 import java.util.List;
 
@@ -26,56 +28,66 @@ public class Janela_Mochila extends javax.swing.JFrame {
     //FUNCOES PARA ATUALIZACAO DAS COMBOBOX
     //cbox personagem:
     private void limpaComboBox_Personagem(){
-        for(int i = cbox_personagem.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
-            cbox_personagem.removeItemAt(i);
+        for(int i = cbox_personagemMochila.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
+            cbox_personagemMochila.removeItemAt(i);
         }
     }
     
     private void iniciaComboBox_Personagem(){
         limpaComboBox_Personagem();
         for (int i = 0; i < GrupoJogador.getSize(); i++) {
-            cbox_personagem.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
+            cbox_personagemMochila.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
         }
+        iniciaComboBox_Armas(0);
+        iniciaComboBox_Armaduras(0);
     }
     
     //cbox armas:
     private void limpaComboBox_Armas(){
-        for(int i = cbox_armas.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
-            cbox_armas.removeItemAt(i);
+        for(int i = cbox_armasMochila.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
+            cbox_armasMochila.removeItemAt(i);
         }
     }
     
-    private void iniciaComboBox_Armas(){
+    private void iniciaComboBox_Armas(int id){
         limpaComboBox_Armas();
-        Item item;
-        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaArma();
+        ItemArma item;
+        int tamanho = GrupoJogador.getJogador(id).getMochilaArma();
         for (int i = 0; i < tamanho; i++) {
-            item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemArma(i);
+            item = GrupoJogador.getJogador(id).getMochilaItemArma(i);
             if(item.getModelo()==1){
-                cbox_armas.addItem(item.getNome());
+                cbox_armasMochila.addItem(item.getNome());
             }
         }
+        label_mostraDano.setText("" + GrupoJogador.getJogador(id).getMochilaItemArma(0).getDanoArma());
     }
-    
+    private void alteraLabelDano(int id){
+    if(GrupoJogador.getSize() > cbox_personagemMochila.getSelectedIndex() && id > 0 && id < GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaArma())
+            label_mostraDano.setText("" + GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaItemArma(id).getDanoArma());
+    }
     //cbox armaduras:
     private void limpaComboBox_Armaduras(){
-        for(int i = cbox_armaduras.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
-            cbox_armaduras.removeItemAt(i);
+        for(int i = cbox_armadurasMochila.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
+            cbox_armadurasMochila.removeItemAt(i);
         }
     }
     
-    private void iniciaComboBox_Armaduras(){
+    private void iniciaComboBox_Armaduras(int id){
         limpaComboBox_Armaduras();
-        Item item;
-        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaArmadura();
+        ItemArmadura item;
+        int tamanho = GrupoJogador.getJogador(id).getMochilaArmadura();
         for (int i = 0; i < tamanho; i++) {
-            item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemArma(i);
+            item = GrupoJogador.getJogador(id).getMochilaItemArmadura(i);
             if(item.getModelo()==2){
-                cbox_armas.addItem(item.getNome());
+                cbox_armadurasMochila.addItem(item.getNome());
             }
         }
+        label_mostraDefesa.setText("" + GrupoJogador.getJogador(id).getMochilaItemArmadura(0).getBonusDefesa());
     }
-
+    private void alteraLabelDefesa(int id){
+        if(GrupoJogador.getSize() > cbox_personagemMochila.getSelectedIndex() && id > 0 && id < GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaArmadura())
+            label_mostraDefesa.setText("" + GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaItemArmadura(id).getBonusDefesa());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,8 +100,8 @@ public class Janela_Mochila extends javax.swing.JFrame {
         label_arma = new javax.swing.JLabel();
         botao_ok = new javax.swing.JButton();
         label_jogador = new javax.swing.JLabel();
-        cbox_armas = new javax.swing.JComboBox<>();
-        cbox_armaduras = new javax.swing.JComboBox<>();
+        cbox_armasMochila = new javax.swing.JComboBox<>();
+        cbox_armadurasMochila = new javax.swing.JComboBox<>();
         botao_equiparArma = new javax.swing.JButton();
         botao_excluirArma = new javax.swing.JToggleButton();
         botao_equiparArmadura = new javax.swing.JToggleButton();
@@ -99,7 +111,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
         label_mostraDano = new javax.swing.JLabel();
         label_mostraDefesa = new javax.swing.JLabel();
         label_personagem = new javax.swing.JLabel();
-        cbox_personagem = new javax.swing.JComboBox<>();
+        cbox_personagemMochila = new javax.swing.JComboBox<>();
         label_informacao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -125,6 +137,18 @@ public class Janela_Mochila extends javax.swing.JFrame {
 
         label_jogador.setText("Armadura do Personagem:");
 
+        cbox_armasMochila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_armasMochilaActionPerformed(evt);
+            }
+        });
+
+        cbox_armadurasMochila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_armadurasMochilaActionPerformed(evt);
+            }
+        });
+
         botao_equiparArma.setText("Equipar");
         botao_equiparArma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,10 +157,25 @@ public class Janela_Mochila extends javax.swing.JFrame {
         });
 
         botao_excluirArma.setText("Excluir");
+        botao_excluirArma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_excluirArmaActionPerformed(evt);
+            }
+        });
 
         botao_equiparArmadura.setText("Equipar");
+        botao_equiparArmadura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_equiparArmaduraActionPerformed(evt);
+            }
+        });
 
         botao_excluirArmadura.setText("Excluir");
+        botao_excluirArmadura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_excluirArmaduraActionPerformed(evt);
+            }
+        });
 
         label_danoAtual.setText("Dano Atual da arma do jogador:");
 
@@ -148,9 +187,9 @@ public class Janela_Mochila extends javax.swing.JFrame {
 
         label_personagem.setText("Personagem:");
 
-        cbox_personagem.addActionListener(new java.awt.event.ActionListener() {
+        cbox_personagemMochila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_personagemActionPerformed(evt);
+                cbox_personagemMochilaActionPerformed(evt);
             }
         });
 
@@ -179,10 +218,10 @@ public class Janela_Mochila extends javax.swing.JFrame {
                                         .addGap(16, 16, 16))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(cbox_armaduras, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbox_armadurasMochila, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(16, 16, 16))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cbox_armas, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbox_armasMochila, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(botao_equiparArma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -194,7 +233,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_personagem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbox_personagemMochila, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
@@ -213,7 +252,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbox_personagemMochila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(label_informacao)
@@ -229,12 +268,12 @@ public class Janela_Mochila extends javax.swing.JFrame {
                             .addComponent(botao_excluirArmadura)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbox_armas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbox_armasMochila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label_arma, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label_jogador)
-                            .addComponent(cbox_armaduras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbox_armadurasMochila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_danoAtual)
@@ -260,6 +299,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
 
     private void botao_equiparArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_equiparArmaActionPerformed
         // TODO add your handling code here:
+        GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).setArma(GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaItemArma(cbox_armasMochila.getSelectedIndex()));
     }//GEN-LAST:event_botao_equiparArmaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -273,13 +313,42 @@ public class Janela_Mochila extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
-    private void cbox_personagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_personagemActionPerformed
+    private void cbox_personagemMochilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_personagemMochilaActionPerformed
         //Adiciona evento quanda a caixa de selecao de personagem for ativada
+        
         if(GrupoJogador.getSize()>0){
-            iniciaComboBox_Armaduras();
-            iniciaComboBox_Armas();
+            iniciaComboBox_Armaduras(cbox_personagemMochila.getSelectedIndex());
+            iniciaComboBox_Armas(cbox_personagemMochila.getSelectedIndex());
         }
-    }//GEN-LAST:event_cbox_personagemActionPerformed
+        
+    }//GEN-LAST:event_cbox_personagemMochilaActionPerformed
+
+    private void cbox_armasMochilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_armasMochilaActionPerformed
+        // TODO add your handling code here:
+        alteraLabelDano(cbox_armasMochila.getSelectedIndex());
+    }//GEN-LAST:event_cbox_armasMochilaActionPerformed
+
+    private void cbox_armadurasMochilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_armadurasMochilaActionPerformed
+        // TODO add your handling code here:
+        alteraLabelDefesa(cbox_armadurasMochila.getSelectedIndex());
+    }//GEN-LAST:event_cbox_armadurasMochilaActionPerformed
+
+    private void botao_equiparArmaduraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_equiparArmaduraActionPerformed
+        // TODO add your handling code here:
+        GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).setArmadura(GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).getMochilaItemArmadura(cbox_armadurasMochila.getSelectedIndex()));
+    }//GEN-LAST:event_botao_equiparArmaduraActionPerformed
+
+    private void botao_excluirArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_excluirArmaActionPerformed
+        // TODO add your handling code here:
+        GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).removeItemArma(cbox_armasMochila.getSelectedIndex());
+        iniciaComboBox_Armas(cbox_personagemMochila.getSelectedIndex());
+    }//GEN-LAST:event_botao_excluirArmaActionPerformed
+
+    private void botao_excluirArmaduraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_excluirArmaduraActionPerformed
+        // TODO add your handling code here:
+        GrupoJogador.getJogador(cbox_personagemMochila.getSelectedIndex()).removeItemArmaduras(cbox_armadurasMochila.getSelectedIndex());
+        iniciaComboBox_Armaduras(cbox_personagemMochila.getSelectedIndex());
+    }//GEN-LAST:event_botao_excluirArmaduraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,9 +391,9 @@ public class Janela_Mochila extends javax.swing.JFrame {
     private javax.swing.JToggleButton botao_excluirArma;
     private javax.swing.JButton botao_excluirArmadura;
     private javax.swing.JButton botao_ok;
-    private javax.swing.JComboBox<String> cbox_armaduras;
-    private javax.swing.JComboBox<String> cbox_armas;
-    private javax.swing.JComboBox<String> cbox_personagem;
+    private javax.swing.JComboBox<String> cbox_armadurasMochila;
+    private javax.swing.JComboBox<String> cbox_armasMochila;
+    private javax.swing.JComboBox<String> cbox_personagemMochila;
     private javax.swing.JLabel label_arma;
     private javax.swing.JLabel label_danoAtual;
     private javax.swing.JLabel label_defesaAtual;
