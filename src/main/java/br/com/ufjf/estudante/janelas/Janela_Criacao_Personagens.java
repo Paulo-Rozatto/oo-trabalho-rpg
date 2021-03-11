@@ -29,11 +29,24 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 
     private int indiceJogador;
     private int quantidade;
+    private int pontos;
+    private int forca;
+    private int inteligencia;
+    private int destreza;
 
     public Janela_Criacao_Personagens() {
+        this.pontos = 2;
+        resetaPontos();
         this.indiceJogador = -1;
         this.quantidade = 0;
         initComponents();
+    }
+    
+    private void resetaPontos(){
+        pontos = 2;
+        forca = 1;
+        inteligencia = 1;
+        destreza = 1;
     }
 
     private void criaJogador() {
@@ -41,10 +54,10 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         int classe = cbox_classe.getSelectedIndex() + 1;
 
 //        System.out.println("Nome: " + nome + " Classe: " + classe);
+//        System.out.println("Forca: "+forca+" Inteligencia: "+inteligencia+" destreza: "+destreza);
+        
         if (classe == 1) {
-            int forca = 10;
-            int inteligencia = 10;
-            int destreza = 10;
+            
             AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
             AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
             ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
@@ -55,9 +68,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         }
 
         if (classe == 2) {
-            int forca = 10;
-            int inteligencia = 10;
-            int destreza = 10;
+
             AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
             AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
             ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
@@ -68,9 +79,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         }
 
         if (classe == 3) {
-            int forca = 10;
-            int inteligencia = 10;
-            int destreza = 10;
+
             AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10, 1);
             AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10, 1);
             ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
@@ -79,17 +88,23 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
             Jogador jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
             grupoJogador.add(jogador);
         }
+        resetaPontos();
 
     }
 
     private void editaTextoTela() {
         label_Contexto.setText("Crie o Personagem " + (indiceJogador + 1));
         textField_nome.setText("Personagem " + (indiceJogador + 1));
+        atualizaTextoPontos();
         if (indiceJogador < 3) {
             cbox_classe.setSelectedIndex(indiceJogador);
         } else {
             cbox_classe.setSelectedIndex(0);
         }
+    }
+    
+    private void atualizaTextoPontos(){
+        label_quantidadePontos.setText("Quantidade de pontos que você possui: "+pontos);
     }
 
     /**
@@ -111,6 +126,12 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         button_iniciar_jogo = new javax.swing.JButton();
         cbox_classe = new javax.swing.JComboBox<>();
         label_Contexto = new javax.swing.JLabel();
+        label_informaParaClicar = new javax.swing.JLabel();
+        label_quantidadePontos = new javax.swing.JLabel();
+        button_forca = new javax.swing.JButton();
+        button_inteligencia = new javax.swing.JButton();
+        button_destreza = new javax.swing.JButton();
+        button_desfazer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Criação de Personagens");
@@ -160,50 +181,94 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 
         label_Contexto.setText("Crie o Personagem .");
 
+        label_informaParaClicar.setText("Clique destribuir pontos nessas categorias:");
+
+        label_quantidadePontos.setText("Quantidade de pontos que vc possui: 2");
+
+        button_forca.setText("Força");
+        button_forca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_forcaActionPerformed(evt);
+            }
+        });
+
+        button_inteligencia.setText("Inteligência");
+        button_inteligencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_inteligenciaActionPerformed(evt);
+            }
+        });
+
+        button_destreza.setText("Destreza");
+        button_destreza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_destrezaActionPerformed(evt);
+            }
+        });
+
+        button_desfazer.setText("Desfazer");
+        button_desfazer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_desfazerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(button_forca, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(button_destreza, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(button_desfazer, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_confirmarCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(label_selecione_quantidade)
-                        .addGap(27, 27, 27)
-                        .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(button_confirmarQuantidade)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_Contexto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button_iniciar_jogo)
+                    .addComponent(button_inteligencia))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_informaParaClicar)
+                    .addComponent(label_quantidadePontos)
+                    .addComponent(label_Contexto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(label_selecione_quantidade)
+                            .addGap(27, 27, 27)
+                            .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(button_confirmarQuantidade)
+                            .addGap(28, 28, 28))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label_nome)
-                                    .addGap(35, 35, 35)
-                                    .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(label_classe)
-                                    .addGap(29, 29, 29)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(button_confirmarCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbox_classe, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(76, 76, 76))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(button_iniciar_jogo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))))
+                                    .addGap(29, 29, 29))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(label_nome)
+                                    .addGap(33, 33, 33)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbox_classe, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(80, 80, 80)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_selecione_quantidade)
                     .addComponent(cbox_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_confirmarQuantidade))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_Contexto)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_nome)
                     .addComponent(textField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,10 +277,21 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
                     .addComponent(label_classe)
                     .addComponent(cbox_classe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_confirmarCriacao)
+                .addComponent(label_quantidadePontos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button_iniciar_jogo)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(label_informaParaClicar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_forca)
+                    .addComponent(button_destreza)
+                    .addComponent(button_inteligencia))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_desfazer)
+                    .addComponent(button_iniciar_jogo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button_confirmarCriacao)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,15 +304,22 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
 //        System.out.println("Quantidade: " + quantidade);
         editaTextoTela();
         //Coisas que vao aparecer:
-        button_confirmarCriacao.setVisible(true);
+        button_desfazer.setVisible(true);
+        button_forca.setVisible(true);
+        button_inteligencia.setVisible(true);
+        button_destreza.setVisible(true);
+        
         cbox_classe.setVisible(true);
         label_Contexto.setVisible(true);
         label_classe.setVisible(true);
         label_nome.setVisible(true);
+        label_quantidadePontos.setVisible(true);
+        label_informaParaClicar.setVisible(true);
         textField_nome.setVisible(true);
 
         //Coisas que nao vao aparecer        
         cbox_quantidade.setVisible(false);
+        button_confirmarCriacao.setVisible(false);
         button_confirmarQuantidade.setVisible(false);
         label_selecione_quantidade.setVisible(false);
 //        button_editar.setVisible(false);
@@ -246,13 +329,19 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     private void button_confirmarCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_confirmarCriacaoActionPerformed
 //        System.out.println("indice: " + indiceJogador + " quantidade: " + quantidade);
         if (indiceJogador < quantidade) {//Se ainda nao foram criado todos os personagens
-            criaJogador();
+            criaJogador();            
+            button_confirmarCriacao.setVisible(false);
+            atualizaTextoPontos();
             if (indiceJogador == quantidade - 1) {//Ultimo Personagem foi criado
                 //Coisas que vao aparecer:
                 button_iniciar_jogo.setVisible(true);
 //                button_editar.setVisible(true);
 
                 //Coisas que nao vao aparecer  
+                button_desfazer.setVisible(false);
+                button_forca.setVisible(false);
+                button_inteligencia.setVisible(false);
+                button_destreza.setVisible(false);
                 button_confirmarCriacao.setVisible(false);
                 cbox_quantidade.setVisible(false);
                 button_confirmarQuantidade.setVisible(false);
@@ -261,10 +350,14 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
                 label_Contexto.setVisible(false);
                 label_classe.setVisible(false);
                 label_nome.setVisible(false);
+                label_quantidadePontos.setVisible(false);
+                label_informaParaClicar.setVisible(false);
                 textField_nome.setVisible(false);
             }
             indiceJogador++;//Proximo Personagem que sera editado
+            resetaPontos();
             editaTextoTela();
+            atualizaTextoPontos();
         }
 
     }//GEN-LAST:event_button_confirmarCriacaoActionPerformed
@@ -278,7 +371,7 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Coisas que vao aparecer:
         indiceJogador = 0;//Personagem que sera editado
-        cbox_quantidade.setSelectedIndex(2);
+        cbox_quantidade.setSelectedIndex(3);
         cbox_quantidade.setVisible(true);
         button_confirmarQuantidade.setVisible(true);
         label_selecione_quantidade.setVisible(true);
@@ -287,16 +380,63 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
         button_confirmarCriacao.setVisible(false);
 //        button_editar.setVisible(false);
         button_iniciar_jogo.setVisible(false);
+        button_desfazer.setVisible(false);
+        button_forca.setVisible(false);
+        button_inteligencia.setVisible(false);
+        button_destreza.setVisible(false);
         cbox_classe.setVisible(false);
         label_Contexto.setVisible(false);
         label_classe.setVisible(false);
         label_nome.setVisible(false);
+        label_informaParaClicar.setVisible(false);
+        label_quantidadePontos.setVisible(false);
         textField_nome.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void textField_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textField_nomeActionPerformed
+
+    private void button_desfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_desfazerActionPerformed
+        if(pontos==0){
+            button_confirmarCriacao.setVisible(false);
+        }        
+        resetaPontos();
+        atualizaTextoPontos();
+    }//GEN-LAST:event_button_desfazerActionPerformed
+
+    private void button_forcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_forcaActionPerformed
+        if(pontos>0){
+            pontos--;
+            forca++;
+            atualizaTextoPontos();
+            if(pontos==0){
+                button_confirmarCriacao.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_button_forcaActionPerformed
+
+    private void button_destrezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_destrezaActionPerformed
+        if(pontos>0){
+            pontos--;
+            destreza++;
+            atualizaTextoPontos();
+            if(pontos==0){
+                button_confirmarCriacao.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_button_destrezaActionPerformed
+
+    private void button_inteligenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_inteligenciaActionPerformed
+        if(pontos>0){
+            pontos--;
+            inteligencia++;
+            atualizaTextoPontos();
+            if(pontos==0){
+                button_confirmarCriacao.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_button_inteligenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,12 +476,18 @@ public class Janela_Criacao_Personagens extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_confirmarCriacao;
     private javax.swing.JButton button_confirmarQuantidade;
+    private javax.swing.JButton button_desfazer;
+    private javax.swing.JButton button_destreza;
+    private javax.swing.JButton button_forca;
     private javax.swing.JButton button_iniciar_jogo;
+    private javax.swing.JButton button_inteligencia;
     private javax.swing.JComboBox<String> cbox_classe;
     private javax.swing.JComboBox<String> cbox_quantidade;
     private javax.swing.JLabel label_Contexto;
     private javax.swing.JLabel label_classe;
+    private javax.swing.JLabel label_informaParaClicar;
     private javax.swing.JLabel label_nome;
+    private javax.swing.JLabel label_quantidadePontos;
     private javax.swing.JLabel label_selecione_quantidade;
     private javax.swing.JTextField textField_nome;
     // End of variables declaration//GEN-END:variables
