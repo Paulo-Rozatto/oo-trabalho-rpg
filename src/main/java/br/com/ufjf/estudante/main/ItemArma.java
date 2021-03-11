@@ -37,13 +37,16 @@ public class ItemArma extends Item{
         if (guardaDado + modficador + bonusAtack > defesaInimiga) {
             if (guardaDado == 20) {
                 System.out.println("O dado girado foi um critico!!!!!");
+                AuxiliarGeraTexto.setDescricaoAtaqueFisico(0, 0, 0);
                 return this.danoArma.rodaDano(modficador) * 2;
             } else {
                 System.out.println("O dado girado foi de " + (guardaDado + modficador) + " e precisava de " + defesaInimiga);
+                AuxiliarGeraTexto.setDescricaoAtaqueFisico(1, (guardaDado + modficador) , defesaInimiga);
                 return this.danoArma.rodaDano(modficador);
             }
         } else {
             System.out.println("O ataque não acertou o inimigo o dado tirado foi " + guardaDado);
+            AuxiliarGeraTexto.setDescricaoAtaqueFisico(2, guardaDado, 0);
             return 0;
         }
 
