@@ -18,7 +18,7 @@ public class NpcInimigo extends Personagem {
     private int experiencia;
     private String descricaoMorte;
     private boolean vivo;
-    //private Itens drop;
+    private Item drop;
     
     
 /**
@@ -37,6 +37,7 @@ public class NpcInimigo extends Personagem {
         this.experiencia = experiencia;
         this.descricaoMorte = descricaoMorte;
         this.vivo = true;
+        this.drop= new Item(null);
         super.geraSpriteInimigo();
     }
     
@@ -98,6 +99,14 @@ public class NpcInimigo extends Personagem {
 
     public boolean isVivo() {
         return vivo;
+    }
+
+    public Item getDrop() {
+        return drop;
+    }
+
+    public void setDrop(Item drop) {
+        this.drop = drop;
     }
     
     
