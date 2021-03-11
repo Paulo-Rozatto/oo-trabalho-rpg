@@ -538,5 +538,10 @@ public abstract class Personagem {
     public ItemArmadura getArmadura() {
         return armadura;
     }
-
+    public AtackMagico getAtackMagico(int i){
+        return ListaMagias.get(i);
+    }
+    public int getSizeListMagias(){
+        return ListaMagias.size();
+    }
 }
