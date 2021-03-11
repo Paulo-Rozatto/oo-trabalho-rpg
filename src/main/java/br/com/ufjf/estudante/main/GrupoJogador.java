@@ -16,6 +16,8 @@ public class GrupoJogador{
      private static List<Jogador> grupoJogador = new ArrayList<>();
      public static void iniciaGrupo(List<Jogador> grupoEntrada){
          grupoJogador.addAll(grupoEntrada);
+         grupoJogador.get(0).addMagia(GeraItensMagiaNpcs.bolaDeFogo());
+         grupoJogador.get(0).addMagia(GeraItensMagiaNpcs.adagaMental());
      }
      public static int getSize(){
          return grupoJogador.size();

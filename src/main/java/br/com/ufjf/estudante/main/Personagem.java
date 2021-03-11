@@ -79,7 +79,7 @@ public abstract class Personagem {
                 classe = -1;
                 System.out.println("Escolha de classe invalida");
         }
-        this.vidaAtual = this.hitPoints;
+        this.manaAtual = this.manaPoints;
     }
 
     /**
@@ -217,11 +217,11 @@ public abstract class Personagem {
             if (guardaDado + this.modInteligencia > defesaInimiga) {
                 AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);
                 if (arma.getTipo() == 2) {
-                    this.manaAtual = -magia.getPM();
+                    this.manaAtual = this.manaAtual -magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
                     return magia.rodaDano(this.modInteligencia) + arma.getBonusAtack();
                 } else {
-                    this.manaAtual = -magia.getPM();
+                    this.manaAtual = this.manaAtual - magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
                     return magia.rodaDano(this.modInteligencia);
                 }
