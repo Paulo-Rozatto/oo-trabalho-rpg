@@ -32,9 +32,11 @@ public class ItemConsumivel extends Item{
     public int getValorBonus() {
         return valorBonus;
     }
-
-   
-
     
-    
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\n" + 
+                "Tipo: " + this.tipo + "\n" + 
+                "ValorBonus: " + this.valorBonus;
+    }
 }

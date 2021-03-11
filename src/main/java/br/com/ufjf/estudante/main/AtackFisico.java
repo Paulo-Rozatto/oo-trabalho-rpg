@@ -35,11 +35,12 @@ public class AtackFisico extends Atack{
     public String getNomeAtack() {
         return nomeAtack;
     }
-
     
-    
-
-    
-    
-    
+    @Override
+    public String toString() {
+        return "Nome: " + this.getNomeAtack() + "\n" + 
+                "Dano: " + this.getDano() +  "\n" + 
+                "DanoB: " + this.getDanoB() + "\n" + 
+                "NumDados: " + this.numDados;
+    }
 }
