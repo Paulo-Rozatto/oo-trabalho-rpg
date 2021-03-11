@@ -61,24 +61,24 @@ public class Jogador extends Personagem {
                     super.setHitPoints(super.getHitPoints() + guardaDado + super.getModForça());
                     System.out.println("Você ganhou " + (guardaDado + super.getModForça()) + "de pontos de vida atualmente você tem : " + super.getHitPoints());
                     guardaDado = dado.rodaDado(3);
-                    super.setManaPoints(super.getManaPoints() + guardaDado);
-                    System.out.println("Você ganhou " + guardaDado + " de pontos de mana atualmente você tem : " + super.getManaPoints());
+                    super.setManaPoints(super.getManaAtual() + guardaDado);
+                    System.out.println("Você ganhou " + guardaDado + " de pontos de mana atualmente você tem : " + super.getManaAtual());
                     break;
                 case 2:
                     guardaDado = dado.rodaDado(6);
                     super.setHitPoints(super.getHitPoints() + guardaDado);
                     System.out.println("Você ganhou " + (guardaDado + super.getModForça()) + "de pontos de vida atualmente você tem : " + super.getHitPoints());
                     guardaDado = dado.rodaDado(6);
-                    super.setManaPoints(super.getManaPoints() + guardaDado + (super.getModInteligencia() / 2));
-                    System.out.println("Você ganhou " + (guardaDado + super.getModInteligencia() / 2) + " de pontos de mana atualmente você tem : " + super.getManaPoints());
+                    super.setManaPoints(super.getManaAtual() + guardaDado + (super.getModInteligencia() / 2));
+                    System.out.println("Você ganhou " + (guardaDado + super.getModInteligencia() / 2) + " de pontos de mana atualmente você tem : " + super.getManaAtual());
                     break;
                 case 3:
                     guardaDado = dado.rodaDado(8);
                     super.setHitPoints(super.getHitPoints() + guardaDado + (super.getModForça() / 2));
                     System.out.println("Você ganhou " + (guardaDado + (super.getModForça() / 2)) + "de pontos de vida atualmente você tem : " + super.getHitPoints());
                     guardaDado = dado.rodaDado(4);
-                    super.setManaPoints(super.getManaPoints() + guardaDado + (super.getModInteligencia() / 2));
-                    System.out.println("Você ganhou " + (guardaDado + super.getModInteligencia() / 2) + " de pontos de mana atualmente você tem : " + super.getManaPoints());
+                    super.setManaPoints(super.getManaAtual() + guardaDado + (super.getModInteligencia() / 2));
+                    System.out.println("Você ganhou " + (guardaDado + super.getModInteligencia() / 2) + " de pontos de mana atualmente você tem : " + super.getManaAtual());
                     break;
                 default:
             }
@@ -145,10 +145,10 @@ public class Jogador extends Personagem {
                 }
                 break;
             case 2:
-                if (super.getManaPoints() >= super.getManaAtual() + consumivel.valorBonus) {
+                if (super.getManaAtual() >= super.getManaAtual() + consumivel.valorBonus) {
                     super.setManaAtual(super.getManaAtual() + consumivel.valorBonus);
                 } else {
-                    super.setManaAtual(super.getManaPoints());
+                    super.setManaAtual(super.getManaAtual());
                 }
                 break;
         }
@@ -171,7 +171,7 @@ public class Jogador extends Personagem {
         return mochilaConsumivel.size();
     }
     
-    public Item getMochilaItemConsumivel(int indice){
+    public ItemConsumivel getMochilaItemConsumivel(int indice){
         try {
             return mochilaConsumivel.get(indice);
         } catch (NullPointerException e) {

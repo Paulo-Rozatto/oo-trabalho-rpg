@@ -544,97 +544,97 @@ public class GeraItensMagiaNpcs{
   /////////////////////////////////////////////////////////////////////////////////////////////// NPCS
     
     public static NpcInimigo esqueleto() {
-        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrpende aquilo que estava vivo se desfaz", "Esqueleto com espada", 1, 0, 1, 3,
+        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrepende aquilo que estava vivo se desfaz", "Esqueleto com espada", 1, 0, 1, 3,
                 espadaCurta(), armaduraAcolchoada());
         return npc;
     }
 
     public static NpcInimigo esqueletoArqueiro() {
-        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrpende aquilo que estava vivo se desfaz.", "Esqueleto com arco", 0, 0, 2, 3,
+        NpcInimigo npc = new NpcInimigo(2, "Os ossos começam a tremer e derrepende aquilo que estava vivo se desfaz.", "Esqueleto com arco", 0, 0, 2, 3,
                 arco(), armaduraAcolchoada());
         return npc;
     }
 
-    public NpcInimigo orc() {
+    public static NpcInimigo orc() {
         NpcInimigo npc = new NpcInimigo(4, "A criatura deixa cair sua arma no chão, logo depois elas cai junto.", "Orc", 3, 0, 1, 3,
                 machadoCortaArvores(), lorigaSegmentada());
         return npc;
     }
     
-    public NpcInimigo Minotauro() {
+    public static NpcInimigo Minotauro() {
         NpcInimigo npc = new NpcInimigo(4, "Derrepende você escuta um a terra tremer e você percebe aquela criatura no chão.", "Minotauro", 3, 0, 0, 1,
                 machadoCortaArvoresM1(), lorigaSegmentada());
         return npc;
     }
      
-    public NpcInimigo goblin() {
+    public static NpcInimigo goblin() {
         NpcInimigo npc = new NpcInimigo(4, "O pequenino some de sua vista, rapidamente você verifica seus bolsos *esta tudo aqui* e você percebe a criatura no seus pés.",
                 "Goblin", 0, 1, 3, 3, adaga(), armaduraAcolchoada());
         return npc;
     }
     
-    public NpcInimigo aranhaGigante() {
+    public static NpcInimigo aranhaGigante() {
         NpcInimigo npc = new NpcInimigo(4, "Aquela criatura asquerosa tenta correr subir em suas teais mais acaba caindo.",
                 "Aranha Gigante", 3, 1, 0, 3,picareta(), armaduraCouro());
         return npc;
     }
     
-    public NpcInimigo orcChefe() {
+    public static NpcInimigo orcChefe() {
         NpcInimigo npc = new NpcInimigo(8, "A criatura deixa cair sua arma no chão, logo depois elas cai junto.", "Orc Chefe", 4, 1, 2, 3,
                 lançaM1(), meiaArmadura());
         return npc;
     }
     
-    public NpcInimigo elfoArqueiro() {
+    public static NpcInimigo elfoArqueiro() {
         NpcInimigo npc = new NpcInimigo(6, "A criatura esguia coloca a mãona barriga e cai no chão desacordado.", "Elfo Arqueiro", 1, 3, 4, 3,
                 arcoM1(), couroBatido());
         return npc;
     }
     
-    public NpcInimigo elfoMago() {
+    public static NpcInimigo elfoMago() {
         NpcInimigo npc = new NpcInimigo(6, "A criatura esguia coloca a mãona barriga e cai no chão desacordado.", "Elfo Mago", 0, 5, 2, 2,
                 cajadoM1(), couroBatido());
         return npc;
     }
     
-   public NpcInimigo bandido(){
+   public static NpcInimigo bandido(){
        NpcInimigo npc = new NpcInimigo(6, "O homem cai no chão de bruços.", "Bandido", 1, 2, 4, 3,
                 adagaM1(), couroBatido());
         return npc;
    }
    
-   public NpcInimigo centauro(){
+   public static NpcInimigo centauro(){
        NpcInimigo npc = new NpcInimigo(8, "Aquela criatura gigantescca faz uma ultima investida para cima de você e cai durante o percurso sem vida.", "Centauro", 4, 0, 3, 1,
                 espadaLongaM1(), meiaArmadura());
         return npc;
    }
     
-    public NpcInimigo lobo(){
+    public static NpcInimigo lobo(){
        NpcInimigo npc = new NpcInimigo(6, "A criatura se deita no chão e encolhece", "Centauro", 2, 0, 3, 1,
                 adagaM2(), couroBatido());
         return npc;
    }
     
-    public NpcInimigo ogro(){
+    public static NpcInimigo ogro(){
         NpcInimigo npc = new NpcInimigo(10, "Aquela gigantesca criatura cai no chão depois de muito esforço e você suspira.", "Ogro", 6, 0, 1, 1,
                 adagaM2(), couroBatido());
         return npc;
     }
     
-    public NpcInimigo necromante(){
+    public static NpcInimigo necromante(){
         NpcInimigo npc = new NpcInimigo(8, "Aqeuele sujeito esquisito meio corcunda mal se aguenta mais em pé tenta se apoiar na sua arma mas vai ao chão.", "necromante",
                 2, 5, 0, 2,
                 espadaMagica(), couroBatido());
         return npc;
     }
     
-    public NpcInimigo zumbi(){
+    public static NpcInimigo zumbi(){
         NpcInimigo npc = new NpcInimigo(4, "A criatura fedorenta começa a se desfazer na sua frente primeiro caindo um dos braços depois a cabeça.", "Zumbi",
                 2, -1, 0, 1,foice(), brunea());
         return npc;
     }
     
-    public NpcInimigo dragao(){
+    public static NpcInimigo dragao(){
         NpcInimigo npc = new NpcInimigo(12, "A criatura começa a voar para tentar escapar mas suas asas rasgadas pelos seus ataques não à ajudam e logo ela cai do céu sem vida."
                 , "Zumbi",6, 4, 2, 1,picaretaM2(), lorigaSegmentada());
         return npc;

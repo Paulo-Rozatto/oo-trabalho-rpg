@@ -203,7 +203,10 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             cbox_itens.removeItemAt(i);
         }
     }
-    
+    private void removeItem_cboxItens(int id){
+        if(id > 0 && cbox_itens.getItemCount() > id)
+            cbox_itens.removeItemAt(id);
+    }
     private void atualiza_cboxItens(){
         limpa_cboxItens();
         
@@ -362,27 +365,27 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private void atualizaLabeldeHP(int i, int j) {
         if (GrupoJogador.getSize() > i && GrupoJogador.getJogador(i).getVidaAtual() > 0) {
-            hitPointsJogador.setText("" + GrupoJogador.getJogador(i).getVidaAtual());
+            hitPointsJogador.setText(GrupoJogador.getJogador(i).getVidaAtual() + "/" + GrupoJogador.getJogador(i).getHitPoints());
         } else {
-            hitPointsJogador.setText("0");
+            hitPointsJogador.setText("0/" + GrupoJogador.getJogador(i).getHitPoints());
         }
         if (GrupoInimigo.getSize() > j && GrupoInimigo.getInimigo(j).getVidaAtual() > 0) {
-            hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(j).getVidaAtual());
+            hitPointsInimigo.setText(GrupoInimigo.getInimigo(j).getVidaAtual() + "/" + GrupoInimigo.getInimigo(j).getHitPoints());
         } else {
-            hitPointsInimigo.setText("0");
+            hitPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(j).getHitPoints());
         }
     }
 
     private void atualizaLabeldeMP(int i, int j) {
-        if (GrupoJogador.getSize() > i && GrupoJogador.getJogador(i).getManaPoints() > 0) {
-            mpPointsJogador.setText("" + GrupoJogador.getJogador(i).getManaPoints());
+        if (GrupoJogador.getSize() > i && GrupoJogador.getJogador(i).getManaAtual() > 0) {
+            mpPointsJogador.setText(GrupoJogador.getJogador(i).getManaAtual() + "/" + GrupoJogador.getJogador(i).getManaPoints());
         } else {
-            mpPointsJogador.setText("0");
+            mpPointsJogador.setText("0/" + GrupoJogador.getJogador(i).getManaPoints());
         }
-        if (GrupoInimigo.getSize() > j && GrupoInimigo.getInimigo(j).getManaPoints() > 0) {
-            mpPointsInimigo.setText("" + GrupoInimigo.getInimigo(j).getManaPoints());
+        if (GrupoInimigo.getSize() > j && GrupoJogador.getJogador(j).getManaAtual() > 0) {
+            mpPointsInimigo.setText(GrupoInimigo.getInimigo(j).getManaAtual() + "/" + GrupoInimigo.getInimigo(j).getManaPoints());
         } else {
-            mpPointsInimigo.setText("0");
+            mpPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(j).getManaPoints());
         }
     }
 
@@ -424,7 +427,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 transicao(cbox_personagem.getSelectedIndex(), 4);
                 break;
             case 2:
-                if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getSizeListMagias() > cbox_magia.getItemCount()){
+                if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getSizeListMagias() == cbox_magia.getItemCount() && cbox_magia.getItemCount()!= 0){
                     GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa(), GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getAtackMagico(cbox_magia.getSelectedIndex())));
                     transicao(cbox_personagem.getSelectedIndex(), 5, cbox_magia.getSelectedIndex());
                 }
@@ -433,6 +436,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     return;
                 }
                 break;
+            case 3:
+                if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize() > cbox_itens.getSelectedIndex()){
+                    transicao(cbox_personagem.getSelectedIndex(), 9, cbox_itens.getSelectedIndex());
+                    GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).usarConsumivel(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(cbox_itens.getSelectedIndex()), cbox_itens.getSelectedIndex());
+                    atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
+                    atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
+                }
+                return;
         }
         acaoJogador = true;
         gerenciaTurno();
@@ -689,14 +700,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         // TODO add your handling code here:
         if (GrupoJogador.getSize() > cbox_personagem.getSelectedIndex()) {
             if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual() > 0) {
-                hitPointsJogador.setText("" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual());
+                hitPointsJogador.setText(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual() + "/" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getHitPoints());
             } else {
-                hitPointsJogador.setText("0");
+                hitPointsJogador.setText("0/" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getHitPoints());
             }
-            if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaPoints() > 0) {
-                mpPointsJogador.setText("" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaPoints());
+            if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaAtual() > 0) {
+                mpPointsJogador.setText(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaAtual() + "/" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaPoints());
             } else {
-                mpPointsJogador.setText("0");
+                mpPointsJogador.setText("0/" + GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getManaPoints());
             }
             atualizaCboxMagia(cbox_personagem.getSelectedIndex());
         }
@@ -723,14 +734,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         // TODO add your handling code here:
         if (GrupoInimigo.getSize() > cbox_inimigo.getSelectedIndex()) {
             if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual() > 0) {
-                hitPointsInimigo.setText("" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual());
+                hitPointsInimigo.setText(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual() + "/" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getHitPoints());
             } else {
-                hitPointsInimigo.setText("0");
+                hitPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getHitPoints());
             }
-            if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaPoints() > 0) {
-                mpPointsInimigo.setText("" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaPoints());
+            if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaAtual() > 0) {
+                mpPointsInimigo.setText(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaAtual() + "/" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaPoints());
             } else {
-                mpPointsInimigo.setText("0");
+                mpPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaPoints());
             }
         }
     }                                            
@@ -949,6 +960,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 poseJogador = -1;
                 //Falta implementar
 //                turnoJogador(2);
+                  turnoJogador(3);
             }
         }
 
@@ -1030,16 +1042,16 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         }
         //JOptionPane.showConfirmDialog(null, "Mensagem", "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
     }
-    public static void transicao(int auxiliar, int exibicao, int idMagia){
+    public static void transicao(int auxiliar, int exibicao, int id){
         switch(exibicao){
             case 2://Descrição de ataque mágico do Inimigo
-                JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getAtackMagico(idMagia).getNomeMagia()) + AuxiliarGeraTexto.getTextoAtaqueMagico(), "Ação de " + GrupoInimigo.getInimigo(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getAtackMagico(id).getNomeMagia()) + AuxiliarGeraTexto.getTextoAtaqueMagico(), "Ação de " + GrupoInimigo.getInimigo(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 5://Descrição de ataque mágico do Jogador
-                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getAtackMagico(idMagia).getNomeMagia()) + AuxiliarGeraTexto.getTextoAtaqueMagico(), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getAtackMagico(id).getNomeMagia()) + AuxiliarGeraTexto.getTextoAtaqueMagico(), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 9://Caso o jogador utiliza algum item
-                //JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " +), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getMochilaItemConsumivel(id).getNome()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
         }
     }
 }
