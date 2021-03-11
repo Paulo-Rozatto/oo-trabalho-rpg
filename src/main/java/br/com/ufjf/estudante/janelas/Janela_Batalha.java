@@ -371,6 +371,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                         vitoria();
                     } else { // se nao for ultimo round, configure proximo round
                         round++;
+                        transicao(6);
                         System.out.println("Round: " + round);
                     }
                     //GrupoInimigo.iniciaGrupo(0);

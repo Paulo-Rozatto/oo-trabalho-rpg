@@ -13,7 +13,6 @@ import java.util.List;
  * @author sabri
  */
 public class GrupoInimigo{
-    private static List<Jogador> grupoJogador = new ArrayList<>();
      private static List<NpcInimigo> grupoInimigo = new ArrayList<>();
      public static void iniciaGrupo(int round){
          int experiencia;
