@@ -3,8 +3,7 @@
  * Matheus do Nascimento Pereira da Costa 201676003
  * Luiz Henrique de Oliveira Pereira 201635009
  * Paulo Victor de Magalhaes Rozatto 201935027
-*/
-
+ */
 package br.com.ufjf.estudante.main;
 
 import br.com.ufjf.estudante.janelas.Janela_Selecao_Personagens;
@@ -12,194 +11,17 @@ import br.com.ufjf.estudante.janelas.Janela_Selecao_Personagens;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author paulo
  */
 public class Main extends javax.swing.JFrame {
-
-    private Jogador jogador;
-    private NpcInimigo inimigo;
-    private boolean isTurnoJogador;
-    private int round;
-    private Dado dado;
-
-    // Temporario - variaveis para fazer a leitura pelo teclado enquanto nao tem interface
-    private String nomeJogador;
-    private int classeJogador;
-    Scanner input;
-    
-    //
-    List<Jogador> grupoJogador;
-    List<NpcInimigo> grupoInimigo;
-
     public Main() {
-        isTurnoJogador = true;
-        round = 0;
-
-//        input = new Scanner(System.in);
-//        System.out.println("Nome: ");
-//        nomeJogador = input.nextLine();
-//        System.out.println("1-Guerreiro\n2-Mago\n3-Ladino\nClasse: ");
-//        classeJogador = input.nextInt();
-//
-//        initJogador();
-//        initInimigo();
-//        jogadorEscolheAcao();
-
-        List <Jogador> grupoJojador = new ArrayList<>();
-        grupoJojador.add(jogador);
-        this.grupoJogador = grupoJojador;
-        
-        List <NpcInimigo> grupoInimigo = new ArrayList<>();
-        grupoInimigo.add(inimigo);
-        this.grupoInimigo = grupoInimigo;
-
-
         initComponents();
-    }
-
-    /**
-     * Instacia jogador - A fazer: pegar nome e classe da interface
-     */
-    private void initJogador() {
-        // Equanto sem interface, inicializacao provisoria 
-
-        String nome = nomeJogador;
-        int forca = 10;
-        int inteligencia = 10;
-        int destreza = 10;
-        AtackFisico ataqueFisico = new AtackFisico("soco", 10, 10,1);
-        AtackMagico ataqueMagico = new AtackMagico("magia", 10, 10, 10,1);
-        int classe = classeJogador;
-        ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
-        ItemArma arma= new ItemArma(ataqueFisico, 0, "Mãos", 1);
-        ItemArmadura armadura= new ItemArmadura("Leve", 4, "tecido");
-
-        jogador = new Jogador(nome, forca, inteligencia, destreza, classe, arma, armadura);
-    }
-
-    /**
-     * Inicia o inimigo com base no round atual, os inimigos tem quantidade
-     * limitada e sao hard-coded
-     */
-    private void initInimigo() {
-        int experiencia;
-        String descricaoMorte;
-        String nome;
-        int forca;
-        int inteligencia;
-        int destreza;
-        AtackFisico ataqueFisico;
-        AtackMagico ataqueMagico;
-        int classe;
-
-        if (round == 0) {
-            // Inicializacao provisorio do primeiro inimigo
-            experiencia = 10;
-            descricaoMorte = "No ceu tem pao? E morreu.";
-            nome = "Monstro 1";
-            forca = 5;
-            inteligencia = 5;
-            destreza = 5;
-            ataqueFisico = new AtackFisico("ataque", 5, 5, 0);
-            ataqueMagico = new AtackMagico("magia", 5, 5, 5, 0);
-            classe = 1;
-
-            // Essa linha pode ir para o final do metodo quando tiver todos IFs
-            //inimigo = new NpcInimigo(experiencia, descricaoMorte, nome, forca, inteligencia, destreza, classe, arma, armadura);
-        } else if (round == 1) {
-            // A fazer: Inimigo do segundo round;
-        } else {
-            // A fazer: Inimigo do terceiro round;
-        }
-    }
-
-    /* Metodo temporario enquanto nao ha interface */
-    private void jogadorEscolheAcao() {
-        System.out.println("\nVida jogador: " + jogador.getHitPoints());
-        System.out.println("Vida inimigo: " + inimigo.getHitPoints());
-        System.out.println("1-Ataque\n2-Magia\nEscolha:");
-        int escolha = input.nextInt();
-
-        if (escolha == 1) {
-            jogadorAtaca();
-        } else {
-            jogadorUsaMagia();
-        }
-    }
-
-    /**
-     * A fazer: Metodo para ser chamado pelo botao de ataque da interface
-     */
-    private void jogadorAtaca() {
-        // A fazer: codigo de ataque fisico
-        System.out.println("Jogador ataca:\n0 de dano. (Nao implementado)");
-        gerenciaTurno();
-    }
-
-    /**
-     * A fazer: Metodo para ser chamado pelo botao de magia da interface
-     */
-    private void jogadorUsaMagia() {
-        // A fazer: codigo de ataque magico
-        System.out.println("Jogador usa magia:\n0 de dano. (Nao implementado)");
-        gerenciaTurno();
-    }
-
-    private void acaoInimigo() {
-        // A fazer: exibir na interface qual acao foi escolhida
-        System.out.println("Inimigo ataca: ");
-        int dano = inimigo.decideAcao(jogador.getDefesa());
-        System.out.println( dano + " de dano");
-        jogador.sofreAtack(dano);
-        gerenciaTurno();
-    }
-
-    /**
-     * Verifica vida dos personagens para a passagem de turno, round ou fim de
-     * jogo
-     */
-    private void gerenciaTurno() {
-        if (isTurnoJogador) {
-
-            if (inimigo.getVidaAtual() <= 0) { // Se o inimigo morreu
-
-                // A fazer: codigo que mostra na interface descricao de morte
-                if (round == 2) { // Se for o ultimo round, ganhou jogo
-                    ganhou();
-                } else { // se nao for ultimo round, configure proximo round
-                    round++;
-                    initInimigo();
-                }
-            } else { // se o inimigo nao morreu, passe o turno para o inimigo
-                isTurnoJogador = false;
-                acaoInimigo();
-            }
-        } else {
-            if (jogador.getVidaAtual() <= 0) { // Se o jogador morreu, fim de jogo
-                gameOver();
-            } else { // Se nao morreu, passe o turno para o jogador
-                isTurnoJogador = true;
-                jogadorEscolheAcao();
-            }
-        }
-    }
-
-    /**
-     * A fazer: Metodo para alterar a interface quando jogo for ganho
-     */
-    private void ganhou() {
-        // A fazer
-    }
-
-    /**
-     * A fazer: Metodo para alterar a interface quando jogo for perdido
-     */
-    private void gameOver() {
-        // A fazer
-        System.out.println("Game over");
+        ImageIcon icon = new ImageIcon("res/batalha.png");
+        jLabel1.setIcon(icon);
     }
 
     /**
@@ -211,12 +33,18 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelOla = new javax.swing.JLabel();
+        jbTitulo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("RPG!");
+        setPreferredSize(new java.awt.Dimension(400, 300));
+        setResizable(false);
+        setSize(new java.awt.Dimension(400, 300));
 
-        jLabelOla.setText("Ola mundo");
+        jbTitulo.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jbTitulo.setText("RPG!");
 
         jButton1.setText("Jogar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -225,34 +53,45 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelOla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(jbTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabelOla)
-                .addGap(107, 107, 107)
+                .addContainerGap()
+                .addComponent(jbTitulo)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jLabelOla.setText("Teste!");
+        jbTitulo.setText("Teste!");
         this.setVisible(false);
-//        new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
         new Janela_Selecao_Personagens().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -290,6 +129,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabelOla;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jbTitulo;
     // End of variables declaration//GEN-END:variables
 }

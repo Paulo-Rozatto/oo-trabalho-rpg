@@ -81,6 +81,7 @@ public class Janela_Selecao_Personagens extends javax.swing.JFrame {
         btnIniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Seleciionar Personagens");
         setResizable(false);
         setSize(new java.awt.Dimension(600, 480));
 
