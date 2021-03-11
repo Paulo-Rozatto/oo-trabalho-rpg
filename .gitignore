@@ -15,6 +15,7 @@
 *.ear
 *.sar
 *.class
+*.txt
 
 # Maven 
 target/

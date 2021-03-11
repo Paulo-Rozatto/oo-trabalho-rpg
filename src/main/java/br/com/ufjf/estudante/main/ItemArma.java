@@ -76,7 +76,14 @@ public class ItemArma extends Item{
         return danoArma.getNomeAtack();
     }
     
-    
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\n" + 
+                "AtaqueInicio:\n" + this.danoArma.toString() + "\n" + 
+                "AtaqueFim\n" +
+                "BonusAttack: " + this.bonusAtack + "\n" + 
+                "Tipo: " + this.tipo;
+    }
 }
 
 

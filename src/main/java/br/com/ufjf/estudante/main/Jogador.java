@@ -310,4 +310,75 @@ public class Jogador extends Personagem {
         }
         return -1;
     }
+    
+//    private String nomePersonagem;//nome da criatura/player
+//
+//    private int hitPoints;//pontos de vida maximo
+//    private int vidaAtual;//pontos de vida atuais
+//    private int manaPoints;//pontos de mana maximo
+//    private int manaAtual;//pontos de mana atuais
+//    private int defesa;//defesa da criatura/player
+//
+//    protected int modForça;// modficador de força da criatura/player
+//    protected int modInteligencia;//modificador de inteligencia da criatura/player
+//    protected int modDestreza;// modificador de destreza da criatura/player
+//
+//    public Dado dado;//Dado para rolar os valores na classe
+//    protected int classe;//classe escolhida pela criatura/player para gerar valores de combate
+//    protected ItemArma arma;// implementação futura
+//    protected ItemArmadura armadura;// implementação futura
+//    public List<AtackMagico> ListaMagias;
+    
+//     public Jogador(String nomePersonagem, int modForça, int modInteligencia, int modDestreza, int classe, ItemArma arma, ItemArmadura armadura) {
+//        super(nomePersonagem, modForça, modInteligencia, modDestreza, classe, arma, armadura);
+    
+    @Override
+    public String toString() {
+        String dados;
+        
+        dados = "Nome: " + this.getNomePersonagem() + "\n" +
+                "Hitpoints: " + this.getHitPoints() + "\n" +
+                "VidaAtual: " + this.getVidaAtual() + "\n" +
+                "ManaPoints: " + this.getManaPoints() + "\n" +
+                "ManaAtual: " + this.getManaAtual() + "\n" +
+                "Defesa: " + this.getDefesa() + "\n" +
+                "Forca: " + this.getModForça() + "\n" +
+                "Inteligencia: " + this.getModInteligencia() + "\n" +
+                "Destreza: " + this.getModDestreza() + "\n" +
+                "Classe: " + this.getClasse() + "\n" +
+                "ArmaInicio:\n" + this.getArma().toString() + "\n" +
+                "ArmaFim\n" +
+                "ArmaduraInicio\n" +
+                this.getArmadura().toString() + "\n" +
+                "ArmaduraFim\n" +
+                "Level: " + this.level + "\n" +
+                "BarraXp: " + this.barraDeExp + "\n" +
+                "ProxLevel: " + this.proxLevel + "\n";
+        
+        dados += "MochilaArmaInicio:\n";
+        for(ItemArma arma : this.mochilaArma) {
+            dados += "ArmaInicio\n";
+            dados += arma.toString() + "\n";
+            dados += "ArmaFim\n";
+        }
+        dados += "MochilaArmaFim\n";
+        
+         dados += "MochilaArmaduraInicio:\n";
+        for(ItemArmadura armadura : this.mochilaArmaduras) {
+            dados += "ArmaduraIncicio\n";
+            dados += armadura.toString() + "\n";
+            dados += "ArmaduraFim";
+        }
+        dados += "MochilaArmaduraFim\n";
+        
+        dados += "MochilaConsumivelInicio:\n";
+        for(ItemConsumivel consumivel : this.mochilaConsumivel) {
+            dados += "ConsumivelIncio:\n";
+            dados += consumivel.toString() + "\n";
+            dados += "ConsumivelFim\n";
+        }
+        dados += "MochilaConsumivelFim\n";
+        
+        return dados;
+    }
 }

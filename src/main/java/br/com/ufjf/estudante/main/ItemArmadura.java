@@ -30,5 +30,10 @@ public class ItemArmadura extends Item{
         return bonusDefesa;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\n" + 
+                "Tipo: " + this.tipo + "\n" + 
+                "BonusDefesa: " + this.bonusDefesa;
+    }
 }
