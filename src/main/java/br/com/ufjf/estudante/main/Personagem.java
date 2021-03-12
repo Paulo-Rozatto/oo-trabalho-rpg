@@ -191,15 +191,21 @@ public abstract class Personagem {
      * @author MATHEUS NP Data 14/02/21 ultima modfificação realiza ataqueFisico
      */
     public int ataqueFisico(int defesaInimiga) {
-
-        int guardaDado = this.dado.rodaDado(20);
+         /*
+        Se conseguir fazer as mudanças pode tirar o guarda dado daqui tbm
+        Não era para essa classe gerar texto isso teria q ficar so na arma.ataque
+        Por causa disso q ela esta duplicando o texto na hora do ataque com dados diferentes
+        nota os npcs estão chamando essa duas vezes não sei oque acontece mas se retira os metodos os jogadores atacam normal
+        mas os NPCs aconteceu uma Exception não chega a para o codigo mas da um bug no contador tbm
+        */
+        int guardaDado = this.dado.rodaDado(20);//Não e para essa classe gerar texto esqueci de mudar enquando eu tava implementando os intens
         if (modForça < modDestreza) {
-            System.out.println("O dado girado foi de " + (guardaDado + modDestreza) + " e precisava de " + defesaInimiga);
-            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modDestreza), defesaInimiga);
+            
+            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modDestreza), defesaInimiga);//tirar isso
             return this.arma.ataque(defesaInimiga, this.modDestreza);
         } else {
-            System.out.println("O dado girado foi de " + (guardaDado + modForça) + " e precisava de " + defesaInimiga);
-            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modForça), defesaInimiga);
+            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modForça), defesaInimiga);//tirar isso da algum problema com os nps quando atacam talvez pq o ataque deles n estejam puxando da arma
+            //equipada
             return this.arma.ataque(defesaInimiga, this.modForça);
         }
 
@@ -208,30 +214,38 @@ public abstract class Personagem {
     /**
      *
      * @author MATHEUS NP Data 14/02/21 ultima modfificação realiza ATAQUEMAGICO
+     * 
      */
 
     public int ataqueMagico(int defesaInimiga, AtackMagico magia) {
-
-        if (this.manaPoints >= magia.getPM()) {
+        if (this.manaAtual>= magia.getPM()) {
             int guardaDado = this.dado.rodaDado(20);
             if (guardaDado + this.modInteligencia > defesaInimiga) {
-                AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);
+                AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);// tem que ser dentro do if/else
                 if (arma.getTipo() == 2) {
+                    //aqui e para retornar que o ataque acertou tambem so e uma variação baseado na arma que o jogador esta usando
                     this.manaAtual = this.manaAtual -magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
                     return magia.rodaDano(this.modInteligencia) + arma.getBonusAtack();
                 } else {
+                    /*/aqui e para retornar que o ataque acertou tambem so e uma variação baseado na arma que o jogador esta usando pode usar o mesmo
+                     metodos com o mesmo valor da de cima*/
                     this.manaAtual = this.manaAtual - magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
                     return magia.rodaDano(this.modInteligencia);
                 }
             } else {
-                System.out.println("Sem Pontos de Mana suficientes para esta magia");
-                AuxiliarGeraTexto.setTextoAtaqueMagico();
+                this.manaAtual=-magia.getPM();
+                System.out.println("O dado girado foi de " + (guardaDado + modForça) + " e precisava de " + defesaInimiga);
+                AuxiliarGeraTexto.setTextoAtaqueMagico();//aqui e para retornar que o ataque não acertou
                 return 0;
             }
         }
-        return 0;
+        else{
+            //e aki sim sem pontos de mana
+            System.out.println("Sem Pontos de Mana suficientes para esta magia");
+            return 0 ;
+        }
     }
 
     /**

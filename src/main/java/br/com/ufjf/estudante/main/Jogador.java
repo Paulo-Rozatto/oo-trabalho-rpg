@@ -186,10 +186,10 @@ public class Jogador extends Personagem {
                 }
                 break;
             case 2:
-                if (super.getManaAtual() >= super.getManaAtual() + consumivel.valorBonus) {
+                if (super.getManaPoints() >= super.getManaAtual() + consumivel.valorBonus) {
                     super.setManaAtual(super.getManaAtual() + consumivel.valorBonus);
                 } else {
-                    super.setManaAtual(super.getManaAtual());
+                    super.setManaAtual(super.getManaPoints());
                 }
                 break;
         }
