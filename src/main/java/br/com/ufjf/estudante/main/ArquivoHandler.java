@@ -9,6 +9,7 @@ package br.com.ufjf.estudante.main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -56,7 +57,12 @@ public class ArquivoHandler {
     public static String[] listarJogadores() {
         File jogadores = new File("save");
         
+        if(!jogadores.exists()) {
+            jogadores.mkdir();
+        }
+        
         String lista[] = jogadores.list();
+        jogadores = new File("test");
         
         for(int i = 0; i < lista.length; i ++) {
            lista[i] = lista[i].substring(0, lista[i].length() - 4);
