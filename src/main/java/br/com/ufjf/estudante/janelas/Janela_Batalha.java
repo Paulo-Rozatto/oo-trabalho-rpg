@@ -209,7 +209,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         limpa_cboxItens();
         
 //        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
-        if(GrupoJogador.getSize() > cbox_itens.getSelectedIndex()){
+        if(GrupoJogador.getSize() == cbox_personagem.getItemCount()){
             int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
             Item item; 
             System.out.println("Tamanho: " + tamanho);
@@ -421,18 +421,21 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         int tipoAtaque = dado.rodaDado(2);
         int idMagia;
         System.out.println("Inimigo: ");
-        GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).decideAcao(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
         switch(tipoAtaque){
+            case 1:
+                GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
+                transicao(cbox_inimigo.getSelectedIndex(), 1);
+                break;
             case 2:
                 if(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getSizeListMagias() > 0){//Caso o personagem possua alguma magia
                     idMagia = dado.rodaDado(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias()) - 1;
                     GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueMagico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa(), GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getAtackMagico(idMagia)));
                     transicao(cbox_inimigo.getSelectedIndex(), 2, idMagia);
-                    break;
                 }
-            case 1:
-                GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
-                transicao(cbox_inimigo.getSelectedIndex(), 1);
+                else{
+                    GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
+                    transicao(cbox_inimigo.getSelectedIndex(), 1);
+                }
                 break;
         }
         acaoInimigo = true;
