@@ -367,7 +367,7 @@ public class Jogador extends Personagem {
         for(ItemArmadura armadura : this.mochilaArmaduras) {
             dados += "ArmaduraIncicio\n";
             dados += armadura.toString() + "\n";
-            dados += "ArmaduraFim";
+            dados += "ArmaduraFim\n";
         }
         dados += "MochilaArmaduraFim\n";
         

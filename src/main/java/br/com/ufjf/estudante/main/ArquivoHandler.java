@@ -3,7 +3,7 @@
  * Matheus do Nascimento Pereira da Costa 201676003
  * Luiz Henrique de Oliveira Pereira 201635009
  * Paulo Victor de Magalhaes Rozatto 201935027
-*/
+ */
 package br.com.ufjf.estudante.main;
 
 import java.io.File;
@@ -21,7 +21,16 @@ public class ArquivoHandler {
 
     public static boolean criarJogador(Jogador j) {
         try {
+            File jogadores = new File("save");
+
+            if (!jogadores.exists()) {
+                jogadores.mkdir();
+            }
             File arquivoJogador = new File("save/" + j.getNomePersonagem() + ".txt");
+//
+//            if (!arquivoJogador.exists()) {
+//                arquivoJogador.mkdir();
+//            }
 
             if (arquivoJogador.createNewFile()) {
                 FileWriter writer = new FileWriter("save/" + j.getNomePersonagem() + ".txt");
@@ -39,11 +48,11 @@ public class ArquivoHandler {
             return false;
         }
     }
-    
+
     public static boolean atualizaJogador(Jogador j) {
         try {
             FileWriter writer = new FileWriter("save/" + j.getNomePersonagem() + ".txt");
-            
+
             writer.write(j.toString());
             writer.close();
             return true;
@@ -53,24 +62,24 @@ public class ArquivoHandler {
             return false;
         }
     }
-    
+
     public static String[] listarJogadores() {
         File jogadores = new File("save");
-        
-        if(!jogadores.exists()) {
+
+        if (!jogadores.exists()) {
             jogadores.mkdir();
         }
-        
+
         String lista[] = jogadores.list();
         jogadores = new File("test");
-        
-        for(int i = 0; i < lista.length; i ++) {
-           lista[i] = lista[i].substring(0, lista[i].length() - 4);
+
+        for (int i = 0; i < lista.length; i++) {
+            lista[i] = lista[i].substring(0, lista[i].length() - 4);
         }
-        
+
         return lista;
     }
-    
+
     public static Jogador lerJogador(String nome) {
         Jogador j;
         String nomePersonagem;
@@ -116,7 +125,7 @@ public class ArquivoHandler {
 
             reader.next(); // arma inicio
             arma = lerArma(reader);
-            
+
             reader.next();
             armadura = lerArmadura(reader);
 
@@ -128,7 +137,7 @@ public class ArquivoHandler {
 
             reader.next(); // Prox Level
             proxLevel = reader.nextInt();
-            
+
             j = new Jogador(nomePersonagem, modForca, modInteligencia, modDestreza, classe, arma, armadura);
             j.setHitPoints(hitPoints);
             j.setVidaAtual(vidaAtual);
@@ -147,7 +156,7 @@ public class ArquivoHandler {
             reader.next();
             while (!reader.next().equals("MochilaArmaduraFim")) {
                 armadura = lerArmadura(reader);
-                if(armadura != null) {
+                if (armadura != null) {
                     j.addMochilaArmaduras(armadura);
                 }
             }
@@ -155,7 +164,7 @@ public class ArquivoHandler {
             reader.next(); // mochilaConsumivelIncio
             while (!reader.next().equals("MochilaConsumivelFim")) {
                 consumivel = lerConsumivel(reader);
-                if(consumivel != null) {
+                if (consumivel != null) {
                     j.addMochilaConsumivel(consumivel);
                 }
             }
@@ -168,30 +177,30 @@ public class ArquivoHandler {
             return null;
         }
     }
-    
+
     private static ItemConsumivel lerConsumivel(Scanner reader) throws FileNotFoundException {
         String nome, input;
         int tipo, bonus;
-        
+
         input = reader.next();
         if (!input.equals("Nome:")) {
             System.out.println("Input invalido: " + input);
             return null;
         }
-        
+
         nome = reader.nextLine().trim();
-        
+
         reader.next();
         tipo = reader.nextInt();
-        
+
         reader.next();
         bonus = reader.nextInt();
-        
+
         reader.next();
-        
+
         return new ItemConsumivel(tipo, bonus, nome);
     }
-    
+
     private static ItemArmadura lerArmadura(Scanner reader) throws FileNotFoundException {
         String nome, tipo, input;
         int bonusDefesa;
@@ -201,18 +210,18 @@ public class ArquivoHandler {
             System.out.println("Input invalido: " + input);
             return null;
         }
-        
+
         nome = reader.nextLine().trim();
-        
+
         reader.next();
         tipo = reader.nextLine();
-        
+
         reader.next();
         bonusDefesa = reader.nextInt();
-        
+
         //armadura fim
         reader.next();
-        
+
         return new ItemArmadura(tipo, bonusDefesa, nome);
     }
 
@@ -260,7 +269,7 @@ public class ArquivoHandler {
         reader.next(); // "NumDados: "
         numDados = reader.nextInt();
 
-         reader.next(); // "AttackFim"
+        reader.next(); // "AttackFim"
 
         return new AtackFisico(nome, dano, danoB, numDados);
     }
