@@ -395,6 +395,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
         // QUANDO APERRTAR OK
         this.setVisible(false);
         janela.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botao_okActionPerformed
 
     private void botao_equiparArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_equiparArmaActionPerformed
@@ -423,6 +424,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         janela.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
     private void cbox_personagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_personagemActionPerformed

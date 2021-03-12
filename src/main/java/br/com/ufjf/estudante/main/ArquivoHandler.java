@@ -144,6 +144,17 @@ public class ArquivoHandler {
             j.setManaPoints(manaPoints);
             j.setManaAtual(manaAtual);
             j.setDefesa(defesa);
+            
+            //Zerando itens da mochila
+            for (int i = j.getMochilaConsumivelSize()-1; i >= 0; i--) {
+                j.removeItemConsumivel(i);
+            }
+            for (int i = j.getMochilaArma()-1; i >= 0; i--) {
+                j.removeItemArma(i);
+            }
+            for (int i = j.getMochilaArmadura()-1; i >= 0; i--) {
+                j.removeItemArmaduras(i);
+            }
 
             reader.next();
             while (!reader.next().equals("MochilaArmaFim")) {

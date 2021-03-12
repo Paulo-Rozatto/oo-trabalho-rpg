@@ -93,6 +93,7 @@ public class Main extends javax.swing.JFrame {
         jbTitulo.setText("Teste!");
         this.setVisible(false);
         new Janela_Selecao_Personagens().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
