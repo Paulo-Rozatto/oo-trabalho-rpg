@@ -137,7 +137,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         this.remove(jLabel1);
         this.remove(cbox_personagem);
         jLabel1.setLocation(10,420);
-        cbox_personagem.setLocation(150, 415);        
+        cbox_personagem.setLocation(150, 415);
+        cbox_personagem.setEditable(false);
         this.add(cbox_personagem);
         this.add(jLabel1);
         
