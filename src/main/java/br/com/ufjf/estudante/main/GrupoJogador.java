@@ -23,7 +23,11 @@ public class GrupoJogador{
          return grupoJogador.size();
      }
      public static Jogador getJogador(int id){
-         return grupoJogador.get(id);
+         try{
+            return grupoJogador.get(id);
+         } catch (NullPointerException e){
+             return null;
+         }
      }
      public static void removeJogador(int id){
          if(grupoJogador.size() > 0)
