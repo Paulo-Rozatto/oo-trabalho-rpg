@@ -135,6 +135,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         this.remove(jLabel1);
         this.remove(cbox_personagem);
         jLabel1.setLocation(10,420);
+        cbox_personagem.setEditable(false);//Copiando mudança feita por Luiz
         cbox_personagem.setLocation(150, 415);        
         this.add(cbox_personagem);
         this.add(jLabel1);
@@ -201,43 +202,44 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             cbox_itens.removeItemAt(i);
         }
     }
-    private void removeItem_cboxItens(int id){
-        if(id > 0 && cbox_itens.getItemCount() > id)
-            cbox_itens.removeItemAt(id);
-    }
+    
     private void atualiza_cboxItens(){
         limpa_cboxItens();
         
 //        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
-
-        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
-        Item item; 
-        System.out.println("Tamanho: " + tamanho);
-        for (int i = 0; i < tamanho; i++) {
-           item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
-           if(item.getModelo() == 0){//Se for um item consumivel
-               int j;
-               for(j = 0; j < cbox_itens.getItemCount(); j++){
-                   if(cbox_itens.getItemAt(j).indexOf(item.getNome()) == 0){
-                       if(cbox_itens.getItemAt(j).equals(item.getNome())){
-                           cbox_itens.addItem(item.getNome() + "(x2)");
-                           cbox_itens.removeItemAt(j);
-                           break;
-                       }
-                       else{
-                           char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
-                           System.out.println(quantidade);
-                           cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
-                           cbox_itens.removeItemAt(j);
-                           break;
+        if(GrupoJogador.getSize() > cbox_itens.getSelectedIndex()){
+            int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
+            Item item; 
+            System.out.println("Tamanho: " + tamanho);
+            for (int i = 0; i < tamanho; i++) {
+               item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
+               if(item.getModelo() == 0){//Se for um item consumivel
+                   int j;
+                   for(j = 0; j < cbox_itens.getItemCount(); j++){
+                       if(cbox_itens.getItemAt(j).indexOf(item.getNome()) == 0){
+                           if(cbox_itens.getItemAt(j).equals(item.getNome())){
+                               cbox_itens.addItem(item.getNome() + "(x2)");
+                               cbox_itens.removeItemAt(j);
+                               break;
+                           }
+                           else{
+                               char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
+                               System.out.println(quantidade);
+                               cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
+                               cbox_itens.removeItemAt(j);
+                               break;
+                           }
                        }
                    }
+                   if(j == cbox_itens.getItemCount())
+                        cbox_itens.addItem(item.getNome());//Ela funciona com itens repetidos
                }
-               if(j == cbox_itens.getItemCount())
-                    cbox_itens.addItem(item.getNome());//Ela funciona com itens repetidos
-           }
+            }
         }
-        
+        if(cbox_itens.getItemCount() == 0)
+            cbox_itens.setVisible(false);
+        else
+            cbox_itens.setVisible(true);
     }
 
     private void iniciaComboBox() {//Caixa de selecao de personagem
@@ -398,7 +400,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         } else {
             mpPointsJogador.setText("0/" + GrupoJogador.getJogador(i).getManaPoints());
         }
-        if (GrupoInimigo.getSize() > j && GrupoJogador.getJogador(j).getManaAtual() > 0) {
+        if (GrupoInimigo.getSize() > j && GrupoInimigo.getInimigo(j).getManaAtual() > 0) {
             mpPointsInimigo.setText(GrupoInimigo.getInimigo(j).getManaAtual() + "/" + GrupoInimigo.getInimigo(j).getManaPoints());
         } else {
             mpPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(j).getManaPoints());
@@ -420,7 +422,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).decideAcao(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
         switch(tipoAtaque){
             case 2:
-                if(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias() > 0){//Caso o personagem possua alguma magia
+                if(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getSizeListMagias() > 0){//Caso o personagem possua alguma magia
                     idMagia = dado.rodaDado(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias()) - 1;
                     GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueMagico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa(), GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getAtackMagico(idMagia)));
                     transicao(cbox_inimigo.getSelectedIndex(), 2, idMagia);
