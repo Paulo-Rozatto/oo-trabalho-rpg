@@ -267,7 +267,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         cbox_inimigo.setVisible(true); //Deixa caixa de selecao de inimigos, visivel
         cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         
-//        atualiza_cboxItens();
+        atualiza_cboxItens();
         
     }
     private void atualizaCboxMagia(int id){
