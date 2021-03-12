@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.ufjf.estudante.janelas;
 
 import br.com.ufjf.estudante.main.GrupoJogador;
@@ -20,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Janela_Mochila extends javax.swing.JFrame {
 
     Janela_Batalha janela;
-    
+
     public Janela_Mochila(Janela_Batalha janela) {
         this.janela = janela;
         initComponents();
@@ -35,7 +31,6 @@ public class Janela_Mochila extends javax.swing.JFrame {
     }
 
     private void iniciaComboBox_Personagem() {
-        System.out.println("Aqui");
         limpaComboBox_Personagem();
         for (int i = 0; i < GrupoJogador.getSize(); i++) {
             cbox_personagem.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
@@ -53,7 +48,6 @@ public class Janela_Mochila extends javax.swing.JFrame {
         limpaComboBox_Armas();
         Item item;
         int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaArma();
-//        System.out.println("tamanho mochila arma: "+tamanho);
         for (int i = 0; i < tamanho; i++) {
             item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemArma(i);
             if (item.getModelo() == 1) {
@@ -454,7 +448,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
                 GrupoJogador.getJogador(indiceJogador).setArma(armaEquipada);
                 GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).setIndiceArmaEquipada(0);
             }
-            if(indiceRemocao < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaEquipada()){
+            if (indiceRemocao < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaEquipada()) {
                 int aux = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaEquipada();
                 aux--;
                 GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).setIndiceArmaEquipada(aux);
@@ -495,7 +489,7 @@ public class Janela_Mochila extends javax.swing.JFrame {
                 GrupoJogador.getJogador(indiceJogador).setArmadura(armaduraEquipada);
                 GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).setIndiceArmaduraEquipada(0);
             }
-            if(indiceRemocao < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaduraEquipada()){
+            if (indiceRemocao < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaduraEquipada()) {
                 int aux = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getIndiceArmaduraEquipada();
                 aux--;
                 GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).setIndiceArmaduraEquipada(aux);
@@ -508,41 +502,6 @@ public class Janela_Mochila extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não pode excluir a armadura Base");
         }
     }//GEN-LAST:event_botao_excluirArmaduraActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Janela_Mochila.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Janela_Mochila.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Janela_Mochila.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Janela_Mochila.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Janela_Mochila().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_equiparArma;
