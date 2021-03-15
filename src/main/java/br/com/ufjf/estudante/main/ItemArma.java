@@ -40,8 +40,8 @@ public class ItemArma extends Item{
                 AuxiliarGeraTexto.setTextoAtaqueFisico(0, 0, 0);
                 return this.danoArma.rodaDano(modficador) * 2;
             } else {
-                System.out.println("O dado girado foi de " + (guardaDado + modficador) + " e precisava de " + defesaInimiga);
-                AuxiliarGeraTexto.setTextoAtaqueFisico(1, (guardaDado + modficador) , defesaInimiga);
+                System.out.println("O dado girado foi de " + (guardaDado + modficador + bonusAtack) + " e precisava de " + defesaInimiga);
+                AuxiliarGeraTexto.setTextoAtaqueFisico(1, (guardaDado + modficador + bonusAtack) , defesaInimiga);
                 return this.danoArma.rodaDano(modficador);
             }
         } else {

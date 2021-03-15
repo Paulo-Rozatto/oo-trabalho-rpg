@@ -77,7 +77,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         animacao = false;
         //Declare variaveis aqui e chame metodos em formWindowOpened()
         GrupoJogador.iniciaGrupo(jogador);
-        GrupoInimigo.iniciaGrupo(0);
+        GrupoInimigo.iniciaGrupo();
         
         janelamMochila = new Janela_Mochila(this);
 
@@ -188,10 +188,10 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private void atualizaMaximoPersonagens() {
         //Atualizando o numero maximo de jogadores
-        if (GrupoJogador.getSize() < maxJogador) {
+        if (GrupoJogador.getSize() < maxJogador && round == 0) {
             spriteJogador = new ArrayList<>(GrupoJogador.getSize());
             maxJogador = GrupoJogador.getSize();
-        } else {
+        } else if(round == 0){
             spriteJogador = new ArrayList<>(maxJogador);
         }
         if (GrupoInimigo.getSize() < maxInimigo) {
@@ -221,16 +221,29 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                if(item.getModelo() == 0){//Se for um item consumivel
                    int j;
                    for(j = 0; j < cbox_itens.getItemCount(); j++){
-                       if(cbox_itens.getItemAt(j).indexOf(item.getNome()) == 0){
-                           if(cbox_itens.getItemAt(j).equals(item.getNome())){
+                       if(cbox_itens.getItemAt(j).contains(item.getNome())){
+                           if(cbox_itens.getItemAt(j).length() == item.getNome().length()){
                                cbox_itens.addItem(item.getNome() + "(x2)");
                                cbox_itens.removeItemAt(j);
                                break;
                            }
-                           else{
+                           else if(cbox_itens.getItemAt(j).length() == (item.getNome().length() + 4)){
                                char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
                                System.out.println(quantidade);
-                               cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
+                               if(quantidade != '9')
+                                    cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
+                               else
+                                   cbox_itens.addItem(item.getNome() + "(x10)"); 
+                               cbox_itens.removeItemAt(j);
+                               break;
+                           }
+                           else if(cbox_itens.getItemAt(j).length() == (item.getNome().length() + 5)){
+                               char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
+                               System.out.println(quantidade);
+                               if(quantidade != '9')
+                                    cbox_itens.addItem(item.getNome() + "(x" + cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 3) + (quantidade - '0' + 1) + ")");
+                               else
+                                    cbox_itens.addItem(item.getNome() + "(x" + (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 3) - '0' + 1) + "0)");
                                cbox_itens.removeItemAt(j);
                                break;
                            }
@@ -248,27 +261,26 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     }
 
     private void iniciaComboBox() {//Caixa de selecao de personagem
+        if(round == 0){
+            cbox_personagem.addActionListener(this);//USADO PARA ADICIONA EVENTO NO FUNCAO ACTIONPERFORMED
+            atualizaMaximoPersonagens();
+                limpa_cboxItens();
 
-        cbox_personagem.addActionListener(this);//USADO PARA ADICIONA EVENTO NO FUNCAO ACTIONPERFORMED
-        
-        atualizaMaximoPersonagens();
-        
-        limpa_cboxItens();
-        
-        
-        
-//        add(cbox_personagem);//Adiciona caixa de selecao de personagens
-//        add(cbox_inimigo);
-        for (int i = 0; i < maxJogador; i++) {//Adiciona personagens na caixa de selecao
-            cbox_personagem.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
+
+
+    //        add(cbox_personagem);//Adiciona caixa de selecao de personagens
+    //        add(cbox_inimigo);
+            for (int i = 0; i < maxJogador; i++) {//Adiciona personagens na caixa de selecao
+                cbox_personagem.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
+            }
+        cbox_personagem.removeItem("Vazio");
+        cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         }
         for (int i = 0; i < maxInimigo; i++) {//Adiciona personagens na caixa de selecao
             cbox_inimigo.addItem(GrupoInimigo.getInimigo(i).getNomePersonagem());
         }
         cbox_inimigo.removeItem("Vazio");
-        cbox_personagem.removeItem("Vazio");
         cbox_inimigo.setVisible(true); //Deixa caixa de selecao de inimigos, visivel
-        cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         
         atualiza_cboxItens();
         
@@ -373,7 +385,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         int distanciax = 1;
         double distanciay = 0.5d;
 
-        for (int i = 0; i < GrupoJogador.getSize() && i < maxJogador; i++) {
+        for (int i = 0; i < GrupoJogador.getSize() && i < maxJogador && round == 0; i++) {
             spriteJogador.add(new JLabel(GrupoJogador.getJogador(i).getSprite()));
             spriteJogador.get(i).setSize(64, 64);//tamanho do sprite
             spriteJogador.get(i).setLocation(distanciax * 64, (int)(64 * distanciay));//posicao
@@ -483,11 +495,14 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     int id = -1;
                     for(int i = 0; i < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize(); i++){
                         String Item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i).getNome();
-                        if((cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == Item.length()) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).indexOf(Item) == 0)
+                        System.out.println("Item: " + Item);
+                        if((cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 5) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == Item.length()) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).contains(Item)){
                             id = i;
+                            break;
+                        }
                     }
                     transicao(cbox_personagem.getSelectedIndex(), 9, id);
-                    GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).usarConsumivel(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(cbox_itens.getSelectedIndex()), cbox_itens.getSelectedIndex());
+                    GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).usarConsumivel(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(id), id);
                     atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
                     atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), cbox_inimigo.getSelectedIndex());
                     atualiza_cboxItens();
@@ -514,13 +529,24 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 }
                 if (GrupoInimigo.getSize() == 0) {//se não há mais inimigos vivos
                     // A fazer: codigo que mostra na interface descricao de morte
+                    /*
                     if (round == 2) { // Se for o ultimo round, ganhou jogo
                         vitoria();
                     } else { // se nao for ultimo round, configure proximo round
+                    */
                         round++;
+                        GrupoInimigo.iniciaGrupo();
+                        atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), 0);
+                        atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), 0);
+                        iniciaComboBox();
+                        alocaSprites();
                         transicao(6);
                         System.out.println("Round: " + round);
-                    }
+                        cbox_inimigo.setSelectedIndex(0);
+                        isTurnoJogador = false;
+                        turnoInimigo();
+                        
+                    //}
                     //GrupoInimigo.iniciaGrupo(0);
                     //atualizaLabeldeHP(0, 0);
                     //atualizaLabeldeMP(0, 0);
