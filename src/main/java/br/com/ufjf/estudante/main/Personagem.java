@@ -201,10 +201,10 @@ public abstract class Personagem {
         int guardaDado = this.dado.rodaDado(20);//Não e para essa classe gerar texto esqueci de mudar enquando eu tava implementando os intens
         if (modForça < modDestreza) {
             
-            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modDestreza), defesaInimiga);//tirar isso
+            //AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modDestreza), defesaInimiga);//tirar isso
             return this.arma.ataque(defesaInimiga, this.modDestreza);
         } else {
-            AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modForça), defesaInimiga);//tirar isso da algum problema com os nps quando atacam talvez pq o ataque deles n estejam puxando da arma
+            //AuxiliarGeraTexto.setTextoAtaqueFisico((guardaDado + modForça), defesaInimiga);//tirar isso da algum problema com os nps quando atacam talvez pq o ataque deles n estejam puxando da arma
             //equipada
             return this.arma.ataque(defesaInimiga, this.modForça);
         }
@@ -221,29 +221,33 @@ public abstract class Personagem {
         if (this.manaAtual>= magia.getPM()) {
             int guardaDado = this.dado.rodaDado(20);
             if (guardaDado + this.modInteligencia > defesaInimiga) {
-                AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);// tem que ser dentro do if/else
+                //AuxiliarGeraTexto.setTextoAtaqueMagico(guardaDado + this.modInteligencia, defesaInimiga);// tem que ser dentro do if/else
                 if (arma.getTipo() == 2) {
                     //aqui e para retornar que o ataque acertou tambem so e uma variação baseado na arma que o jogador esta usando
                     this.manaAtual = this.manaAtual -magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
+                    AuxiliarGeraTexto.setTextoAtaqueMagico(0, guardaDado + this.modInteligencia, defesaInimiga);
                     return magia.rodaDano(this.modInteligencia) + arma.getBonusAtack();
                 } else {
                     /*/aqui e para retornar que o ataque acertou tambem so e uma variação baseado na arma que o jogador esta usando pode usar o mesmo
                      metodos com o mesmo valor da de cima*/
                     this.manaAtual = this.manaAtual - magia.getPM();
                     System.out.println("O dado girado foi de " + (guardaDado + this.modInteligencia) + " e precisava de " + defesaInimiga);
+                    AuxiliarGeraTexto.setTextoAtaqueMagico(0, guardaDado + this.modInteligencia, defesaInimiga);
                     return magia.rodaDano(this.modInteligencia);
                 }
             } else {
                 this.manaAtual=-magia.getPM();
                 System.out.println("O dado girado foi de " + (guardaDado + modForça) + " e precisava de " + defesaInimiga);
-                AuxiliarGeraTexto.setTextoAtaqueMagico();//aqui e para retornar que o ataque não acertou
+                AuxiliarGeraTexto.setTextoAtaqueMagico(2, guardaDado + this.modInteligencia, defesaInimiga);
+                //AuxiliarGeraTexto.setTextoAtaqueMagico();//aqui e para retornar que o ataque não acertou
                 return 0;
             }
         }
         else{
             //e aki sim sem pontos de mana
             System.out.println("Sem Pontos de Mana suficientes para esta magia");
+            AuxiliarGeraTexto.setTextoAtaqueMagico();
             return 0 ;
         }
     }
