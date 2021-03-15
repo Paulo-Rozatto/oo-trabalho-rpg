@@ -569,6 +569,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 }
                 if (confereSe_ExistemJogadores() == false) { // Se todos os personagesn do jogador morreram, fim de jogo
                     gameOver();
+                    new Janela_GameOver(false).setVisible(true);
+                    this.setVisible(false);
                 } else {// Se nao morreram, passe o turno para o primeiro jogador vivo
                     if (cbox_personagem.getSelectedIndex() >= GrupoJogador.getSize()) {
                         cbox_personagem.setSelectedIndex(0);
