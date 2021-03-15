@@ -154,8 +154,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         
         this.remove(hitPointsJogador);
         this.remove(mpPointsJogador);
-        hitPointsJogador.setLocation(120, 445);
-        mpPointsJogador.setLocation(120, 480);
+        hitPointsJogador.setLocation(150, 445);
+        mpPointsJogador.setLocation(150, 480);
         this.add(hitPointsJogador);
         this.add(mpPointsJogador);
         
@@ -176,8 +176,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         
         this.remove(hitPointsInimigo);
         this.remove(mpPointsInimigo);
-        hitPointsInimigo.setLocation(560, 445);
-        mpPointsInimigo.setLocation(560, 480);
+        hitPointsInimigo.setLocation(590, 445);
+        mpPointsInimigo.setLocation(590, 480);
         this.add(hitPointsInimigo);
         this.add(mpPointsInimigo);
 //        
@@ -312,7 +312,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                         if (GrupoInimigo.getInimigo(indice).getDrop().getModelo()==1) {
                             GrupoJogador.getJogador(i).addMochilaArma((ItemArma) GrupoInimigo.getInimigo(indice).getDrop());
                         }
-                        else{
+                        else if(GrupoInimigo.getInimigo(indice).getDrop().getModelo()==2){
                             GrupoJogador.getJogador(i).addMochilaArmaduras((ItemArmadura) GrupoInimigo.getInimigo(indice).getDrop());
                         }
                     }
@@ -393,7 +393,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             painel.add(spriteJogador.get(i));//adiciona no painel
             spriteJogador.get(i).setVisible(true);//torna o sprite visivel
             if (i % 4 == 0 && i!=0) {
-                System.out.println("Aqui");
                 distanciax++;
                 distanciay = 0.5d;
             }
@@ -571,6 +570,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     gameOver();
                     new Janela_GameOver(false).setVisible(true);
                     this.setVisible(false);
+                    this.dispose();
                 } else {// Se nao morreram, passe o turno para o primeiro jogador vivo
                     if (cbox_personagem.getSelectedIndex() >= GrupoJogador.getSize()) {
                         cbox_personagem.setSelectedIndex(0);
@@ -760,7 +760,8 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
         this.setResizable(false);// true: Habilita/false: Desabilita maximizar
         this.setTitle("Trabalho o-o");//titulo
-        this.setSize(1020, 720);
+        this.setSize(880, 720);
+        this.setLocationRelativeTo (null);
         realocaPosicaoItens();
 
         alocaBotoes();
@@ -1001,7 +1002,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoJogadorAtaque();
             cronometroJogador++;
-            System.out.println("cronometro: " + cronometroJogador);
             if (cronometroJogador % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1015,7 +1015,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoJogadorMagia();
             cronometroJogador++;
-            System.out.println("cronometro: " + cronometroJogador);
             if (cronometroJogador % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1029,7 +1028,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoJogadorItem();
             cronometroJogador++;
-            System.out.println("cronometro: " + cronometroJogador);
             if (cronometroJogador % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1047,7 +1045,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoInimigoAtaque();
             cronometroInimigo++;
-            System.out.println("cronometro: " + cronometroInimigo);
             if (cronometroInimigo % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1061,7 +1058,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoInimigoMagia();
             cronometroInimigo++;
-            System.out.println("cronometro: " + cronometroInimigo);
             if (cronometroInimigo % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1075,7 +1071,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             animacao = true;
             animacaoInimigoItem();
             cronometroInimigo++;
-            System.out.println("cronometro: " + cronometroInimigo);
             if (cronometroInimigo % 200 == 0) {//Depois que passar 200milesegundos
                 animacaoJogadorPadrao();
                 animacaoInimigoPadrao();
@@ -1085,10 +1080,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 auxturnoInimigo();
             }
         }
-//        cronometro++;
-//        if(cronometro%1000==0){
-//            System.out.println("CRONOMETRO: "+cronometro+" s");
-//        }
     }
     public static void transicao(int exibicao) {
         switch (exibicao){
