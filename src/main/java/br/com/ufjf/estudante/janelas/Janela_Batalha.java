@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import br.com.ufjf.estudante.main.GrupoInimigo;
 import br.com.ufjf.estudante.main.GrupoJogador;
 import br.com.ufjf.estudante.main.Item;
+import br.com.ufjf.estudante.main.ItemArma;
+import br.com.ufjf.estudante.main.ItemArmadura;
+import br.com.ufjf.estudante.main.ItemConsumivel;
 import br.com.ufjf.estudante.main.Jogador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -287,6 +290,22 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private boolean confereSe_InimigoMorreu(int indice) {
         if (indice < maxInimigo) {
             if (GrupoInimigo.getInimigo(indice).getVidaAtual() <= 0) {
+                for (int i = 0; i < GrupoJogador.getSize(); i++) {
+                    GrupoJogador.getJogador(i).adquireExp(GrupoInimigo.getInimigo(indice).getExperiencia());
+                     //0 = consumivel, 1=arma, 2=armadura
+                    if (GrupoInimigo.getInimigo(indice).getDrop().getModelo()==0){
+                        GrupoJogador.getJogador(i).addMochilaConsumivel((ItemConsumivel) GrupoInimigo.getInimigo(indice).getDrop());
+                    }
+                    else{
+                        if (GrupoInimigo.getInimigo(indice).getDrop().getModelo()==1) {
+                            GrupoJogador.getJogador(i).addMochilaArma((ItemArma) GrupoInimigo.getInimigo(indice).getDrop());
+                        }
+                        else{
+                            GrupoJogador.getJogador(i).addMochilaArmaduras((ItemArmadura) GrupoInimigo.getInimigo(indice).getDrop());
+                        }
+                    }
+                               
+                }
                 spriteInimigo.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteInimigo.get(indice));//remove o sprite do painel
                 spriteInimigo.remove(indice);

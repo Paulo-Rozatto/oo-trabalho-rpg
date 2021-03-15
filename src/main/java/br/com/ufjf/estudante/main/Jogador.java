@@ -55,13 +55,32 @@ public class Jogador extends Personagem {
         this.addMochilaArma(arma);
         this.addMochilaArmaduras(armadura);
         
-        this.addMochilaArma(GeraItensMagiaNpcs.espadaCurta());
-        this.addMochilaArma(GeraItensMagiaNpcs.espadaCurta());
-        this.addMochilaArma(GeraItensMagiaNpcs.adagaM2());
+        switch (classe){
+            case 1:
+                this.addMochilaArma(GeraItensMagiaNpcs.espadaLongaM1());
+                this.setArma(GeraItensMagiaNpcs.espadaLongaM1());
+                this.addMochilaArmaduras(GeraItensMagiaNpcs.meiaArmadura());
+                this.setArmadura(GeraItensMagiaNpcs.meiaArmadura());
+                this.addMagia(GeraItensMagiaNpcs.toqueChocante());
+                break;
+            case 2:
+                this.addMochilaArma(GeraItensMagiaNpcs.espadaMagica());
+                this.setArma(GeraItensMagiaNpcs.espadaMagica());
+                this.addMochilaArmaduras(GeraItensMagiaNpcs.armaduraCouro());
+                this.setArmadura(GeraItensMagiaNpcs.armaduraCouro());
+                this.addMagia(GeraItensMagiaNpcs.cranioVoadorVladisslav());
+                break;
+            case 3:
+                this.addMochilaArma(GeraItensMagiaNpcs.adagaM2());
+                this.setArma(GeraItensMagiaNpcs.adagaM2());
+                this.addMochilaArmaduras(GeraItensMagiaNpcs.cotaDeMalha());
+                this.setArmadura(GeraItensMagiaNpcs.cotaDeMalha());
+                this.addMagia(GeraItensMagiaNpcs.adagaMental());
+                break;
+            default:
+                break;
+        }
         
-        this.addMochilaArmaduras(GeraItensMagiaNpcs.armaduraAcolchoada());
-        this.addMochilaArmaduras(GeraItensMagiaNpcs.armaduraAcolchoada());
-        this.addMochilaArmaduras(GeraItensMagiaNpcs.brunea());
             
         }    
 
@@ -153,10 +172,13 @@ public class Jogador extends Personagem {
  * Metodo para calcular se o personagem pode subir de level e invocar o metodo sobeLevel(); se não for possivel mostra a exp atual em relação ao proximo level
  */
     
-    public void adquireExp(boolean vivo,int exp){
-        if(vivo){
+    public void adquireExp(int exp){
+        if(this.barraDeExp< this.barraDeExp+exp){
             this.barraDeExp=+exp;
             while(this.barraDeExp>=this.proxLevel){
+                this.modDestreza++;
+                this.modForça++;
+                this.modInteligencia++;
                 sobeLevel();
                 this.barraDeExp=-proxLevel;
             }
