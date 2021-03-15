@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class GrupoInimigo{
     private static List<NpcInimigo> grupoInimigo = new ArrayList<>();
-     public static void iniciaGrupo(int round){
+     public static void iniciaGrupo(){
          Dado dado = new Dado();
          for(int i = 0; i < GrupoJogador.getSize(); i++){
              grupoInimigo.add(auxIniciaGrupo(dado.rodaDado(16)));
