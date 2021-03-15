@@ -155,7 +155,7 @@ public class ArquivoHandler {
             for (int i = j.getMochilaArmadura()-1; i >= 0; i--) {
                 j.removeItemArmaduras(i);
             }
-
+            
             reader.next();
             while (!reader.next().equals("MochilaArmaFim")) {
                 arma = lerArma(reader);
@@ -179,6 +179,10 @@ public class ArquivoHandler {
                     j.addMochilaConsumivel(consumivel);
                 }
             }
+            j.setIndiceArmaEquipada(0);
+            j.setIndiceArmaduraEquipada(0);
+            j.setArma(j.getMochilaItemArma(0));
+            j.setArmadura(j.getMochilaItemArmadura(0));
 
             reader.close();
             return j;

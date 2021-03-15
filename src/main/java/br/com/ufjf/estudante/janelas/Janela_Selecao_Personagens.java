@@ -517,6 +517,7 @@ public class Janela_Selecao_Personagens extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         this.setVisible(false);
         new Janela_Batalha(grupoJogador, grupoInimigo).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void resetarCampos() {

@@ -80,6 +80,8 @@ public class Jogador extends Personagem {
             default:
                 break;
         }
+        indiceArmaEquipada++;
+        indiceArmaduraEquipada++;
         
             
         }    
