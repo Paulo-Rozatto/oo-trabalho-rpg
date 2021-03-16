@@ -194,7 +194,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         } else if(round == 0){
             spriteJogador = new ArrayList<>(maxJogador);
         }
-        if (GrupoInimigo.getSize() < maxInimigo) {
+        if (GrupoInimigo.getSize() < maxInimigo && GrupoInimigo.getSize()>=0) {
             spriteInimigo = new ArrayList<>(GrupoInimigo.getSize());
             maxInimigo = GrupoInimigo.getSize();
         } else {
@@ -276,7 +276,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         cbox_personagem.removeItem("Vazio");
         cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         }
-        for (int i = 0; i < maxInimigo; i++) {//Adiciona personagens na caixa de selecao
+        for (int i = 0; i < maxInimigo && i<GrupoInimigo.getSize(); i++) {//Adiciona personagens na caixa de selecao
             cbox_inimigo.addItem(GrupoInimigo.getInimigo(i).getNomePersonagem());
         }
         cbox_inimigo.removeItem("Vazio");
@@ -534,6 +534,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     } else { // se nao for ultimo round, configure proximo round
                     */
                         round++;
+                        maxInimigo = 6;
                         GrupoInimigo.iniciaGrupo();
                         atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), 0);
                         atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), 0);
