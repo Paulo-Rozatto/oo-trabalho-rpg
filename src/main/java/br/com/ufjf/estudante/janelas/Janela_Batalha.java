@@ -37,7 +37,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private boolean isTurnoJogador;
     private static int round;
     private Dado dado;
-    
+
     //TIMER EH A VELOCIDADE QUE actionPerformed() VAI FUNCIONAR EM LOOP, 1 VALE 1MILISEGUNDO
     Timer timer = new Timer(1, this);
 //    int cronometro = 0;
@@ -59,15 +59,15 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     private JButton botao_magia;
     private JButton botao_item;
     private JButton botao_mochila;
-     
+
     private JComboBox<String> cbox_magia;
-    
-    private Janela_Mochila janelamMochila ;
-    
+
+    private Janela_Mochila janelamMochila;
+
     public Janela_Batalha(List<Jogador> jogador, List<NpcInimigo> inimigos) {
         dado = new Dado();
         timer.start();
-        
+
         cronometroJogador = 0;
         cronometroInimigo = 0;
         poseJogador = -1;
@@ -78,7 +78,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         //Declare variaveis aqui e chame metodos em formWindowOpened()
         GrupoJogador.iniciaGrupo(jogador);
         GrupoInimigo.iniciaGrupo();
-        
+
         janelamMochila = new Janela_Mochila(this);
 
         this.maxJogador = 6;
@@ -108,7 +108,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         botao_item.setText("Item");//Texto
         botao_item.setSize(100, 35); //Tamanho
         botao_item.setLocation(10, 585);//Posicao
-        
+
         botao_mochila = new JButton();
         botao_mochila.addActionListener(this);//Adiciona evento
         botao_mochila.setText("Mochila");//Texto
@@ -121,59 +121,58 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         this.add(botao_item);
         this.add(botao_mochila);
     }
-    
-    private void realocaPosicaoItens(){
+
+    private void realocaPosicaoItens() {
         this.remove(painel);
         painel.setSize(1020, 350);
         this.add(painel);
-        
+
         this.remove(cbox_itens);
         cbox_itens.setLocation(110, 585);
         cbox_itens.setSize(200, 35);
         this.add(cbox_itens);
-        
+
         cbox_magia = new JComboBox<String>();
         cbox_magia.setLocation(110, 550);
         cbox_magia.setSize(200, 35);
         this.add(cbox_magia);
-        
+
         this.remove(jLabel1);
         this.remove(cbox_personagem);
-        jLabel1.setLocation(10,420);
+        jLabel1.setLocation(10, 420);
         cbox_personagem.setLocation(150, 415);
         cbox_personagem.setEditable(false);//Copiando mudança feita por Luiz
         this.add(cbox_personagem);
         this.add(jLabel1);
-        
+
         this.remove(label_HP_Jogador);
         this.remove(label_MP_Jogador);
         label_HP_Jogador.setLocation(10, 450);
         label_MP_Jogador.setLocation(10, 485);
         this.add(label_HP_Jogador);
         this.add(label_MP_Jogador);
-        
+
         this.remove(hitPointsJogador);
         this.remove(mpPointsJogador);
         hitPointsJogador.setLocation(150, 445);
         mpPointsJogador.setLocation(150, 480);
         this.add(hitPointsJogador);
         this.add(mpPointsJogador);
-        
-        
+
         this.remove(jLabel2);
         this.remove(cbox_inimigo);
-        jLabel2.setLocation(450,420);
-        cbox_inimigo.setLocation(590, 415);        
+        jLabel2.setLocation(450, 420);
+        cbox_inimigo.setLocation(590, 415);
         this.add(cbox_inimigo);
         this.add(jLabel2);
-        
+
         this.remove(label_HP_Inimigo);
         this.remove(label_MP_Inimigo);
         label_HP_Inimigo.setLocation(450, 450);
         label_MP_Inimigo.setLocation(450, 485);
         this.add(label_HP_Inimigo);
         this.add(label_MP_Inimigo);
-        
+
         this.remove(hitPointsInimigo);
         this.remove(mpPointsInimigo);
         hitPointsInimigo.setLocation(590, 445);
@@ -191,110 +190,115 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         if (GrupoJogador.getSize() < maxJogador && round == 0) {
             spriteJogador = new ArrayList<>(GrupoJogador.getSize());
             maxJogador = GrupoJogador.getSize();
-        } else if(round == 0){
+        } else if (round == 0) {
             spriteJogador = new ArrayList<>(maxJogador);
         }
-        if (GrupoInimigo.getSize() < maxInimigo && GrupoInimigo.getSize()>=0) {
+        if (GrupoInimigo.getSize() < maxInimigo && GrupoInimigo.getSize() >= 0) {
             spriteInimigo = new ArrayList<>(GrupoInimigo.getSize());
             maxInimigo = GrupoInimigo.getSize();
         } else {
             spriteInimigo = new ArrayList<>(maxInimigo);
         }
     }
-    
-    private void limpa_cboxItens(){
-        for(int i = cbox_itens.getItemCount()-1; i >= 0 ; i--){//Removendo lixo inicial da cboxItens
+
+    private void limpa_cboxItens() {
+        for (int i = cbox_itens.getItemCount() - 1; i >= 0; i--) {//Removendo lixo inicial da cboxItens
             cbox_itens.removeItemAt(i);
         }
     }
-    
-    private void atualiza_cboxItens(){
+
+    private void atualiza_cboxItens() {
         limpa_cboxItens();
-        
+
 //        int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getClasse();
-        if(GrupoJogador.getSize() == cbox_personagem.getItemCount()){
+        if (GrupoJogador.getSize() == cbox_personagem.getItemCount()) {
             int tamanho = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize();
-            Item item; 
+            Item item;
             System.out.println("Tamanho: " + tamanho);
             for (int i = 0; i < tamanho; i++) {
-               item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
-               if(item.getModelo() == 0){//Se for um item consumivel
-                   int j;
-                   for(j = 0; j < cbox_itens.getItemCount(); j++){
-                       if(cbox_itens.getItemAt(j).contains(item.getNome())){
-                           if(cbox_itens.getItemAt(j).length() == item.getNome().length()){
-                               cbox_itens.addItem(item.getNome() + "(x2)");
-                               cbox_itens.removeItemAt(j);
-                               break;
-                           }
-                           else if(cbox_itens.getItemAt(j).length() == (item.getNome().length() + 4)){
-                               char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
-                               System.out.println(quantidade);
-                               if(quantidade != '9')
+                item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i);
+                if (item.getModelo() == 0) {//Se for um item consumivel
+                    int j;
+                    for (j = 0; j < cbox_itens.getItemCount(); j++) {
+                        if (cbox_itens.getItemAt(j).contains(item.getNome())) {
+                            if (cbox_itens.getItemAt(j).length() == item.getNome().length()) {
+                                cbox_itens.addItem(item.getNome() + "(x2)");
+                                cbox_itens.removeItemAt(j);
+                                break;
+                            } else if (cbox_itens.getItemAt(j).length() == (item.getNome().length() + 4)) {
+                                char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
+                                System.out.println(quantidade);
+                                if (quantidade != '9') {
                                     cbox_itens.addItem(item.getNome() + "(x" + (quantidade - '0' + 1) + ")");
-                               else
-                                   cbox_itens.addItem(item.getNome() + "(x10)"); 
-                               cbox_itens.removeItemAt(j);
-                               break;
-                           }
-                           else if(cbox_itens.getItemAt(j).length() == (item.getNome().length() + 5)){
-                               char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
-                               System.out.println(quantidade);
-                               if(quantidade != '9')
+                                } else {
+                                    cbox_itens.addItem(item.getNome() + "(x10)");
+                                }
+                                cbox_itens.removeItemAt(j);
+                                break;
+                            } else if (cbox_itens.getItemAt(j).length() == (item.getNome().length() + 5)) {
+                                char quantidade = (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 2));
+                                System.out.println(quantidade);
+                                if (quantidade != '9') {
                                     cbox_itens.addItem(item.getNome() + "(x" + cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 3) + (quantidade - '0' + 1) + ")");
-                               else
+                                } else {
                                     cbox_itens.addItem(item.getNome() + "(x" + (cbox_itens.getItemAt(j).charAt(cbox_itens.getItemAt(j).length() - 3) - '0' + 1) + "0)");
-                               cbox_itens.removeItemAt(j);
-                               break;
-                           }
-                       }
-                   }
-                   if(j == cbox_itens.getItemCount())
+                                }
+                                cbox_itens.removeItemAt(j);
+                                break;
+                            }
+                        }
+                    }
+                    if (j == cbox_itens.getItemCount()) {
                         cbox_itens.addItem(item.getNome());//Ela funciona com itens repetidos
-               }
+                    }
+                }
             }
         }
-        if(cbox_itens.getItemCount() == 0)
+        if (cbox_itens.getItemCount() == 0) {
             cbox_itens.setVisible(false);
-        else
+        } else {
             cbox_itens.setVisible(true);
+        }
     }
 
     private void iniciaComboBox() {//Caixa de selecao de personagem
-        if(round == 0){
+        if (round == 0) {
             cbox_personagem.addActionListener(this);//USADO PARA ADICIONA EVENTO NO FUNCAO ACTIONPERFORMED
             atualizaMaximoPersonagens();
-                limpa_cboxItens();
+            limpa_cboxItens();
 
-
-
-    //        add(cbox_personagem);//Adiciona caixa de selecao de personagens
-    //        add(cbox_inimigo);
+            //        add(cbox_personagem);//Adiciona caixa de selecao de personagens
+            //        add(cbox_inimigo);
             for (int i = 0; i < maxJogador; i++) {//Adiciona personagens na caixa de selecao
                 cbox_personagem.addItem(GrupoJogador.getJogador(i).getNomePersonagem());
             }
-        cbox_personagem.removeItem("Vazio");
-        cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
+            cbox_personagem.removeItem("Vazio");
+            cbox_personagem.setVisible(true); //Deixa caixa de selecao de personages, visivel
         }
-        for (int i = 0; i < maxInimigo && i<GrupoInimigo.getSize(); i++) {//Adiciona personagens na caixa de selecao
+        for (int i = 0; i < maxInimigo && i < GrupoInimigo.getSize(); i++) {//Adiciona personagens na caixa de selecao
             cbox_inimigo.addItem(GrupoInimigo.getInimigo(i).getNomePersonagem());
         }
         cbox_inimigo.removeItem("Vazio");
         cbox_inimigo.setVisible(true); //Deixa caixa de selecao de inimigos, visivel
-        
+
         atualiza_cboxItens();
-        
+
     }
-    private void atualizaCboxMagia(int id){
+
+    private void atualizaCboxMagia(int id) {
         cbox_magia.removeAllItems();
-        for(int i = 0; i < GrupoJogador.getJogador(id).getSizeListaMagias(); i++)
+        for (int i = 0; i < GrupoJogador.getJogador(id).getSizeListaMagias(); i++) {
             cbox_magia.addItem(GrupoJogador.getJogador(id).getAtackMagico(i).getNomeMagia());
-        if(GrupoJogador.getJogador(id).getSizeListMagias() == 0)//Se o Jogador não possuir nenhuma magia
+        }
+        if (GrupoJogador.getJogador(id).getSizeListMagias() == 0)//Se o Jogador não possuir nenhuma magia
+        {
             cbox_magia.setVisible(false);
-        else
+        } else {
             cbox_magia.setVisible(true);
+        }
     }
-    private void iniciaCboxMagia(){   
+
+    private void iniciaCboxMagia() {
         cbox_magia.addActionListener(this);
         atualizaCboxMagia(0);
     }
@@ -304,19 +308,17 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             if (GrupoInimigo.getInimigo(indice).getVidaAtual() <= 0) {
                 for (int i = 0; i < GrupoJogador.getSize(); i++) {
                     GrupoJogador.getJogador(i).adquireExp(GrupoInimigo.getInimigo(indice).getExperiencia());
-                     //0 = consumivel, 1=arma, 2=armadura
-                    if (GrupoInimigo.getInimigo(indice).getDrop().getModelo()==0){
+                    //0 = consumivel, 1=arma, 2=armadura
+                    if (GrupoInimigo.getInimigo(indice).getDrop().getModelo() == 0) {
                         GrupoJogador.getJogador(i).addMochilaConsumivel((ItemConsumivel) GrupoInimigo.getInimigo(indice).getDrop());
-                    }
-                    else{
-                        if (GrupoInimigo.getInimigo(indice).getDrop().getModelo()==1) {
+                    } else {
+                        if (GrupoInimigo.getInimigo(indice).getDrop().getModelo() == 1) {
                             GrupoJogador.getJogador(i).addMochilaArma((ItemArma) GrupoInimigo.getInimigo(indice).getDrop());
-                        }
-                        else if(GrupoInimigo.getInimigo(indice).getDrop().getModelo()==2){
+                        } else if (GrupoInimigo.getInimigo(indice).getDrop().getModelo() == 2) {
                             GrupoJogador.getJogador(i).addMochilaArmaduras((ItemArmadura) GrupoInimigo.getInimigo(indice).getDrop());
                         }
                     }
-                               
+
                 }
                 spriteInimigo.get(indice).setVisible(false);//deixa o sprite invisivel
                 this.remove(spriteInimigo.get(indice));//remove o sprite do painel
@@ -379,6 +381,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 
     private void alocaSprites() {//Caixa de selecao de personagem
 
+        maxInimigo = 6;
         atualizaMaximoPersonagens();
 
         //"Desenhando" imagem na tela
@@ -388,29 +391,36 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         for (int i = 0; i < GrupoJogador.getSize() && i < maxJogador && round == 0; i++) {
             spriteJogador.add(new JLabel(GrupoJogador.getJogador(i).getSprite()));
             spriteJogador.get(i).setSize(64, 64);//tamanho do sprite
-            spriteJogador.get(i).setLocation(distanciax * 64, (int)(64 * distanciay));//posicao
+            spriteJogador.get(i).setLocation(distanciax * 64, (int) (64 * distanciay));//posicao
             distanciay++;
             painel.add(spriteJogador.get(i));//adiciona no painel
             spriteJogador.get(i).setVisible(true);//torna o sprite visivel
-            if (i % 4 == 0 && i!=0) {
+            if (i % 4 == 0 && i != 0) {
                 distanciax++;
                 distanciay = 0.5d;
             }
         }
         distanciax = 1;
         distanciay = 0.5d;
-        for (int i = 0; i < GrupoInimigo.getSize() && i < maxInimigo; i++) {
+        for (int i = 0; i < GrupoInimigo.getSize(); i++) {
             spriteInimigo.add(new JLabel(GrupoInimigo.getInimigo(i).getSprite()));
             spriteInimigo.get(i).setSize(64, 64);//tamanho do sprite
-            spriteInimigo.get(i).setLocation((distanciax * 6) * 64 , (int)(64*distanciay));//posicao
+            spriteInimigo.get(i).setLocation((distanciax * 6) * 64, (int) (64 * distanciay));//posicao
             distanciay++;
             painel.add(spriteInimigo.get(i));//adiciona no painel
-            spriteInimigo.get(i).setVisible(true);//torna o sprite visivel
-            if (i % 4 == 0 && i!=0) {
+
+            if (i % 4 == 0 && i != 0) {
                 distanciax++;
                 distanciay = 0.5d;
             }
         }
+        for (int j = 0; j < maxInimigo; j++) {
+                ImageIcon referencia;
+                referencia = GrupoInimigo.getInimigo(j).getSprite();
+                spriteInimigo.get(cbox_inimigo.getSelectedIndex()).setIcon(referencia);
+                spriteInimigo.get(j).setVisible(true);//torna o sprite visivel
+            }
+
     }
 
     private void atualizaLabeldeHP(int i, int j) {
@@ -447,22 +457,22 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         System.out.println("Inimigo: ");
         poseInimigo = 1;//Pose de ataqu
     }
+
     private void auxturnoInimigo() {
         int tipoAtaque = dado.rodaDado(2);
         int idMagia;
         System.out.println("Inimigo: ");
-        switch(tipoAtaque){
+        switch (tipoAtaque) {
             case 1:
                 GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
                 transicao(cbox_inimigo.getSelectedIndex(), 1);
                 break;
             case 2:
-                if(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getSizeListMagias() > 0){//Caso o personagem possua alguma magia
+                if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getSizeListMagias() > 0) {//Caso o personagem possua alguma magia
                     idMagia = dado.rodaDado(GrupoInimigo.getInimigo(cbox_personagem.getSelectedIndex()).getSizeListMagias()) - 1;
                     GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueMagico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa(), GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getAtackMagico(idMagia)));
                     transicao(cbox_inimigo.getSelectedIndex(), 2, idMagia);
-                }
-                else{
+                } else {
                     GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).sofreAtack(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).ataqueFisico(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getDefesa()));
                     transicao(cbox_inimigo.getSelectedIndex(), 1);
                 }
@@ -480,22 +490,21 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 transicao(cbox_personagem.getSelectedIndex(), 4);
                 break;
             case 2:
-                if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getSizeListMagias() == cbox_magia.getItemCount() && cbox_magia.getItemCount()!= 0){
+                if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getSizeListMagias() == cbox_magia.getItemCount() && cbox_magia.getItemCount() != 0) {
                     GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).sofreAtack(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).ataqueMagico(GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getDefesa(), GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getAtackMagico(cbox_magia.getSelectedIndex())));
                     transicao(cbox_personagem.getSelectedIndex(), 5, cbox_magia.getSelectedIndex());
-                }
-                else{
+                } else {
                     transicao(cbox_personagem.getSelectedIndex(), 8);
                     return;
                 }
                 break;
             case 3:
-                if(GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize() > cbox_itens.getSelectedIndex()){
+                if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize() > cbox_itens.getSelectedIndex()) {
                     int id = -1;
-                    for(int i = 0; i < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize(); i++){
+                    for (int i = 0; i < GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaConsumivelSize(); i++) {
                         String Item = GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getMochilaItemConsumivel(i).getNome();
                         System.out.println("Item: " + Item);
-                        if((cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 5) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == Item.length()) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).contains(Item)){
+                        if ((cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 4) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == (Item.length() + 5) || cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).length() == Item.length()) && cbox_itens.getItemAt(cbox_itens.getSelectedIndex()).contains(Item)) {
                             id = i;
                             break;
                         }
@@ -532,20 +541,20 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                     if (round == 2) { // Se for o ultimo round, ganhou jogo
                         vitoria();
                     } else { // se nao for ultimo round, configure proximo round
-                    */
-                        round++;
-                        maxInimigo = 6;
-                        GrupoInimigo.iniciaGrupo();
-                        atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), 0);
-                        atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), 0);
-                        iniciaComboBox();
-                        alocaSprites();
-                        transicao(6);
-                        System.out.println("Round: " + round);
-                        cbox_inimigo.setSelectedIndex(0);
-                        isTurnoJogador = false;
-                        turnoInimigo();
-                        
+                     */
+                    round++;
+                    maxInimigo = 6;
+                    GrupoInimigo.iniciaGrupo();
+                    atualizaLabeldeHP(cbox_personagem.getSelectedIndex(), 0);
+                    atualizaLabeldeMP(cbox_personagem.getSelectedIndex(), 0);
+                    iniciaComboBox();
+                    alocaSprites();
+                    transicao(6);
+                    System.out.println("Round: " + round);
+                    cbox_inimigo.setSelectedIndex(0);
+                    isTurnoJogador = false;
+                    turnoInimigo();
+
                     //}
                     //GrupoInimigo.iniciaGrupo(0);
                     //atualizaLabeldeHP(0, 0);
@@ -668,101 +677,101 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
         painel.setLayout(painelLayout);
         painelLayout.setHorizontalGroup(
-            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+                painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
         );
         painelLayout.setVerticalGroup(
-            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
+                painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 329, Short.MAX_VALUE)
         );
 
-        cbox_itens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbox_itens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbox_itens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label_HP_Jogador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hitPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(label_MP_Jogador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(mpPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbox_inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(label_HP_Inimigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(label_MP_Inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(mpPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(hitPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(47, 47, 47))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cbox_itens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(label_HP_Jogador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(hitPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(label_MP_Jogador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(mpPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel2)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(cbox_inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(label_HP_Inimigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(label_MP_Inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(mpPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(hitPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGap(47, 47, 47))))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbox_inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_HP_Inimigo)
-                            .addComponent(hitPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_MP_Inimigo)
-                            .addComponent(mpPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_HP_Jogador)
-                            .addComponent(hitPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_MP_Jogador)
-                            .addComponent(mpPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbox_itens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(cbox_personagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(cbox_inimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(label_HP_Inimigo)
+                                                        .addComponent(hitPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(label_MP_Inimigo)
+                                                        .addComponent(mpPointsInimigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(label_HP_Jogador)
+                                                        .addComponent(hitPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(label_MP_Jogador)
+                                                        .addComponent(mpPointsJogador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbox_itens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))
         );
 
         pack();
     }// </editor-fold>                        
 
     //QUANDO A JANELA ABRIR
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
 
         this.setResizable(false);// true: Habilita/false: Desabilita maximizar
         this.setTitle("Trabalho o-o");//titulo
         this.setSize(880, 720);
-        this.setLocationRelativeTo (null);
+        this.setLocationRelativeTo(null);
         realocaPosicaoItens();
 
         alocaBotoes();
@@ -772,10 +781,9 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         iniciaCboxMagia();
         alocaSprites();
 
+    }
 
-    }                                 
-
-    private void cbox_personagemActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void cbox_personagemActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         if (GrupoJogador.getSize() > cbox_personagem.getSelectedIndex()) {
             if (GrupoJogador.getJogador(cbox_personagem.getSelectedIndex()).getVidaAtual() > 0) {
@@ -790,26 +798,26 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
             }
             atualizaCboxMagia(cbox_personagem.getSelectedIndex());
         }
-    }                                               
+    }
 
-    private void hitPointsJogadorActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void hitPointsJogadorActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
-    }                                                
+    }
 
-    private void mpPointsJogadorActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void mpPointsJogadorActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                               
+    }
 
-    private void hitPointsInimigoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void hitPointsInimigoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                                
+    }
 
-    private void mpPointsInimigoActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void mpPointsInimigoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                               
+    }
 
-    private void cbox_inimigoActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void cbox_inimigoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         if (GrupoInimigo.getSize() > cbox_inimigo.getSelectedIndex()) {
             if (GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getVidaAtual() > 0) {
@@ -823,7 +831,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 mpPointsInimigo.setText("0/" + GrupoInimigo.getInimigo(cbox_inimigo.getSelectedIndex()).getManaPoints());
             }
         }
-    }                                            
+    }
 
     /**
      * @param args the command line arguments
@@ -859,7 +867,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
 //            }
 //        });
 //    }
-
     // Variables declaration - do not modify                     
     private javax.swing.JComboBox<String> cbox_inimigo;
     private javax.swing.JComboBox<String> cbox_itens;
@@ -968,7 +975,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
         //IMPLEMENTACAO DE EVENTO AO SELECIONA COMBOBOX
         //Funciona porque foi adicionado um evento na funcai iniciaCombobox()
-        if(e.getSource() == cbox_personagem){//Sempre que o usuario selecionar um personagem na cbox...
+        if (e.getSource() == cbox_personagem) {//Sempre que o usuario selecionar um personagem na cbox...
 //            System.out.println("Texte evento cbox");
             limpa_cboxItens();
             atualiza_cboxItens();
@@ -995,7 +1002,6 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 janelamMochila.setVisible(true);
                 this.setVisible(false);
 
-                
             }
         }
 
@@ -1037,11 +1043,10 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 poseJogador = -1;
                 //Falta implementar
 //                turnoJogador(2);
-                  turnoJogador(3);
+                turnoJogador(3);
             }
         }
 
-        
         if (poseInimigo == 1) {
             animacao = true;
             animacaoInimigoAtaque();
@@ -1081,17 +1086,19 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 auxturnoInimigo();
             }
         }
+
     }
+
     public static void transicao(int exibicao) {
-        switch (exibicao){
+        switch (exibicao) {
             case 6://Descrição de transição de Round
                 JOptionPane.showConfirmDialog(null, "Avançando para o próximo round...", "Round " + (round + 1), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
-            }
+        }
     }
 
-    public static void transicao(int auxiliar, int exibicao){
-        switch (exibicao){
+    public static void transicao(int auxiliar, int exibicao) {
+        switch (exibicao) {
             case 0://Descrição de morte do Inimigo
                 JOptionPane.showConfirmDialog(null, GrupoInimigo.getInimigo(auxiliar).getDescricaoMorte(), GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " morreu", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
@@ -1102,7 +1109,7 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
                 JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " morreu"), "Morte", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 4://Decrição de ataque do Jogador
-                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getArma().getTipoDano() + AuxiliarGeraTexto.getTextoAtaqueFisico()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);    
+                JOptionPane.showConfirmDialog(null, (GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " usou " + GrupoJogador.getJogador(auxiliar).getArma().getTipoDano() + AuxiliarGeraTexto.getTextoAtaqueFisico()), "Ação de " + GrupoJogador.getJogador(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
             case 7://Descrição de aumento de nível
                 JOptionPane.showConfirmDialog(null, GrupoJogador.getJogador(auxiliar).getNomePersonagem() + " subiu para o nível " + GrupoJogador.getJogador(auxiliar).getLevel(), "Aumento de Nível", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
@@ -1112,8 +1119,9 @@ public class Janela_Batalha extends javax.swing.JFrame implements ActionListener
         }
         //JOptionPane.showConfirmDialog(null, "Mensagem", "Transicao", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
     }
-    public static void transicao(int auxiliar, int exibicao, int id){
-        switch(exibicao){
+
+    public static void transicao(int auxiliar, int exibicao, int id) {
+        switch (exibicao) {
             case 2://Descrição de ataque mágico do Inimigo
                 JOptionPane.showConfirmDialog(null, (GrupoInimigo.getInimigo(auxiliar).getNomePersonagem() + " usou " + GrupoInimigo.getInimigo(auxiliar).getAtackMagico(id).getNomeMagia()) + AuxiliarGeraTexto.getTextoAtaqueMagico(), "Ação de " + GrupoInimigo.getInimigo(auxiliar).getNomePersonagem(), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
