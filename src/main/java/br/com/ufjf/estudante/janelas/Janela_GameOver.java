@@ -6,6 +6,7 @@
 */
 package br.com.ufjf.estudante.janelas;
 
+import br.com.ufjf.estudante.main.GrupoInimigo;
 import br.com.ufjf.estudante.main.Main;
 import javax.swing.JLabel;
 
@@ -118,6 +119,9 @@ public class Janela_GameOver extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_reiniciarActionPerformed
+        for (int i = GrupoInimigo.getSize()-1; i >=0 ; i--) {
+            GrupoInimigo.removeInimigo(i);
+        }
         this.setVisible(false);
         new Main().setVisible(true);
         this.dispose();
